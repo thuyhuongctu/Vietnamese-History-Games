@@ -126,6 +126,7 @@
     #goalbox{font-size:10px;max-width:46%;padding:4px 8px}
     #hint{bottom:150px;font-size:14px}
   }
+.capface{width:24px;height:24px;border-radius:50%;object-fit:cover;vertical-align:middle;border:1px solid rgba(255,255,255,.55);margin-right:2px}
 </style>
 </head>
 <body>
@@ -134,7 +135,7 @@
 
 <div id="hud" style="display:none">
   <div class="hudbox">
-    <div>🏴‍☠️ <b id="hCap">Thuyền trưởng</b></div>
+    <div><img id="hCapImg" class="capface" src="assets/mat-ba-tu-cat-hai.jpg" width="24" height="24" alt="" hidden><span id="hCapIco">🏴‍☠️</span> <b id="hCap">Thuyền trưởng</b></div>
     <div>💰 <b id="hGold">0</b> lượng &nbsp; ⭐ Uy danh: <b id="hRep">0</b></div>
     <div id="hpbar">❤️ <span class="bar"><i id="hHp"></i></span> <span id="hHpTxt"></span></div>
     <div>⚓ Thủy thủ: <b id="hCrew">0</b> &nbsp; 📦 Khoang: <b id="hCargo">0/40</b></div>
@@ -538,22 +539,22 @@ const KARSTS = [];
 
 // ---------------- Phân vai: 4 thuyền trưởng ----------------
 const CHARACTERS = [
-  { id:'phuonghoa', img:'assets/do-doc-phuong-hoa-v2.jpg', img2:'assets/do-doc-phuong-hoa-chibi.jpg',
+  { id:'phuonghoa', face:'assets/mat-do-doc-phuong-hoa.jpg', img:'assets/do-doc-phuong-hoa-v2.jpg', img2:'assets/do-doc-phuong-hoa-chibi.jpg',
     name:"Đô đốc T'Hương", alias:'Phượng Hỏa Bắc Hải', sail:'#2e8b8b',
     desc:'Nữ đô đốc hội Vietnam Tech Pirates, găng tay cơ khí điều khiển cả dàn thần công.',
     perkDesc:'💣 +1 nòng pháo mỗi mạn · nạp đạn nhanh hơn 30%',
     perk:{ extraGuns:1, reloadMul:0.7 } },
-  { id:'vandon', img:'assets/lai-buon-tran-van-don-v2.jpg', img2:'assets/lai-buon-tran-van-don-v2.jpg',
+  { id:'vandon', face:'assets/mat-lai-buon-tran-van-don.jpg', img:'assets/lai-buon-tran-van-don-v2.jpg', img2:'assets/lai-buon-tran-van-don-v2.jpg',
     name:'Lái buôn Trần Vân Đồn', alias:'Thần Toán Bến Cổ', sail:'#c9861f',
     desc:'Tay bàn tính trứ danh đất bến cổ — thuộc lòng giá cả mọi thương cảng, mặc cả sắc như dao cau.',
     perkDesc:'💰 Mua rẻ 10%, bán đắt 10% · 📦 +20 khoang hàng',
     perk:{ buyMul:0.9, sellMul:1.1, extraCap:20 } },
-  { id:'haiau', img:'assets/kiem-khach-hai-au-v2.jpg', img2:'assets/kiem-khach-hai-au-v2.jpg',
+  { id:'haiau', face:'assets/mat-kiem-khach-hai-au.jpg', img:'assets/kiem-khach-hai-au-v2.jpg', img2:'assets/kiem-khach-hai-au-v2.jpg',
     name:'Kiếm khách Hải Âu', alias:'Cánh Én Ngược Gió', sail:'#3f6fb5',
     desc:'Cô gái làng chài Cát Bà, lái thuyền như én liệng trước giông.',
     perkDesc:'⛵ Tốc độ +15% · bẻ lái nhanh hơn 25%',
     perk:{ speedMul:1.15, turnMul:1.25 } },
-  { id:'batu', img:'assets/ba-tu-cat-hai-v2.jpg', img2:'assets/ba-tu-cat-hai-v2.jpg',
+  { id:'batu', face:'assets/mat-ba-tu-cat-hai.jpg', img:'assets/ba-tu-cat-hai-v2.jpg', img2:'assets/ba-tu-cat-hai-v2.jpg',
     name:'Bà Tư Cát Hải', alias:'Mẹ Biển Cả', sail:'#a33327',
     desc:'Chủ vựa nước mắm, mẹ nuôi của cả trăm thủy thủ mồ côi.',
     perkDesc:'🛡️ +50 máu tối đa · ⚓ +4 thủy thủ',
@@ -1461,6 +1462,9 @@ function drawMinimap(){
 const DIRS = ['Đông','Đông Nam','Nam','Tây Nam','Tây','Tây Bắc','Bắc','Đông Bắc'];
 function updateHUD(){
   $('hCap').textContent = game.captain ? game.captain.name : 'Thuyền trưởng';
+  { const ci = $('hCapImg'), f = game.captain && game.captain.face;   // ảnh mặt thuyền trưởng trên thanh trạng thái
+    if(f && !ci.src.endsWith(f.split('/').pop())) ci.src = f;
+    ci.hidden = !f; $('hCapIco').hidden = !!f; }
   $('hGold').textContent = game.gold.toLocaleString('vi-VN');
   $('hRep').textContent = game.rep;
   $('hHp').style.width = Math.max(0, ship.hp/ship.maxHp*100) + '%';

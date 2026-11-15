@@ -31,6 +31,9 @@
   .chip.goal.ok{border-color:var(--celadon);color:var(--celadon)}
   .kind{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;border:1px solid currentColor}
   .kind.su{color:var(--celadon)} .kind.hc{color:var(--dong)}
+  .envoy{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+  .envoy img{flex:0 0 auto;width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid var(--dong);background:#e9dcc4}
+  .envoy > div > p:first-child{margin-top:0}
   #sun{position:absolute;left:8px;right:8px;top:100%;height:5px;border-radius:3px;
     background:#0006;overflow:hidden}
   #sunBar{height:100%;width:100%;background:linear-gradient(90deg,var(--son),var(--dong))}
@@ -523,7 +526,7 @@ function mesh(g, c, x, y, z, parent, sx, sy, sz){
 const TUONG = {   // tên tệp: tỉ lệ rộng/cao
   'quan-tran-thu-v2':0.436, 'nu-thuong-chu-v2':0.381, 'tho-ca-lo-gom':0.449, 'ba-chu-xuong-lua-v2':0.377,
   'chu-tram-huong-v2':0.383, 'tho-lan-ngoc-trai-v2':0.51, 'thu-lai-thue-quan-v2':0.393,
-  'thuong-nhan-tong-v2':0.432, 'thuong-nhan-xiem-la-v2':0.514, 'thuong-nhan-trao-oa-v2':0.484, 'thuong-nhan-tam-phat-te-v2':0.445,
+  'thuong-nhan-tong-v2':0.432, 'thuong-nhan-xiem-la-v2':0.514, 'thuong-nhan-trao-oa-v2':0.484, 'thuong-nhan-tam-phat-te-v2':0.445, 'su-than':0.414,
 };
 // Tượng người chơi tách làm thân và hai bàn chân (đã bỏ đế; bộ ảnh -v2 ngày 15/11/2026) để bước đi được.
 // Toạ độ theo điểm ảnh của tượng cao 512: [x trái, y trên, rộng, cao]
@@ -623,6 +626,8 @@ const PICS = {
   'tn-tong':   { src:'assets/thuong-nhan-tong-v2.jpg', alt:'Tượng đất nặn thương nhân Tống áo cổ tròn, cầm bát men xanh và cuộn lụa' },
   'tn-xiem':   { src:'assets/thuong-nhan-xiem-la-v2.jpg', alt:'Tượng đất nặn thương nhân Xiêm La đeo hoa tai, quấn sampot, cầm sừng tê' },
   'tn-trao':   { src:'assets/thuong-nhan-trao-oa-v2.jpg', alt:'Tượng đất nặn thương nhân Trảo Oa búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương' },
+  'su-than-mat': { src:'assets/su-than-mat.jpg', alt:'Chân dung sứ thần triều Lý đội mũ phốc đầu' },
+  'su-than':   { src:'assets/su-than.jpg', alt:'Tượng đất nặn sứ thần triều Lý đội mũ phốc đầu, mặc áo giao lĩnh màu tía, hai tay nâng cuộn chiếu bọc lụa vàng' },
   'tn-nhat':   { src:'assets/thuong-nhan-tam-phat-te-v2.jpg', alt:'Tượng đất nặn thương nhân Tam Phật Tề tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi' },
 };
 function addPlace(def){
@@ -636,6 +641,10 @@ addPlace({ id:'tram',     kind:'shop', good:'tram', x:14,  z:-25,   tag:'Trạm 
 addPlace({ id:'be-ngoc',  kind:'shop', good:'ngoc', x:58,  z:1,     tag:'Bến mò ngọc trai', who:'Thợ lặn mò ngọc trai',  tuong:'tho-lan-ngoc-trai-v2' });
 addPlace({ id:'thue-quan',kind:'customs', x:5, z:-3.5, tag:'Nhà thuế quan', who:'Thư lại thuế quan', tuong:'thu-lai-thue-quan-v2' });
 addPlace({ id:'bia-su',   kind:'stele', x:-58, z:-0.5, tag:'Bia sử', who:'Bia đá' });
+// Sứ thần mang chiếu: đứng cạnh Nhà thuế quan trong chương «Chiếu đòi cống», dâng đủ cống thì về kinh
+{ const npc = tuong('su-than'); scene.add(npc); npc.position.set(10.5, 0, -3); npc.visible = false;
+  npc.userData.tag = label('Sứ thần', 7.3, npc, 0.6);
+  places.push({ id:'su-than', kind:'envoy', off:true, x:10.5, z:-3, npc }); }
 label('Bia sử', 9, (()=>{ const g=new THREE.Group(); g.position.set(-58,0,-4); scene.add(g); return g; })(), 0.8);
 NATIONS.forEach((n,i) => addPlace({ id:'tn-'+n.id, kind:'merchant', nat:n, x:piers[i].x, z:SHORE_Z+PIER_LEN-5,
   tag:n.name, who:n.who, face:Math.PI, tuong:n.tuong }));
@@ -650,6 +659,7 @@ function syncWorld(){
     p.npc.visible = docked; p.off = !docked; ships[n.id].visible = sh.st !== 'away';
   }
   for(const id in BUILD_MESH) BUILD_MESH[id].visible = !!S.built[id];
+  places.find(p => p.id==='su-than').npc.visible = !!(S.running && S.tribute && !S.tribute.done);
 }
 function arrive(id){
   const n = NAT(id), sh = S.ships[id], f = TAX[S.tax].demand, early = S.round <= 2;
@@ -888,8 +898,8 @@ function giveTribute(){
   const t = S.tribute; if(!t || t.done) return false;
   if(!Object.entries(t.need).every(([id,q]) => S.carry[id] >= q)) return false;
   for(const [id,q] of Object.entries(t.need)) S.carry[id] -= q;
-  t.done = true; S.rep += 5;
-  toast('Sứ thần nhận cống phẩm: <b>+5 danh vọng</b>.'); return true;
+  t.done = true; S.rep += 5; syncWorld();
+  toast('Sứ thần nhận cống phẩm rồi lên thuyền về kinh: <b>+5 danh vọng</b>.'); return true;
 }
 const BUILD_SOLID = { volau:{x:-63,z:5,r:3}, den:{x:34,z:-16,r:5}, lo:{x:-50,z:-24,r:3.5} };
 function build(id){
@@ -1083,7 +1093,7 @@ function chuongHTML(i){
   const c = CHUONG[i];
   let h = `<p><span class="kind ${c.su?'su':'hc'}">${c.su ? '📜 Theo sử' : '🎭 Trò chơi dựng'}</span> <b>${c.nam}</b></p><p>${c.ke}</p>`;
   if(c.nguon) h += `<p class="note">Nguồn: <i>${c.nguon}</i>.</p>`;
-  h += `<p>🎯 <b>Việc triều đình giao:</b> ${c.muc.txt}. Làm được: +10 danh vọng và 120 quan thưởng; không làm được: −6 danh vọng.</p>`;
+  h += `<div class="envoy"><img src="${PICS['su-than-mat'].src}" width="72" height="72" alt="${PICS['su-than-mat'].alt}"><div><p>📜 <b>Sứ thần truyền chiếu.</b> 🎯 <b>Việc triều đình giao:</b> ${c.muc.txt}. Làm được: +10 danh vọng và 120 quan thưởng; không làm được: −6 danh vọng.</p></div></div>`;
   if(c.giac && !S.built.volau) h += `<p>⚠️ Chưa có <b>Vọng lâu thủy binh</b>. Dựng ở Nhà thuế quan (${CONG_TRINH.find(x => x.id==='volau').gia} quan) trước giây thứ ${c.giac} của phiên.</p>`;
   return h;
 }
@@ -1123,7 +1133,7 @@ function finish(lead){
   if(S.lost) title = { name:'Bị bãi chức', text:'Danh vọng xuống dưới 0: triều đình triệu khanh về kinh. Bến Vân Đồn giao cho người khác coi giữ.' };
   let best = 0; try{ best = +localStorage.getItem(BEST_KEY) || 0; if(!S.lost && sc > best) localStorage.setItem(BEST_KEY, String(sc)); }catch(e){}
   $('endTitle').textContent = title.name; $('endScore').textContent = S.lost ? `Chương ${S.round}/6` : sc + ' điểm';
-  $('endBody').innerHTML = (lead || '') + `<p>${title.text}</p>
+  $('endBody').innerHTML = (lead || '') + `<div class="envoy"><img src="${PICS['su-than-mat'].src}" width="72" height="72" alt="${PICS['su-than-mat'].alt}"><div><p>📜 <b>Sứ thần đọc lời xét công:</b></p><p>${title.text}</p></div></div>
     <p>Làm được <b>${S.goals}/6</b> việc triều đình giao. ${S.lost ? '' : `Điểm: <b>${S.money}</b> quan tiền + <b>${S.rep}</b> danh vọng × 10.`}${!S.lost && sc>best && best ? ' Kỷ lục mới của khanh.' : (best ? ` Kỷ lục: ${Math.max(best, S.lost?0:sc)} điểm.` : '')}</p>
     <p><b>Ngẫm lại:</b> thuyền nào đáng chạy trước khi gánh hàng có hạn? Nên tiêu tiền vào công trình sớm hay giữ vốn mua hàng? Thuế cao thu nhiều trên mỗi kiện nhưng thuyền đặt ít đi: đó là đánh đổi mà mọi thương cảng đều phải cân nhắc.</p>`;
   $('ovEnd').style.display = 'flex';
