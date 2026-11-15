@@ -28,6 +28,9 @@
   #khung canvas{display:block}
   footer{text-align:center;color:#8d7d5e;font-size:11.5px;padding:0 16px 26px;line-height:1.8}
   footer b{color:var(--celadon)}
+/* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
+:focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
 </style>
 </head>
 <body>
@@ -50,6 +53,8 @@
    Ghe bầu chạy ngang phía trên thả hàng xuống; người chơi chèo xuồng ba lá
    hứng nông sản, né gỗ trôi. Phiên chợ dài 90 giây. */
 
+// Máy bật «giảm chuyển động» thì không rung màn hình khi va gỗ trôi
+const GIAM_CHUYEN_DONG = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const W = 480, H = 720;
 const NONG_SAN = [
   { hinh: '🥥', diem: 1 }, { hinh: '🍌', diem: 1 }, { hinh: '🍉', diem: 2 },
@@ -217,7 +222,7 @@ class ManChoi extends Phaser.Scene {
   hung(mon) {
     const d = mon.getData('diem');
     this.diem = Math.max(0, this.diem + d);
-    if (d > 0) { keu(d + 1); } else { keu(0, 0.2, 0.3); this.cameras.main.shake(160, 0.012); }
+    if (d > 0) { keu(d + 1); } else { keu(0, 0.2, 0.3); if (!GIAM_CHUYEN_DONG) this.cameras.main.shake(160, 0.012); }
     const bay = this.add.text(this.xuong.x, this.xuong.y - 46, d > 0 ? `+${d}` : `${d}`, {
       fontSize: '24px', color: d > 0 ? '#d9a441' : '#a5402e', fontStyle: 'bold',
     }).setOrigin(0.5);
@@ -306,6 +311,8 @@ new Phaser.Game({
   physics: { default: 'arcade' },
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   scene: [ManMoDau, ManChoi, ManTanCho],
+  callbacks: { postBoot: g => { g.canvas.setAttribute('role', 'img');
+    g.canvas.setAttribute('aria-label', 'Chợ nổi trên sông: xuồng ba lá hứng nông sản từ ghe bầu, né gỗ trôi'); } },
 });
 </script>
 </body>

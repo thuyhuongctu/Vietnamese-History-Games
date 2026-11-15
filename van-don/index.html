@@ -113,6 +113,9 @@
   .lnkPt{color:inherit;font-weight:700}
   .suItem h3{color:var(--dong);font-size:14px;margin-bottom:3px}
   .suItem p{font-size:13px;margin-bottom:0}
+/* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
+:focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
 </style>
 </head>
 <body>
@@ -136,12 +139,12 @@
   <div class="songly"></div>
 </div>
 
-<canvas id="game"></canvas>
+<canvas id="game" role="img" aria-label="Bến Vân Đồn nhìn từ trên cao: các công trình, cầu tàu và thương thuyền"></canvas>
 <div id="tribBar">
   <span id="tribTxt"></span>
   <button id="btnTrib">🐉 Dâng tiến</button>
 </div>
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <!-- Nâng cấp công trình -->
 <div class="ov" id="upOv">

@@ -106,10 +106,13 @@
   .card ul{text-align:left;font-size:14px;line-height:1.55;margin:8px 0 8px 20px}
   .card .note{font-size:12px;color:#f2e8d5aa}
   .big{font-size:34px;color:var(--dong);font-weight:700;margin:6px 0}
+/* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
+:focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
 </style>
 </head>
 <body>
-<canvas id="game" aria-label="Bến Vân Đồn nhìn từ trên cao, có nhân vật quan trấn thủ đi lại"></canvas>
+<canvas id="game" role="img" aria-label="Bến Vân Đồn nhìn từ trên cao, có nhân vật quan trấn thủ đi lại"></canvas>
 
 <div id="hud" style="display:none">
   <span class="chip">📜 Chương <b id="hRound">1</b>/6</span>
