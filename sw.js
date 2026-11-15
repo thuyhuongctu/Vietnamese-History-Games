@@ -1,10 +1,15 @@
 /* ThuyHuong Digital — service worker
    Cache-first cho toàn bộ cổng game: cài một lần, chơi ngoại tuyến. */
 'use strict';
-const VERSION = 'thd-v46';
+const VERSION = 'thd-v47';
 const SHELL = [
   './',
   './index.html',
+  './assets/nhac/anh-an-thu.webp',
+  './assets/nhac/anh-lan-can-rong.webp',
+  './assets/nhac/anh-ban-cong-vinh.webp',
+  './assets/nhac/anh-gom-men-ngoc.webp',
+  './assets/nhac/anh-bat-sen.webp',
   './huong-dan-giao-vien.html',
   './manifest.webmanifest',
   './icons/icon-192.png',
