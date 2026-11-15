@@ -179,6 +179,7 @@
     <p style="margin-top:8px">
       <button class="gold" id="btnNew" style="font-size:17px;padding:12px 30px">⚓ Ra khơi</button>
       <button id="btnContinue" style="font-size:15px;display:none">📜 Chơi tiếp</button>
+      <button type="button" data-gfx-toggle aria-pressed="false">🎛️ Đồ hoạ</button>
     </p>
     <div class="song">
       <button class="btnSong" type="button" data-bai="game" aria-pressed="false">🎵 Nghe bài hát</button>
@@ -298,6 +299,7 @@
   </div>
 </div>
 
+<script src="../assets/portal/gfx.js"></script>
 <script src="../lib/three.min.js"></script>
 <script>
 'use strict';
@@ -1194,9 +1196,10 @@ if(localStorage.getItem(SAVE_KEY)) $('btnContinue').style.display = 'inline-bloc
 //  DỰNG CẢNH 3D (three.js — nhúng sẵn trong lib/, chạy offline)
 // ================================================================
 cv.style.display = 'none';                       // canvas 2D cũ chỉ giữ cho tương thích
-window.renderer = new THREE.WebGLRenderer({ antialias:true });
+const GFX = window.THD_GFX || { aa:true, ratio:Math.min(devicePixelRatio||1, 2) };   // assets/portal/gfx.js
+window.renderer = new THREE.WebGLRenderer({ antialias:GFX.aa });
 renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(GFX.ratio);
 renderer.domElement.style.cssText = 'position:absolute;inset:0;z-index:0';
 document.body.insertBefore(renderer.domElement, document.body.firstChild);
 
