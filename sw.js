@@ -5,6 +5,11 @@ const VERSION = 'thd-v48';
 const SHELL = [
   './',
   './index.html',
+  './assets/nhac/anh-an-thu.webp',
+  './assets/nhac/anh-lan-can-rong.webp',
+  './assets/nhac/anh-ban-cong-vinh.webp',
+  './assets/nhac/anh-gom-men-ngoc.webp',
+  './assets/nhac/anh-bat-sen.webp',
   './huong-dan-giao-vien.html',
   './phan-tu.html',
   './manifest.webmanifest',

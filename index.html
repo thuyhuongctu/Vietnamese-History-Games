@@ -112,6 +112,16 @@
   .card.soon .thumb svg{width:40px;height:40px;color:var(--muted)}
 
   /* ===== Bài hát ===== */
+  .moods{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:14px;margin-top:28px;list-style:none}
+  .moods li{margin:0}
+  .moods a{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--nga-2)}
+  .moods img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;background:var(--img-bg);transition:transform .4s}
+  .moods li.wide{grid-column:span 2}
+  .moods li.wide img{aspect-ratio:3/2}
+  .moods a:hover img{transform:scale(1.02)}
+  .moods span{font-size:13px;line-height:1.45}
+  .moods b{display:block;color:var(--nga);font-size:14px}
+  @media (max-width:420px){.moods li.wide{grid-column:auto}.moods li.wide img{aspect-ratio:3/4}}
   .songs{list-style:none;margin-top:36px;border-top:1px solid var(--line)}
   .song{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--line)}
   .song img{width:88px;height:88px;object-fit:cover;border-radius:14px;flex:0 0 auto;background:var(--img-bg)}
@@ -310,8 +320,15 @@
         <h2 id="songTitle"><span lang="en">Four songs, sung in Vietnamese</span><span lang="vi">Bốn bài hát của cổng game</span></h2>
       </div>
     </div>
+    <ul class="moods">
+      <li class="wide"><a href="#bai-trong-toi"><img src="assets/nhac/anh-an-thu.webp" width="688" height="384" loading="lazy" alt="A young woman writes with a brush at a low desk on a veranda beside a lotus pond" data-vi-alt="Cô gái viết bút lông bên án thư thấp, hiên nhà cạnh hồ sen"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Writing the words</span><span lang="vi">Người viết lời bên án thư</span></span></a></li>
+      <li><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-lan-can-rong.webp" width="448" height="600" loading="lazy" alt="Kneeling by an old stone dragon balustrade and terracotta tiles, brush in hand" data-vi-alt="Ngồi bên lan can rồng đá cổ và những mảnh ngói đất nung, tay cầm bút"><span><b>«Người trao ta chân trời»</b><span lang="en">What those before us left</span><span lang="vi">Những gì người xưa để lại</span></span></a></li>
+      <li><a href="#bai-canh-buom"><img src="assets/nhac/anh-ban-cong-vinh.webp" width="448" height="600" loading="lazy" alt="On a wooden balcony above a bay of limestone islands and sailing junks, holding a rolled map" data-vi-alt="Trên ban công gỗ nhìn ra vịnh đảo đá vôi và thuyền buồm, tay cầm cuộn bản đồ"><span><b>«Theo cánh buồm quê hương»</b><span lang="en">Sails on the bay</span><span lang="vi">Cánh buồm trên vịnh</span></span></a></li>
+      <li><a href="#bai-van-don"><img src="assets/nhac/anh-gom-men-ngoc.webp" width="448" height="600" loading="lazy" alt="Holding a celadon bowl in a pottery workshop by the kiln" data-vi-alt="Nâng bát men ngọc trong xưởng gốm bên lò nung"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Celadon, the port’s trade ware</span><span lang="vi">Gốm men ngọc, hàng của thương cảng</span></span></a></li>
+      <li><a href="#bai-van-don"><img src="assets/nhac/anh-bat-sen.webp" width="448" height="600" loading="lazy" alt="Smiling over a lotus-moulded celadon bowl in a wooden study with bamboo scrolls" data-vi-alt="Mỉm cười bên bát men ngọc hoa sen trong phòng đọc có thẻ tre"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">A bowl from the Lý–Trần kilns</span><span lang="vi">Bát sen men ngọc thời Lý–Trần</span></span></a></li>
+    </ul>
     <ul class="songs">
-      <li class="song feature">
+      <li class="song feature" id="bai-trong-toi">
         <img src="assets/nhac/trong-toi-co-mot-nuoc-nam.webp" width="360" height="360" loading="lazy"
           alt="Cover art for the song Trong tôi có một nước Nam: a gold map of Vietnam with the Hoàng Sa and Trường Sa islands" data-vi-alt="Ảnh bìa bài hát Trong tôi có một nước Nam: bản đồ Việt Nam màu vàng đồng, có quần đảo Hoàng Sa và Trường Sa">
         <div class="songTxt">
@@ -351,7 +368,7 @@
           </details>
         </div>
       </li>
-      <li class="song">
+      <li class="song" id="bai-nguoi-trao">
         <img src="assets/nhac/nguoi-trao-ta-chan-troi.webp" width="360" height="360" loading="lazy"
           alt="Cover art for the song Người trao ta chân trời" data-vi-alt="Ảnh bìa bài hát Người trao ta chân trời">
         <div class="songTxt">
@@ -384,7 +401,7 @@
           </details>
         </div>
       </li>
-      <li class="song">
+      <li class="song" id="bai-canh-buom">
         <img src="bac-hai-dao/assets/nhac/bac-hai-dao-bia.jpg" width="260" height="360" loading="lazy"
           alt="Cover art for the song Theo cánh buồm quê hương" data-vi-alt="Ảnh bìa bài hát Theo cánh buồm quê hương">
         <div class="songTxt">
@@ -397,9 +414,9 @@
           </audio>
         </div>
       </li>
-      <li class="song">
-        <img src="van-don-3d/assets/ben-cang-van-don.jpg" width="1100" height="511" loading="lazy"
-          alt="The clay-model port of Vân Đồn" data-vi-alt="Bến cảng Vân Đồn bằng đất nặn">
+      <li class="song" id="bai-van-don">
+        <img src="assets/nhac/anh-gom-men-ngoc.webp" width="448" height="600" loading="lazy"
+          alt="A young woman in a cream cross-collar dress holds a celadon bowl in a pottery workshop" data-vi-alt="Cô gái áo giao lĩnh màu kem nâng chiếc bát men ngọc trong xưởng gốm">
         <div class="songTxt">
           <span class="songMeta"><span lang="en">Vân Đồn 3D · 5:17</span><span lang="vi">Vân Đồn 3D · 5:17</span></span>
           <h3>«Vân Đồn – Tiếng vọng non sông»</h3>
