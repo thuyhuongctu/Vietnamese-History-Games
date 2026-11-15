@@ -145,8 +145,8 @@
     Thuyền buôn vào bến đặt hàng và chỉ đợi một lúc: chạy đi mua, mang ra cầu tàu giao cho kịp,
     dựng công trình và làm tròn việc triều đình giao.</p>
     <div class="btns" style="justify-content:center" role="group" aria-label="Chọn nhân vật">
-      <button class="btn char" type="button" data-char="quan" aria-pressed="false"><img src="assets/quan-tran-thu.jpg" alt="" width="40" height="56">Quan trấn thủ</button>
-      <button class="btn char" type="button" data-char="nu" aria-pressed="false"><img src="assets/nu-thuong-chu.jpg" alt="" width="40" height="56">Nữ thương chủ</button>
+      <button class="btn char" type="button" data-char="quan" aria-pressed="false"><img src="assets/quan-tran-thu-v2.jpg" alt="" width="40" height="56">Quan trấn thủ</button>
+      <button class="btn char" type="button" data-char="nu" aria-pressed="false"><img src="assets/nu-thuong-chu-v2.jpg" alt="" width="40" height="56">Nữ thương chủ</button>
     </div>
     <details>
       <summary>Cách chơi</summary>
@@ -280,13 +280,13 @@ const GOODS = [
 ];
 const NATIONS = [
   { id:'tong', name:'Tống',     who:'Thương nhân nước Tống',  flag:0xc94b3c, sail:0xe8d9b0, prefs:['gom','lua'],  mult:1.0,
-    tuong:'thuong-nhan-tong' },
+    tuong:'thuong-nhan-tong-v2' },
   { id:'nhat', name:'Tam Phật Tề', who:'Thương nhân Tam Phật Tề', flag:0x7a2a22, sail:0xc7772e, prefs:['gom','tram'], mult:1.15,
-    tuong:'thuong-nhan-tam-phat-te' },
+    tuong:'thuong-nhan-tam-phat-te-v2' },
   { id:'trao', name:'Trảo Oa',  who:'Thương nhân Trảo Oa',    flag:0x3f7a4f, sail:0xd9a441, prefs:['lua','ngoc'], mult:1.1,
-    tuong:'thuong-nhan-trao-oa' },
+    tuong:'thuong-nhan-trao-oa-v2' },
   { id:'xiem', name:'Xiêm La',  who:'Thương nhân Xiêm La',    flag:0xd9a441, sail:0x9ec5ab, prefs:['gom','ngoc'], mult:1.05,
-    tuong:'thuong-nhan-xiem-la' },
+    tuong:'thuong-nhan-xiem-la-v2' },
 ];
 const G = id => GOODS.find(g => g.id===id);
 const NAT = id => NATIONS.find(n => n.id===id);
@@ -521,15 +521,15 @@ function mesh(g, c, x, y, z, parent, sx, sy, sz){
 }
 // Tượng đất nặn (ảnh đã tách nền) dựng đứng như tấm bìa, luôn quay mặt về máy quay
 const TUONG = {   // tên tệp: tỉ lệ rộng/cao
-  'quan-tran-thu':0.432, 'nu-thuong-chu':0.398, 'tho-ca-lo-gom':0.449, 'ba-chu-xuong-lua':0.564,
-  'chu-tram-huong':0.408, 'tho-lan-ngoc-trai':0.398, 'thu-lai-thue-quan':0.611,
-  'thuong-nhan-tong':0.463, 'thuong-nhan-xiem-la':0.525, 'thuong-nhan-trao-oa':0.455, 'thuong-nhan-tam-phat-te':0.441,
+  'quan-tran-thu-v2':0.436, 'nu-thuong-chu-v2':0.381, 'tho-ca-lo-gom':0.449, 'ba-chu-xuong-lua-v2':0.377,
+  'chu-tram-huong-v2':0.383, 'tho-lan-ngoc-trai-v2':0.51, 'thu-lai-thue-quan-v2':0.393,
+  'thuong-nhan-tong-v2':0.432, 'thuong-nhan-xiem-la-v2':0.514, 'thuong-nhan-trao-oa-v2':0.484, 'thuong-nhan-tam-phat-te-v2':0.445,
 };
-// Tượng người chơi tách làm thân và hai bàn chân (đã bỏ đế) để bước đi được.
+// Tượng người chơi tách làm thân và hai bàn chân (đã bỏ đế; bộ ảnh -v2 ngày 15/11/2026) để bước đi được.
 // Toạ độ theo điểm ảnh của tượng cao 512: [x trái, y trên, rộng, cao]
 const TUONG_DI = {
-  'quan-tran-thu': { W:244.3, than:[2.2,0,232,462], chanT:[53.9,460.3,57,52], chanP:[137.1,460.3,50,52] },
-  'nu-thuong-chu': { W:222.5, than:[0,0,216,474],   chanT:[52,461,55,52],     chanP:[134.4,466.3,54,46] },
+  'quan-tran-thu-v2': { W:223, than:[0, 0, 223, 451], chanT:[41, 449, 77, 63], chanP:[125, 449, 48, 60] },
+  'nu-thuong-chu-v2': { W:195, than:[0, 0, 195, 466], chanT:[52, 464, 38, 48], chanP:[108, 464, 57, 47] },
 };
 const TUONG_H = 5.8, _tuongTex = {};
 const texOf = f => _tuongTex[f] || (_tuongTex[f] = new THREE.TextureLoader().load('assets/tuong/'+f+'.webp'));
@@ -596,8 +596,8 @@ function animate(p, moving, dt){
 
 // Người chơi: khung chứa cố định, đổi tạo hình bên trong
 const AVATARS = {
-  quan: { name:'Quan trấn thủ', tuong:'quan-tran-thu' },
-  nu:   { name:'Nữ thương chủ', tuong:'nu-thuong-chu' },
+  quan: { name:'Quan trấn thủ', tuong:'quan-tran-thu-v2' },
+  nu:   { name:'Nữ thương chủ', tuong:'nu-thuong-chu-v2' },
 };
 const CHAR_KEY = 'van-don-3d-char';
 const player = new THREE.Group(); scene.add(player);
@@ -616,14 +616,14 @@ player.position.set(-26,0,3);      // chỗ trống trên bãi cát cho màn ch�
 /* Ảnh minh hoạ trong bảng hội thoại (mô hình đất nặn, đã rà theo niên đại 1149; xem README) */
 const PICS = {
   'lo-gom':    { src:'assets/tho-ca-lo-gom.jpg', alt:'Tượng đất nặn thợ cả lò gốm búi tóc, tay bưng bát' },
-  'xuong-lua': { src:'assets/ba-chu-xuong-lua.jpg', alt:'Tượng đất nặn bà chủ xưởng dệt cầm con tơ và thoi dệt, bên khung cửi' },
-  'tram':      { src:'assets/chu-tram-huong.jpg', alt:'Tượng đất nặn chủ trạm trầm hương bưng khay trầm, đeo cân đồng' },
-  'be-ngoc':   { src:'assets/tho-lan-ngoc-trai.jpg', alt:'Tượng đất nặn thợ lặn đóng khố, xăm mình, ôm giỏ trai ngọc' },
-  'thue-quan': { src:'assets/thu-lai-thue-quan.jpg', alt:'Tượng đất nặn thư lại cầm bút lông và thẻ gỗ, bên cân đồng' },
-  'tn-tong':   { src:'assets/thuong-nhan-tong.jpg', alt:'Tượng đất nặn thương nhân Tống áo cổ tròn, cầm bát men xanh và cuộn lụa' },
-  'tn-xiem':   { src:'assets/thuong-nhan-xiem-la.jpg', alt:'Tượng đất nặn thương nhân Xiêm La đeo hoa tai, quấn sampot, cầm sừng tê' },
-  'tn-trao':   { src:'assets/thuong-nhan-trao-oa.jpg', alt:'Tượng đất nặn thương nhân Trảo Oa búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương' },
-  'tn-nhat':   { src:'assets/thuong-nhan-tam-phat-te.jpg', alt:'Tượng đất nặn thương nhân Tam Phật Tề tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi' },
+  'xuong-lua': { src:'assets/ba-chu-xuong-lua-v2.jpg', alt:'Tượng đất nặn bà chủ xưởng dệt cầm con tơ và thoi dệt' },
+  'tram':      { src:'assets/chu-tram-huong-v2.jpg', alt:'Tượng đất nặn chủ trạm trầm hương bưng khay trầm, đeo cân đồng' },
+  'be-ngoc':   { src:'assets/tho-lan-ngoc-trai-v2.jpg', alt:'Tượng đất nặn thợ lặn đóng khố, xăm mình, ôm giỏ trai ngọc' },
+  'thue-quan': { src:'assets/thu-lai-thue-quan-v2.jpg', alt:'Tượng đất nặn thư lại cầm bút lông và thẻ gỗ' },
+  'tn-tong':   { src:'assets/thuong-nhan-tong-v2.jpg', alt:'Tượng đất nặn thương nhân Tống áo cổ tròn, cầm bát men xanh và cuộn lụa' },
+  'tn-xiem':   { src:'assets/thuong-nhan-xiem-la-v2.jpg', alt:'Tượng đất nặn thương nhân Xiêm La đeo hoa tai, quấn sampot, cầm sừng tê' },
+  'tn-trao':   { src:'assets/thuong-nhan-trao-oa-v2.jpg', alt:'Tượng đất nặn thương nhân Trảo Oa búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương' },
+  'tn-nhat':   { src:'assets/thuong-nhan-tam-phat-te-v2.jpg', alt:'Tượng đất nặn thương nhân Tam Phật Tề tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi' },
 };
 function addPlace(def){
   const npc = def.tuong ? tuong(def.tuong) : null;
@@ -631,10 +631,10 @@ function addPlace(def){
   places.push(Object.assign({}, def, { npc })); if(npc) solids.push({ x:def.x, z:def.z, r:1.3 });
 }
 addPlace({ id:'lo-gom',   kind:'shop', good:'gom',  x:-40, z:-21.5, tag:'Lò gốm',        who:'Thợ cả lò gốm',      tuong:'tho-ca-lo-gom' });
-addPlace({ id:'xuong-lua',kind:'shop', good:'lua',  x:-14, z:-25,   tag:'Xưởng dệt lụa', who:'Bà chủ xưởng dệt',   tuong:'ba-chu-xuong-lua' });
-addPlace({ id:'tram',     kind:'shop', good:'tram', x:14,  z:-25,   tag:'Trạm trầm hương',who:'Chủ trạm trầm hương', tuong:'chu-tram-huong' });
-addPlace({ id:'be-ngoc',  kind:'shop', good:'ngoc', x:58,  z:1,     tag:'Bến mò ngọc trai', who:'Thợ lặn mò ngọc trai',  tuong:'tho-lan-ngoc-trai' });
-addPlace({ id:'thue-quan',kind:'customs', x:5, z:-3.5, tag:'Nhà thuế quan', who:'Thư lại thuế quan', tuong:'thu-lai-thue-quan' });
+addPlace({ id:'xuong-lua',kind:'shop', good:'lua',  x:-14, z:-25,   tag:'Xưởng dệt lụa', who:'Bà chủ xưởng dệt',   tuong:'ba-chu-xuong-lua-v2' });
+addPlace({ id:'tram',     kind:'shop', good:'tram', x:14,  z:-25,   tag:'Trạm trầm hương',who:'Chủ trạm trầm hương', tuong:'chu-tram-huong-v2' });
+addPlace({ id:'be-ngoc',  kind:'shop', good:'ngoc', x:58,  z:1,     tag:'Bến mò ngọc trai', who:'Thợ lặn mò ngọc trai',  tuong:'tho-lan-ngoc-trai-v2' });
+addPlace({ id:'thue-quan',kind:'customs', x:5, z:-3.5, tag:'Nhà thuế quan', who:'Thư lại thuế quan', tuong:'thu-lai-thue-quan-v2' });
 addPlace({ id:'bia-su',   kind:'stele', x:-58, z:-0.5, tag:'Bia sử', who:'Bia đá' });
 label('Bia sử', 9, (()=>{ const g=new THREE.Group(); g.position.set(-58,0,-4); scene.add(g); return g; })(), 0.8);
 NATIONS.forEach((n,i) => addPlace({ id:'tn-'+n.id, kind:'merchant', nat:n, x:piers[i].x, z:SHORE_Z+PIER_LEN-5,
