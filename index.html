@@ -112,7 +112,7 @@
   .card.soon .thumb svg{width:40px;height:40px;color:var(--muted)}
 
   /* ===== Bài hát ===== */
-  .moods{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:14px;margin-top:28px;list-style:none}
+  .moods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px;list-style:none}
   .moods li{margin:0}
   .moods a{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--nga-2)}
   .moods img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;background:var(--img-bg);transition:transform .4s}
@@ -121,7 +121,7 @@
   .moods a:hover img{transform:scale(1.02)}
   .moods span{font-size:13px;line-height:1.45}
   .moods b{display:block;color:var(--nga);font-size:14px}
-  @media (max-width:420px){.moods li.wide{grid-column:auto}.moods li.wide img{aspect-ratio:3/4}}
+  @media (max-width:720px){.moods{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .songs{list-style:none;margin-top:36px;border-top:1px solid var(--line)}
   .song{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--line)}
   .song img{width:88px;height:88px;object-fit:cover;border-radius:14px;flex:0 0 auto;background:var(--img-bg)}
@@ -321,17 +321,14 @@
       </div>
     </div>
     <ul class="moods">
-      <li class="wide"><a href="#bai-canh-buom"><img src="assets/nhac/anh-binh-minh-vinh.webp" width="688" height="384" loading="lazy" alt="At sunrise on a temple terrace above a bay of limestone islands and red-sailed junks" data-vi-alt="Bình minh trên thềm chùa nhìn ra vịnh đảo đá vôi và thuyền buồm nâu"><span><b>«Theo cánh buồm quê hương»</b><span lang="en">Sunrise over the bay</span><span lang="vi">Bình minh trên vịnh</span></span></a></li>
       <li><a href="#bai-trong-toi"><img src="assets/nhac/anh-viet-thu-phap.webp" width="448" height="600" loading="lazy" alt="Writing with a brush on a long paper scroll at a low wooden desk" data-vi-alt="Viết bút lông trên cuộn giấy dài bên án thư gỗ"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Writing the words</span><span lang="vi">Người viết lời</span></span></a></li>
       <li><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-chuong-ban-do.webp" width="448" height="600" loading="lazy" alt="Beside an old bronze temple bell, reading an old map" data-vi-alt="Bên chuông đồng cổ của chùa, đọc tấm bản đồ xưa"><span><b>«Người trao ta chân trời»</b><span lang="en">An old bell, an old map</span><span lang="vi">Chuông xưa, bản đồ cũ</span></span></a></li>
-      <li><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-lan-can-rong.webp" width="448" height="600" loading="lazy" alt="Kneeling by an old stone dragon balustrade and terracotta tiles, brush in hand" data-vi-alt="Ngồi bên lan can rồng đá cổ và những mảnh ngói đất nung, tay cầm bút"><span><b>«Người trao ta chân trời»</b><span lang="en">What those before us left</span><span lang="vi">Những gì người xưa để lại</span></span></a></li>
       <li><a href="#bai-van-don"><img src="assets/nhac/anh-them-rong.webp" width="448" height="600" loading="lazy" alt="Standing by a stone dragon on the steps of an old temple at sunset" data-vi-alt="Đứng bên rồng đá trên thềm điện cổ lúc hoàng hôn"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Echoes from the dragon steps</span><span lang="vi">Tiếng vọng từ thềm rồng</span></span></a></li>
       <li><a href="#bai-van-don"><img src="assets/nhac/anh-bat-sen.webp" width="448" height="600" loading="lazy" alt="Smiling over a lotus-moulded celadon bowl in a wooden study with bamboo scrolls" data-vi-alt="Mỉm cười bên bát men ngọc hoa sen trong phòng đọc có thẻ tre"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Celadon, the port’s trade ware</span><span lang="vi">Gốm men ngọc, hàng của thương cảng</span></span></a></li>
       <li><a href="#bai-trong-toi"><img src="assets/nhac/anh-khung-cua.webp" width="448" height="600" loading="lazy" alt="Holding a scroll behind a carved wooden window frame" data-vi-alt="Cầm cuộn thư sau khung cửa gỗ chạm hoa văn"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Behind the carved window</span><span lang="vi">Sau khung cửa hoa văn</span></span></a></li>
       <li><a href="#bai-trong-toi"><img src="assets/nhac/anh-ho-sen.webp" width="448" height="600" loading="lazy" alt="Seated on a wooden veranda by a lotus pond, a lotus in her hair" data-vi-alt="Ngồi bên hiên gỗ cạnh hồ sen, cài hoa sen trên tóc"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">By the lotus pond</span><span lang="vi">Bên hồ sen</span></span></a></li>
       <li><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-hanh-lang.webp" width="448" height="600" loading="lazy" alt="Walking along the wooden gallery of an old temple" data-vi-alt="Đi dọc hành lang gỗ của ngôi chùa cổ"><span><b>«Người trao ta chân trời»</b><span lang="en">Along the old gallery</span><span lang="vi">Dọc hành lang xưa</span></span></a></li>
       <li><a href="#bai-canh-buom"><img src="assets/nhac/anh-san-dinh.webp" width="448" height="600" loading="lazy" alt="Standing in the brick courtyard of an old communal house" data-vi-alt="Đứng giữa sân gạch của ngôi đình cổ"><span><b>«Theo cánh buồm quê hương»</b><span lang="en">The village courtyard</span><span lang="vi">Sân đình quê hương</span></span></a></li>
-      <li><a href="#bai-trong-toi"><img src="assets/nhac/anh-hien-sen.webp" width="448" height="600" loading="lazy" alt="Seated by a lotus pond, hands folded" data-vi-alt="Ngồi bên hồ sen, hai tay đặt trên gối"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">A quiet thought</span><span lang="vi">Một thoáng lặng</span></span></a></li>
     </ul>
     <ul class="songs">
       <li class="song feature" id="bai-trong-toi">
