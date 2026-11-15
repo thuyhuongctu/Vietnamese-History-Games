@@ -1,15 +1,21 @@
 /* ThuyHuong Digital — service worker
    Cache-first cho toàn bộ cổng game: cài một lần, chơi ngoại tuyến. */
 'use strict';
-const VERSION = 'thd-v48';
+const VERSION = 'thd-v49';
 const SHELL = [
   './',
   './index.html',
-  './assets/nhac/anh-an-thu.webp',
+  './assets/nhac/anh-binh-minh-vinh.webp',
+  './assets/nhac/anh-viet-thu-phap.webp',
+  './assets/nhac/anh-chuong-ban-do.webp',
   './assets/nhac/anh-lan-can-rong.webp',
-  './assets/nhac/anh-ban-cong-vinh.webp',
-  './assets/nhac/anh-gom-men-ngoc.webp',
+  './assets/nhac/anh-them-rong.webp',
   './assets/nhac/anh-bat-sen.webp',
+  './assets/nhac/anh-khung-cua.webp',
+  './assets/nhac/anh-ho-sen.webp',
+  './assets/nhac/anh-hanh-lang.webp',
+  './assets/nhac/anh-san-dinh.webp',
+  './assets/nhac/anh-hien-sen.webp',
   './huong-dan-giao-vien.html',
   './phan-tu.html',
   './manifest.webmanifest',
