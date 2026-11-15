@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f1509">
+<script>(function(){try{var r=document.documentElement,l=localStorage.getItem('thd-lang'),m=localStorage.getItem('thd-theme');if(l==='vi'||l==='en')r.lang=l;if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){}})();</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title data-vi-text="Thư viện nhân vật 3D & tượng thủ công · ThuyHuong Digital">Characters & Clay Figures · ThuyHuong Digital</title>
+<meta name="description" content="The characters of Vân Đồn (1149, Lý dynasty) and Bắc Hải Đảo (1780, fiction): clay figures, 3D captains and workshop dioramas from the ThuyHuong Digital history games."
+  data-vi-content="Nhân vật của Vân Đồn (1149, triều Lý) và Bắc Hải Đảo (1780, hư cấu): tượng đất nặn, bốn thuyền trưởng 3D và sa bàn làng nghề trong các trò chơi Sử Việt của ThuyHuong Digital.">
+<meta property="og:title" content="Characters & Clay Figures · ThuyHuong Digital">
+<meta property="og:image" content="assets/nhan-vat/ben-cang.webp">
+<link rel="stylesheet" href="assets/portal/site.css">
+<link rel="stylesheet" href="assets/portal/gioi-thieu.css">
+<style>
+.nvHero{padding:28px 0 8px;max-width:820px}
+.nvHero h1{font-family:var(--serif);font-size:clamp(30px,5vw,48px);line-height:1.12;letter-spacing:-.01em;margin:10px 0 14px}
+.nvHero p{color:var(--soft);font-size:17px}
+.loc{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px;padding:0;list-style:none}
+.loc button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--nga);font:600 14px var(--sans);cursor:pointer}
+.loc button[aria-pressed="true"]{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+.phan{padding:40px 0 8px;border-top:1px solid var(--rule);margin-top:32px}
+.phan h2{font-family:var(--serif);font-size:clamp(24px,3.4vw,32px);line-height:1.2;margin:8px 0 10px}
+.phan>p,.phanDau p{color:var(--soft);max-width:760px}
+.chu{margin:18px 0 0;padding:14px 18px;border-left:3px solid var(--son);background:var(--panel-hi);border-radius:0 10px 10px 0;max-width:760px}
+.chu p{font-size:16px;color:var(--nga-2)} .chu cite{display:block;margin-top:6px;font-size:13px;font-style:normal;color:var(--muted)}
+.luoi{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.nv{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.nv img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;background:var(--img-bg)}
+.nvChu{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.nvNhom{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--dong)}
+.nv h3{font-size:19px;line-height:1.25}
+.nvPhu{font-style:italic;color:var(--muted);font-size:14px}
+.nvChu p{font-size:14.5px;color:var(--soft)}
+.nvChoi{margin-top:auto;padding-top:8px;font-weight:600;font-size:14px;min-height:44px;display:inline-flex;align-items:center}
+.nv[hidden],.phan[hidden]{display:none}
+.sbLuoi{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.sb{position:relative;border-radius:14px;overflow:hidden;background:var(--img-bg);box-shadow:var(--shadow)}
+.sb img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.sbDoc img{object-position:50% 40%}
+.sbChu{padding:12px 16px 16px;background:var(--panel);border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px}
+.sbChu h3{font-size:17px} .sbChu p{font-size:14px;color:var(--soft)}
+.ghiChu{margin:40px 0 0;padding:18px 20px;border:1px dashed var(--sep);border-radius:12px;color:var(--soft);font-size:14.5px;max-width:860px}
+.ghiChu b{color:var(--nga)}
+@media (max-width:520px){.luoi{grid-template-columns:repeat(2,1fr);gap:12px}.nvChu{padding:10px 12px 12px}.nv h3{font-size:16px}.nvChu p{font-size:13.5px}.sbLuoi{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#noi-dung"><span lang="en">Skip to content</span><span lang="vi">Bỏ qua, đến nội dung</span></a>
+
+<header class="top">
+  <div class="wrap topIn">
+    <nav aria-label="Breadcrumb" data-vi-aria-label="Đường dẫn">
+      <ol class="crumbs">
+        <li><a href="index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span lang="en">All games</span><span lang="vi">Cổng trò chơi</span></a></li>
+        <li><a href="index.html#games"><span lang="en">Games</span><span lang="vi">Trò chơi</span></a></li>
+        <li><span aria-current="page"><span lang="en">Characters</span><span lang="vi">Nhân vật</span></span></li>
+      </ol>
+    </nav>
+    <div class="prefs">
+      <button id="prefLang" class="pref" type="button" hidden>Tiếng Việt</button>
+      <button id="prefTheme" class="pref" type="button" hidden aria-label="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="noi-dung" class="wrap">
+  <div class="nvHero">
+    <p class="eyebrow"><span lang="en">Vân Đồn 1149 · Bắc Hải Đảo 1780</span><span lang="vi">Vân Đồn 1149 · Bắc Hải Đảo 1780</span></p>
+    <h1><span lang="en">Characters & clay figures of the history games</span><span lang="vi">Thư viện nhân vật 3D &amp; tượng thủ công Sử Việt</span></h1>
+    <p><span lang="en">Everyone you meet in the games, in one place: the four 3D captains of Bắc Hải Đảo, the clay figures of the Vân Đồn trading port under the Lý dynasty, and workshop dioramas of the people who made the port run.</span><span lang="vi">Mọi nhân vật trong các trò chơi, gom về một chỗ: bốn thuyền trưởng 3D của Bắc Hải Đảo, những bức tượng đất nặn ở thương cảng Vân Đồn thời Lý, và các sa bàn làng nghề kể về những người làm nên bến cảng.</span></p>
+    <ul class="loc" aria-label="Filter" data-vi-aria-label="Lọc">
+      <li><button type="button" data-loc="tat-ca" aria-pressed="true"><span lang="en">All</span><span lang="vi">Tất cả</span></button></li>
+      <li><button type="button" data-loc="bhd" aria-pressed="false">Bắc Hải Đảo · 1780</button></li>
+      <li><button type="button" data-loc="trieu" aria-pressed="false"><span lang="en">Court &amp; customs</span><span lang="vi">Triều đình &amp; thuế quan</span></button></li>
+      <li><button type="button" data-loc="thuong" aria-pressed="false"><span lang="en">Merchants</span><span lang="vi">Thương nhân</span></button></li>
+      <li><button type="button" data-loc="nghe" aria-pressed="false"><span lang="en">Craftspeople</span><span lang="vi">Thợ thủ công</span></button></li>
+    </ul>
+  </div>
+
+  <section class="phan" id="bac-hai-dao" data-phan="bhd">
+    <p class="eyebrow"><span lang="en">1780 · Gulf of Tonkin · fiction</span><span lang="vi">1780 · Vịnh Bắc Bộ · hư cấu</span></p>
+    <h2><span lang="en">The four captains of Bắc Hải Đảo</span><span lang="vi">Bốn thuyền trưởng Bắc Hải Đảo</span></h2>
+    <p><span lang="en">Cinematic 3D portraits. Bắc Hải Đảo is a work of fiction set in 1780: the captains are invented characters, not historical figures.</span><span lang="vi">Chân dung 3D điện ảnh. Bắc Hải Đảo là truyện hư cấu đặt vào năm 1780: các thuyền trưởng là nhân vật sáng tác, không phải nhân vật lịch sử.</span></p>
+    <ul class="luoi">
+      <li class="nv" data-nhom="bhd">
+        <img src="bac-hai-dao/assets/do-doc-phuong-hoa-v2.jpg" width="896" height="1200" loading="lazy" alt="Admiral T&#x27;Hương" data-vi-alt="Đô đốc T&#x27;Hương">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Bắc Hải Đảo · 1780</span><span lang="vi">Bắc Hải Đảo · 1780</span></p><h3><span lang="en">Admiral T&#x27;Hương</span><span lang="vi">Đô đốc T&#x27;Hương</span></h3><p class="nvPhu"><span lang="en">Phoenix Fire of the North Sea</span><span lang="vi">Phượng Hỏa Bắc Hải</span></p><p><span lang="en">Admiral of the Vietnam Tech Pirates crew; her mechanical gauntlet commands a whole battery of cannon.</span><span lang="vi">Nữ đô đốc hội Vietnam Tech Pirates, găng tay cơ khí điều khiển cả dàn thần công.</span></p><a class="nvChoi" href="bac-hai-dao/index.html"><span lang="en">Play Bắc Hải Đảo</span><span lang="vi">Chơi Bắc Hải Đảo</span></a></div>
+      </li>
+      <li class="nv" data-nhom="bhd">
+        <img src="bac-hai-dao/assets/lai-buon-tran-van-don-v2.jpg" width="896" height="1200" loading="lazy" alt="Trader Trần Vân Đồn" data-vi-alt="Lái buôn Trần Vân Đồn">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Bắc Hải Đảo · 1780</span><span lang="vi">Bắc Hải Đảo · 1780</span></p><h3><span lang="en">Trader Trần Vân Đồn</span><span lang="vi">Lái buôn Trần Vân Đồn</span></h3><p class="nvPhu"><span lang="en">Abacus of the Old Port</span><span lang="vi">Thần Toán Bến Cổ</span></p><p><span lang="en">The famous abacus of the old port: knows the price of every harbour by heart and haggles sharp as a betel knife.</span><span lang="vi">Tay bàn tính trứ danh đất bến cổ, thuộc lòng giá cả mọi thương cảng, mặc cả sắc như dao cau.</span></p><a class="nvChoi" href="bac-hai-dao/index.html"><span lang="en">Play Bắc Hải Đảo</span><span lang="vi">Chơi Bắc Hải Đảo</span></a></div>
+      </li>
+      <li class="nv" data-nhom="bhd">
+        <img src="bac-hai-dao/assets/kiem-khach-hai-au-v2.jpg" width="896" height="1200" loading="lazy" alt="Seagull Swordswoman" data-vi-alt="Kiếm khách Hải Âu">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Bắc Hải Đảo · 1780</span><span lang="vi">Bắc Hải Đảo · 1780</span></p><h3><span lang="en">Seagull Swordswoman</span><span lang="vi">Kiếm khách Hải Âu</span></h3><p class="nvPhu"><span lang="en">Swallow Against the Wind</span><span lang="vi">Cánh Én Ngược Gió</span></p><p><span lang="en">A fishing-village girl from Cát Bà who steers like a swallow darting ahead of a storm.</span><span lang="vi">Cô gái làng chài Cát Bà, lái thuyền như én liệng trước giông.</span></p><a class="nvChoi" href="bac-hai-dao/index.html"><span lang="en">Play Bắc Hải Đảo</span><span lang="vi">Chơi Bắc Hải Đảo</span></a></div>
+      </li>
+      <li class="nv" data-nhom="bhd">
+        <img src="bac-hai-dao/assets/ba-tu-cat-hai-v2.jpg" width="896" height="1200" loading="lazy" alt="Mother Tư of Cát Hải" data-vi-alt="Bà Tư Cát Hải">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Bắc Hải Đảo · 1780</span><span lang="vi">Bắc Hải Đảo · 1780</span></p><h3><span lang="en">Mother Tư of Cát Hải</span><span lang="vi">Bà Tư Cát Hải</span></h3><p class="nvPhu"><span lang="en">Mother of the Sea</span><span lang="vi">Mẹ Biển Cả</span></p><p><span lang="en">Owner of a fish-sauce works and foster mother to a hundred orphaned sailors.</span><span lang="vi">Chủ vựa nước mắm, mẹ nuôi của cả trăm thủy thủ mồ côi.</span></p><a class="nvChoi" href="bac-hai-dao/index.html"><span lang="en">Play Bắc Hải Đảo</span><span lang="vi">Chơi Bắc Hải Đảo</span></a></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="phan" id="van-don" data-phan="trieu thuong">
+    <p class="eyebrow"><span lang="en">1149 · Lý Anh Tông</span><span lang="vi">1149 · Lý Anh Tông</span></p>
+    <h2><span lang="en">The court and the merchants of Vân Đồn</span><span lang="vi">Triều đình và thương nhân Vân Đồn</span></h2>
+    <p><span lang="en">Hand-made clay figures with fingerprint texture, as they appear in Vân Đồn 3D.</span><span lang="vi">Tượng đất nặn thủ công còn vân tay, đúng như trong Vân Đồn 3D.</span></p>
+    <blockquote class="chu">
+      <p><span lang="en">In spring of the year Kỷ Tỵ (1149), under King Lý Anh Tông, merchant ships from Java, Lộ Lạc and Siam came to Hải Đông asking to live and trade. The court set up a settlement on the islands, called Vân Đồn.</span><span lang="vi">Mùa xuân năm Kỷ Tỵ (1149), đời vua Lý Anh Tông, thuyền buôn Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán. Triều đình cho lập trang ở hải đảo, gọi là Vân Đồn.</span></p>
+      <cite><span lang="en">After the Complete Annals of Đại Việt (Đại Việt sử ký toàn thư), as retold in Vân Đồn 3D</span><span lang="vi">Theo Đại Việt sử ký toàn thư, như kể lại trong Vân Đồn 3D</span></cite>
+    </blockquote>
+    <ul class="luoi">
+      <li class="nv" data-nhom="trieu">
+        <img src="van-don-3d/assets/su-than.jpg" width="300" height="471" loading="lazy" alt="Royal envoy" data-vi-alt="Sứ thần triều Lý">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Court &amp; customs · 1149</span><span lang="vi">Triều đình &amp; thuế quan · 1149</span></p><h3><span lang="en">Royal envoy</span><span lang="vi">Sứ thần triều Lý</span></h3><p><span lang="en">Wears a phốc đầu cap and a purple cross-collar robe, holding a decree wrapped in yellow silk. Appears in the chapter of the tribute decree.</span><span lang="vi">Đội mũ phốc đầu, mặc áo giao lĩnh màu tía, hai tay nâng cuộn chiếu bọc lụa vàng. Xuất hiện trong chương «Chiếu đòi cống».</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="trieu">
+        <img src="van-don-3d/assets/quan-tran-thu-v2.jpg" width="300" height="471" loading="lazy" alt="Port governor" data-vi-alt="Quan trấn thủ">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Court &amp; customs · 1149</span><span lang="vi">Triều đình &amp; thuế quan · 1149</span></p><h3><span lang="en">Port governor</span><span lang="vi">Quan trấn thủ</span></h3><p><span lang="en">The role you play in Vân Đồn 3D: walk the quay, buy from the workshops, sell to the merchant ships and set the harbour tax.</span><span lang="vi">Vai người chơi trong Vân Đồn 3D: đi lại trên bến, mua hàng ở lò xưởng, bán cho thương thuyền và định mức thuế cảng.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="trieu">
+        <img src="van-don-3d/assets/thu-lai-thue-quan-v2.jpg" width="300" height="471" loading="lazy" alt="Customs clerk" data-vi-alt="Thư lại thuế quan">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Court &amp; customs · 1149</span><span lang="vi">Triều đình &amp; thuế quan · 1149</span></p><h3><span lang="en">Customs clerk</span><span lang="vi">Thư lại thuế quan</span></h3><p><span lang="en">Keeps the customs house with a brush and wooden tallies.</span><span lang="vi">Giữ Nhà thuế quan, cầm bút lông và thẻ gỗ.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="thuong">
+        <img src="van-don-3d/assets/thuong-nhan-tong-v2.jpg" width="300" height="471" loading="lazy" alt="Song merchant" data-vi-alt="Thương nhân Tống">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Overseas merchants · 1149</span><span lang="vi">Thương nhân hải ngoại · 1149</span></p><h3><span lang="en">Song merchant</span><span lang="vi">Thương nhân Tống</span></h3><p><span lang="en">Round-collared robe, carrying a green-glazed bowl and a roll of silk.</span><span lang="vi">Áo cổ tròn, cầm bát men xanh và cuộn lụa.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="thuong">
+        <img src="van-don-3d/assets/thuong-nhan-trao-oa-v2.jpg" width="300" height="471" loading="lazy" alt="Javanese merchant" data-vi-alt="Thương nhân Trảo Oa">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Overseas merchants · 1149</span><span lang="vi">Thương nhân hải ngoại · 1149</span></p><h3><span lang="en">Javanese merchant</span><span lang="vi">Thương nhân Trảo Oa</span></h3><p><span lang="en">Hair knotted with an indigo band, an indigo wrap, a basket of cloves and a log of sandalwood.</span><span lang="vi">Búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="thuong">
+        <img src="van-don-3d/assets/thuong-nhan-xiem-la-v2.jpg" width="300" height="471" loading="lazy" alt="Siamese merchant" data-vi-alt="Thương nhân Xiêm La">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Overseas merchants · 1149</span><span lang="vi">Thương nhân hải ngoại · 1149</span></p><h3><span lang="en">Siamese merchant</span><span lang="vi">Thương nhân Xiêm La</span></h3><p><span lang="en">Earrings and a sampot wrap, holding a rhinoceros horn.</span><span lang="vi">Đeo hoa tai, quấn sampot, cầm sừng tê.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="thuong">
+        <img src="van-don-3d/assets/thuong-nhan-tam-phat-te-v2.jpg" width="300" height="471" loading="lazy" alt="Srivijayan merchant" data-vi-alt="Thương nhân Tam Phật Tề">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Overseas merchants · 1149</span><span lang="vi">Thương nhân hải ngoại · 1149</span></p><h3><span lang="en">Srivijayan merchant</span><span lang="vi">Thương nhân Tam Phật Tề</span></h3><p><span lang="en">Shoulder-length hair and a red wrap, holding ivory and a bamboo tube of camphor, with a tortoiseshell plate.</span><span lang="vi">Tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="thuong">
+        <img src="van-don-3d/assets/nu-thuong-chu-v2.jpg" width="300" height="471" loading="lazy" alt="Merchant lady" data-vi-alt="Nữ thương chủ">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Overseas merchants · 1149</span><span lang="vi">Thương nhân hải ngoại · 1149</span></p><h3><span lang="en">Merchant lady</span><span lang="vi">Nữ thương chủ</span></h3><p><span lang="en">A trader of the port in the Vân Đồn games.</span><span lang="vi">Người buôn bán trên bến trong các trò chơi Vân Đồn.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="phan" id="lang-nghe" data-phan="nghe">
+    <p class="eyebrow"><span lang="en">The people who made the port run</span><span lang="vi">Những người làm nên bến cảng</span></p>
+    <h2><span lang="en">Craftspeople and workshop dioramas</span><span lang="vi">Thợ thủ công và sa bàn làng nghề</span></h2>
+    <p><span lang="en">The workshop owners you buy from in Vân Đồn 3D, followed by claymation dioramas of their daily work.</span><span lang="vi">Những chủ lò xưởng người chơi mua hàng trong Vân Đồn 3D, rồi đến các sa bàn đất nặn về công việc hằng ngày của họ.</span></p>
+    <ul class="luoi">
+      <li class="nv" data-nhom="nghe">
+        <img src="van-don-3d/assets/tho-ca-lo-gom.jpg" width="300" height="600" loading="lazy" alt="Master potter" data-vi-alt="Thợ cả lò gốm">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Craftspeople · 1149</span><span lang="vi">Thợ thủ công · 1149</span></p><h3><span lang="en">Master potter</span><span lang="vi">Thợ cả lò gốm</span></h3><p><span lang="en">Hair in a knot, holding a bowl. Sells ceramics at the kiln.</span><span lang="vi">Búi tóc, tay bưng bát. Bán gốm ở lò.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="nghe">
+        <img src="van-don-3d/assets/ba-chu-xuong-lua-v2.jpg" width="300" height="471" loading="lazy" alt="Silk workshop owner" data-vi-alt="Bà chủ xưởng dệt">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Craftspeople · 1149</span><span lang="vi">Thợ thủ công · 1149</span></p><h3><span lang="en">Silk workshop owner</span><span lang="vi">Bà chủ xưởng dệt</span></h3><p><span lang="en">Holds a skein of silk and a weaving shuttle.</span><span lang="vi">Cầm con tơ và thoi dệt.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="nghe">
+        <img src="van-don-3d/assets/chu-tram-huong-v2.jpg" width="300" height="471" loading="lazy" alt="Agarwood dealer" data-vi-alt="Chủ trạm trầm hương">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Craftspeople · 1149</span><span lang="vi">Thợ thủ công · 1149</span></p><h3><span lang="en">Agarwood dealer</span><span lang="vi">Chủ trạm trầm hương</span></h3><p><span lang="en">Carries a tray of agarwood, with a bronze scale at the waist.</span><span lang="vi">Bưng khay trầm, đeo cân đồng.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+      <li class="nv" data-nhom="nghe">
+        <img src="van-don-3d/assets/tho-lan-ngoc-trai-v2.jpg" width="300" height="471" loading="lazy" alt="Pearl diver" data-vi-alt="Thợ lặn mò ngọc trai">
+        <div class="nvChu"><p class="nvNhom"><span lang="en">Craftspeople · 1149</span><span lang="vi">Thợ thủ công · 1149</span></p><h3><span lang="en">Pearl diver</span><span lang="vi">Thợ lặn mò ngọc trai</span></h3><p><span lang="en">Loincloth and tattoos, holding a basket of pearl oysters.</span><span lang="vi">Đóng khố, xăm mình, ôm giỏ trai ngọc.</span></p><a class="nvChoi" href="van-don-3d/index.html"><span lang="en">Meet them in Vân Đồn 3D</span><span lang="vi">Gặp trong Vân Đồn 3D</span></a></div>
+      </li>
+    </ul>
+    <ul class="sbLuoi">
+      <li class="sb">
+        <img src="assets/nhan-vat/ben-cang.webp" width="1200" height="669" loading="lazy" alt="The quay at Vân Đồn: Junks with batten sails moored along a wooden pier, merchants waiting with their goods." data-vi-alt="Bến Vân Đồn: Thuyền buồm cánh dơi neo dọc cầu tàu gỗ, thương nhân đứng chờ cùng hàng hoá.">
+        <div class="sbChu"><h3><span lang="en">The quay at Vân Đồn</span><span lang="vi">Bến Vân Đồn</span></h3><p><span lang="en">Junks with batten sails moored along a wooden pier, merchants waiting with their goods.</span><span lang="vi">Thuyền buồm cánh dơi neo dọc cầu tàu gỗ, thương nhân đứng chờ cùng hàng hoá.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/lo-gom.webp" width="1200" height="669" loading="lazy" alt="The kiln: A potter finishing green-glazed bowls beside a wood-fired kiln." data-vi-alt="Lò gốm: Thợ gốm hoàn thiện bát men xanh bên lò đốt củi.">
+        <div class="sbChu"><h3><span lang="en">The kiln</span><span lang="vi">Lò gốm</span></h3><p><span lang="en">A potter finishing green-glazed bowls beside a wood-fired kiln.</span><span lang="vi">Thợ gốm hoàn thiện bát men xanh bên lò đốt củi.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/khung-cui.webp" width="1200" height="669" loading="lazy" alt="The loom: Weaving silk on a wooden loom by the bay." data-vi-alt="Khung cửi: Dệt lụa trên khung cửi gỗ ven vịnh.">
+        <div class="sbChu"><h3><span lang="en">The loom</span><span lang="vi">Khung cửi</span></h3><p><span lang="en">Weaving silk on a wooden loom by the bay.</span><span lang="vi">Dệt lụa trên khung cửi gỗ ven vịnh.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/hang-duoc-lieu.webp" width="1200" height="669" loading="lazy" alt="Spices and medicine: A stall of cinnamon, herbs and roots for the merchant ships." data-vi-alt="Hàng hương liệu, dược liệu: Sạp quế, thảo dược, rễ cây bán cho thương thuyền.">
+        <div class="sbChu"><h3><span lang="en">Spices and medicine</span><span lang="vi">Hàng hương liệu, dược liệu</span></h3><p><span lang="en">A stall of cinnamon, herbs and roots for the merchant ships.</span><span lang="vi">Sạp quế, thảo dược, rễ cây bán cho thương thuyền.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/can-bac.webp" width="1200" height="669" loading="lazy" alt="Weighing the trade: Goods and coins weighed on a balance at the water’s edge." data-vi-alt="Cân hàng: Hàng và tiền được cân bên mép nước.">
+        <div class="sbChu"><h3><span lang="en">Weighing the trade</span><span lang="vi">Cân hàng</span></h3><p><span lang="en">Goods and coins weighed on a balance at the water’s edge.</span><span lang="vi">Hàng và tiền được cân bên mép nước.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/cho-thuyen.webp" width="1200" height="669" loading="lazy" alt="Boat market: Small boats selling fruit and pottery to the larger ships." data-vi-alt="Chợ thuyền: Thuyền nhỏ bán hoa quả, đồ gốm cho thuyền lớn.">
+        <div class="sbChu"><h3><span lang="en">Boat market</span><span lang="vi">Chợ thuyền</span></h3><p><span lang="en">Small boats selling fruit and pottery to the larger ships.</span><span lang="vi">Thuyền nhỏ bán hoa quả, đồ gốm cho thuyền lớn.</span></p></div>
+      </li>
+      <li class="sb">
+        <img src="assets/nhan-vat/tho-lan.webp" width="1200" height="669" loading="lazy" alt="Under the bay: A pearl diver at work beneath the hulls." data-vi-alt="Dưới đáy vịnh: Thợ lặn mò ngọc trai dưới đáy thuyền.">
+        <div class="sbChu"><h3><span lang="en">Under the bay</span><span lang="vi">Dưới đáy vịnh</span></h3><p><span lang="en">A pearl diver at work beneath the hulls.</span><span lang="vi">Thợ lặn mò ngọc trai dưới đáy thuyền.</span></p></div>
+      </li>
+      <li class="sb sbDoc">
+        <img src="assets/nhan-vat/thuyen-buom.webp" width="720" height="964" loading="lazy" alt="A merchant junk: A three-masted junk loaded with jars, ready to sail." data-vi-alt="Thuyền buôn: Thuyền ba buồm chất đầy chum vại, sẵn sàng ra khơi.">
+        <div class="sbChu"><h3><span lang="en">A merchant junk</span><span lang="vi">Thuyền buôn</span></h3><p><span lang="en">A three-masted junk loaded with jars, ready to sail.</span><span lang="vi">Thuyền ba buồm chất đầy chum vại, sẵn sàng ra khơi.</span></p></div>
+      </li>
+    </ul>
+  </section>
+
+  <p class="ghiChu"><b><span lang="en">About these images.</span><span lang="vi">Về các hình ảnh.</span></b>
+    <span lang="en">All figures and dioramas are digital illustrations made for the games, with AI assistance. Costumes and goods follow the period as the games describe it; they are a reconstruction for learning, not museum objects. Bắc Hải Đảo is fiction.</span><span lang="vi">Mọi tượng và sa bàn là tranh số làm cho trò chơi, có dùng công cụ AI hỗ trợ. Trang phục và hàng hoá theo niên đại như trò chơi mô tả; đây là hình tái dựng để học, không phải hiện vật bảo tàng. Bắc Hải Đảo là truyện hư cấu.</span></p>
+
+  <div class="cta">
+    <h2><span lang="en">Meet them in the games</span><span lang="vi">Gặp họ trong trò chơi</span></h2>
+    <div class="row">
+      <a class="btn btnFill" href="van-don-3d/index.html"><svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span lang="en">Play Vân Đồn 3D</span><span lang="vi">Chơi Vân Đồn 3D</span></a>
+      <a class="btn btnLine" href="bac-hai-dao/index.html"><span lang="en">Play Bắc Hải Đảo</span><span lang="vi">Chơi Bắc Hải Đảo</span></a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footIn">
+    <span>© 2026 ThuyHuong Digital · <span lang="en">Pure HTML5 games</span><span lang="vi">Trò chơi HTML5 thuần</span></span>
+    <span><a href="index.html"><span lang="en">All games</span><span lang="vi">Về cổng trò chơi</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="vi">Quyền riêng tư</span></a></span>
+  </div>
+</footer>
+
+<script src="assets/portal/site.js"></script>
+<script>
+// Lọc theo nhóm: ẩn thẻ không thuộc nhóm, ẩn cả phần không còn thẻ nào
+(function(){
+  var nut = document.querySelectorAll('.loc button');
+  function loc(n){
+    nut.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.loc === n ? 'true' : 'false'); });
+    document.querySelectorAll('.nv').forEach(function(t){ t.hidden = n !== 'tat-ca' && t.dataset.nhom !== n; });
+    document.querySelectorAll('.phan').forEach(function(p){ p.hidden = n !== 'tat-ca' && p.dataset.phan.split(' ').indexOf(n) < 0; });
+  }
+  nut.forEach(function(b){ b.addEventListener('click', function(){ loc(b.dataset.loc); }); });
+})();
+</script>
+</body>
+</html>
