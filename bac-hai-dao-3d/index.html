@@ -128,10 +128,13 @@
   }
 .capface{width:24px;height:24px;border-radius:50%;object-fit:cover;vertical-align:middle;border:1px solid rgba(255,255,255,.55);margin-right:2px}
 .phantu{display:inline-flex;align-items:center;min-height:44px;color:inherit;font-weight:600}
+/* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
+:focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
 </style>
 </head>
 <body>
-<canvas id="game"></canvas>
+<canvas id="game" role="img" aria-label="Vịnh Bắc Bộ: thuyền buồm cánh dơi giữa các đảo đá vôi và thương cảng"></canvas>
 <canvas id="minimap" width="200" height="143" style="display:none"></canvas>
 
 <div id="hud" style="display:none">
@@ -149,7 +152,7 @@
 </div>
 <div id="goalbox" style="display:none">🎯 <span id="hGoal"></span></div>
 <div id="hint"></div>
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <button id="btnMusic" title="Nhạc nền (M)">🔊</button>
 <div id="touchUI">
   <button class="tbtn" id="tLeft">⟲</button>
@@ -1201,6 +1204,8 @@ window.renderer = new THREE.WebGLRenderer({ antialias:GFX.aa });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(GFX.ratio);
 renderer.domElement.style.cssText = 'position:absolute;inset:0;z-index:0';
+renderer.domElement.setAttribute('role', 'img');
+renderer.domElement.setAttribute('aria-label', 'Vịnh Bắc Bộ 3D: thuyền buồm cánh dơi giữa các đảo đá vôi và thương cảng');
 document.body.insertBefore(renderer.domElement, document.body.firstChild);
 
 const scene = new THREE.Scene();
