@@ -229,6 +229,7 @@
     </details>
     <div class="btns" style="justify-content:center">
       <button class="btn pri" id="btnStart" type="button">⚓ Ra bến</button>
+      <button class="btn" type="button" data-gfx-toggle aria-pressed="false">🎛️ Đồ hoạ</button>
       <a class="btn" href="../van-don/index.html" style="text-decoration:none;display:inline-flex;align-items:center">Bản 2D dựng bến</a>
     </div>
     <p class="note">Ba chương 1149, 1184, 1348 theo <i>Đại Việt sử ký toàn thư</i>; ba chương còn lại, mức thuế, giá cả, đơn hàng,
@@ -265,6 +266,7 @@
   </div>
 </div>
 
+<script src="../assets/portal/gfx.js"></script>
 <script src="../lib/three.min.js"></script>
 <script>
 'use strict';
@@ -377,8 +379,9 @@ function newRound(){
 //  CẢNH 3D
 // =====================================================================
 const cv = $('game');
-const renderer = new THREE.WebGLRenderer({ canvas:cv, antialias:true });
-renderer.setPixelRatio(Math.min(devicePixelRatio||1, 2));
+const GFX = window.THD_GFX || { aa:true, ratio:Math.min(devicePixelRatio||1, 2) };   // assets/portal/gfx.js
+const renderer = new THREE.WebGLRenderer({ canvas:cv, antialias:GFX.aa });
+renderer.setPixelRatio(GFX.ratio);
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xbcd9d2);
 scene.fog = new THREE.Fog(0xbcd9d2, 90, 230);
