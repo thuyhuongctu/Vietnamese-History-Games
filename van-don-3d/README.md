@@ -93,17 +93,17 @@ Chỉ giữ ảnh không có chi tiết lệch niên đại 1149; chữ trên �
 | `ben-cang-van-don.jpg` | Màn mở đầu | Cắt bỏ biển chữ quốc ngữ (chữ quốc ngữ có từ thế kỷ 17). |
 | `ben-dem.jpg`, `cho-dem.jpg` | Bảng hết phiên (luân phiên) | Bến và chợ đêm trên cầu tàu, đèn nến, thuyền buồm. |
 | `ben-hoang-hon.jpg` | Màn kết thúc | Bến lúc hoàng hôn; cắt bỏ mép bàn và kệ phòng chụp. |
-| `quan-tran-thu.jpg` | Nút chọn nhân vật | Mũ phốc đầu, đi ủng (triều phục định năm 1059); áo không thêu rồng. |
-| `nu-thuong-chu.jpg` | Nút chọn nhân vật | Nhân vật hư cấu; răng đen, hộp trầu, chuỗi tiền đồng lỗ vuông. |
+| `quan-tran-thu-v2.jpg` | Nút chọn nhân vật | Mũ phốc đầu, đi ủng (triều phục định năm 1059); áo không thêu rồng. |
+| `nu-thuong-chu-v2.jpg` | Nút chọn nhân vật | Nhân vật hư cấu; răng đen, hộp trầu, chuỗi tiền đồng lỗ vuông. |
 | `tho-ca-lo-gom.jpg` | Lò gốm | Cắt bỏ nhãn «Bát Tràng / Chu Đậu»; hai lò này hưng thịnh sau thời Lý. |
-| `ba-chu-xuong-lua.jpg` | Xưởng dệt lụa | Con tơ, thoi dệt, khung cửi nhỏ, rổ lá dâu. |
-| `chu-tram-huong.jpg` | Trạm trầm hương | Khay trầm, cân đồng đeo ở thắt lưng. |
-| `tho-lan-ngoc-trai.jpg` | Bến mò ngọc trai | Đóng khố, xăm mình, giỏ trai ngọc, dao, cuộn dây. |
-| `thu-lai-thue-quan.jpg` | Nhà thuế quan | Bút lông, thẻ gỗ, cân đồng; không có chữ trên ảnh. |
-| `thuong-nhan-tong.jpg` | Thuyền Tống | Áo cổ tròn, bát men xanh (không phải gốm hoa lam), cuộn lụa. |
-| `thuong-nhan-xiem-la.jpg` | Thuyền Xiêm La | Dựng theo cư dân Môn–Khmer vùng Chao Phraya thế kỷ 12. |
-| `thuong-nhan-trao-oa.jpg` | Thuyền Trảo Oa | Búi tóc quấn dải chàm, vải chàm ngang gối, giỏ đinh hương, khúc đàn hương (prompt mục 10). |
-| `thuong-nhan-tam-phat-te.jpg` | Thuyền Tam Phật Tề | Tóc ngang vai, vải đỏ, ngà voi, ống tre long não, tấm đồi mồi (prompt mục 11). |
+| `ba-chu-xuong-lua-v2.jpg` | Xưởng dệt lụa | Con tơ, thoi dệt, khung cửi nhỏ, rổ lá dâu. |
+| `chu-tram-huong-v2.jpg` | Trạm trầm hương | Khay trầm, cân đồng đeo ở thắt lưng. |
+| `tho-lan-ngoc-trai-v2.jpg` | Bến mò ngọc trai | Đóng khố, xăm mình, giỏ trai ngọc, dao, cuộn dây. |
+| `thu-lai-thue-quan-v2.jpg` | Nhà thuế quan | Bút lông, thẻ gỗ, cân đồng; không có chữ trên ảnh. |
+| `thuong-nhan-tong-v2.jpg` | Thuyền Tống | Áo cổ tròn, bát men xanh (không phải gốm hoa lam), cuộn lụa. |
+| `thuong-nhan-xiem-la-v2.jpg` | Thuyền Xiêm La | Dựng theo cư dân Môn–Khmer vùng Chao Phraya thế kỷ 12. |
+| `thuong-nhan-trao-oa-v2.jpg` | Thuyền Trảo Oa | Búi tóc quấn dải chàm, vải chàm ngang gối, giỏ đinh hương, khúc đàn hương (prompt mục 10). |
+| `thuong-nhan-tam-phat-te-v2.jpg` | Thuyền Tam Phật Tề | Tóc ngang vai, vải đỏ, ngà voi, ống tre long não, tấm đồi mồi (prompt mục 11). |
 
 Các tượng nhân vật tạo theo [`PROMPT-NHAN-VAT.md`](PROMPT-NHAN-VAT.md) và đã soát theo bảng soát
 trong tệp đó.
