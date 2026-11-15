@@ -104,6 +104,7 @@ Chỉ giữ ảnh không có chi tiết lệch niên đại 1149; chữ trên �
 | `thuong-nhan-xiem-la-v2.jpg` | Thuyền Xiêm La | Dựng theo cư dân Môn–Khmer vùng Chao Phraya thế kỷ 12. |
 | `thuong-nhan-trao-oa-v2.jpg` | Thuyền Trảo Oa | Búi tóc quấn dải chàm, vải chàm ngang gối, giỏ đinh hương, khúc đàn hương (prompt mục 10). |
 | `thuong-nhan-tam-phat-te-v2.jpg` | Thuyền Tam Phật Tề | Tóc ngang vai, vải đỏ, ngà voi, ống tre long não, tấm đồi mồi (prompt mục 11). |
+| `su-than.jpg`, `tuong/su-than.webp` | Sứ thần mang chiếu | Mũ phốc đầu, áo giao lĩnh màu tía, cuộn chiếu bọc lụa vàng không chữ (prompt mục 12). Hiện ở thẻ mỗi chương (truyền việc triều đình giao), ở Nhà thuế quan trong chương «Chiếu đòi cống» và ở màn kết thúc (đọc lời xét công). |
 
 Các tượng nhân vật tạo theo [`PROMPT-NHAN-VAT.md`](PROMPT-NHAN-VAT.md) và đã soát theo bảng soát
 trong tệp đó.
