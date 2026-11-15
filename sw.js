@@ -1,11 +1,12 @@
 /* ThuyHuong Digital — service worker
    Cache-first cho toàn bộ cổng game: cài một lần, chơi ngoại tuyến. */
 'use strict';
-const VERSION = 'thd-v46';
+const VERSION = 'thd-v48';
 const SHELL = [
   './',
   './index.html',
   './huong-dan-giao-vien.html',
+  './phan-tu.html',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',

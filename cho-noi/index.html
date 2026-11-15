@@ -285,7 +285,11 @@ class ManTanCho extends Phaser.Scene {
       backgroundColor: '#8a6a1c', padding: { x: 24, y: 12 },
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
     nut.on('pointerdown', () => { keu(4); this.scene.start('choi'); });
-    const ve = this.add.text(W / 2, 630, '⟵ Về cổng trò chơi', {
+    const pt = this.add.text(W / 2, 622, '📝 Phản tư sau khi chơi', {
+      fontSize: '16px', color: '#f2d48a',
+    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    pt.on('pointerdown', () => { location.href = '../phan-tu.html?game=cho-noi'; });
+    const ve = this.add.text(W / 2, 664, '⟵ Về cổng trò chơi', {
       fontSize: '15px', color: '#9ec5ab',
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
     ve.on('pointerdown', () => { location.href = '../index.html'; });

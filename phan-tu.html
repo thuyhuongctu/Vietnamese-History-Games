@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f1509">
+<script>(function(){try{var r=document.documentElement,l=localStorage.getItem('thd-lang'),m=localStorage.getItem('thd-theme');if(l==='vi'||l==='en')r.lang=l;if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){}})();</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title data-vi-text="Phản tư sau khi chơi · Cổng Trò Chơi Sử Việt">After-play reflection · Vietnamese History Games</title>
+<meta name="description" content="After-play reflection sheet for the Vietnamese History Games. Answers are saved only on this device and can be downloaded or printed for the teacher."
+  data-vi-content="Phiếu phản tư sau khi chơi các trò chơi sử Việt. Bài làm chỉ lưu trên máy này, tải về hoặc in để nộp thầy cô.">
+<link rel="stylesheet" href="assets/portal/site.css">
+<link rel="stylesheet" href="assets/portal/gioi-thieu.css">
+<style>
+  div.blk{padding-top:40px;display:flex;flex-direction:column;gap:18px}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+  .tabs a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);
+    text-decoration:none;color:var(--nga-2);font-weight:600}
+  .tabs a[aria-current="page"]{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+  form{display:flex;flex-direction:column;gap:18px;max-width:46rem}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+  label{display:flex;flex-direction:column;gap:6px;font-weight:600;line-height:1.5}
+  label small{font-weight:400;color:var(--muted)}
+  input,textarea{font:inherit;font-weight:400;padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+    background:var(--panel);color:var(--nga);min-height:44px}
+  textarea{min-height:96px;resize:vertical}
+  input:focus-visible,textarea:focus-visible{outline:3px solid var(--dong);outline-offset:1px}
+  .kind{font-size:12px;font-weight:700;color:var(--dong-link);text-transform:uppercase;letter-spacing:.06em}
+  .acts{display:flex;flex-wrap:wrap;gap:10px}
+  .saved{color:var(--muted);font-size:14px;min-height:20px}
+  .priv{color:var(--muted);font-size:14px;line-height:1.6}
+  @media print{
+    header.top,footer,.skip,.tabs,.acts,.priv,.noPrint{display:none !important}
+    body::before{display:none !important}
+    body{background:#fff;color:#000}
+    input,textarea{border:1px solid #999;background:#fff;color:#000}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#noi-dung"><span lang="en">Skip to content</span><span lang="vi">Bỏ qua, đến nội dung</span></a>
+
+<header class="top">
+  <div class="wrap topIn">
+    <nav aria-label="Breadcrumb" data-vi-aria-label="Đường dẫn">
+      <ol class="crumbs">
+        <li><a href="index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span lang="en">All games</span><span lang="vi">Cổng trò chơi</span></a></li>
+        <li><a href="huong-dan-giao-vien.html"><span lang="en">Teacher guide</span><span lang="vi">Hướng dẫn cho thầy cô</span></a></li>
+        <li><span aria-current="page"><span lang="en">Reflection</span><span lang="vi">Phản tư</span></span></li>
+      </ol>
+    </nav>
+    <div class="prefs">
+      <button id="prefLang" class="pref" type="button" hidden>Tiếng Việt</button>
+      <button id="prefTheme" class="pref" type="button" hidden aria-label="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="noi-dung" class="wrap">
+  <section class="blk" aria-labelledby="h-top">
+    <span class="eyebrow"><span lang="en">After you play</span><span lang="vi">Sau khi chơi</span></span>
+    <h1 id="h-top"><span lang="en">Reflection sheet</span><span lang="vi">Phiếu phản tư</span></h1>
+    <p lang="en">The questions are in Vietnamese. Answers are saved only in this browser; download or print them to hand in.</p>
+    <div class="keep" lang="vi">
+      <ul class="tabs" id="tabs"></ul>
+    </div>
+  </section>
+
+  <div class="blk keep" lang="vi">
+    <h2 id="h-game">Vân Đồn</h2>
+    <p id="intro"></p>
+    <form id="phieu" autocomplete="off">
+      <div class="row">
+        <label>Họ tên<input id="ten" name="ten" type="text" maxlength="80"></label>
+        <label>Lớp<input id="lop" name="lop" type="text" maxlength="40"></label>
+      </div>
+      <div id="cauHoi"></div>
+      <p class="saved" id="daLuu" aria-live="polite"></p>
+      <div class="acts">
+        <button class="btn btnLine" type="submit">Lưu ngay</button>
+        <button class="btn btnFill" type="button" id="btnTai">Tải bài làm (.txt)</button>
+        <button class="btn btnLine" type="button" id="btnIn">In phiếu</button>
+        <button class="btn btnLine" type="button" id="btnXoa">Xóa bài làm trên máy này</button>
+      </div>
+      <p class="priv">Bài làm chỉ lưu trong trình duyệt trên máy này, không gửi đi đâu. Dùng máy chung thì nhớ bấm «Xóa bài làm» sau khi tải về. Câu hỏi soạn theo Big Six (Seixas &amp; Morton), cách đọc nguồn của Wineburg và khung lập luận lịch sử của van Drie &amp; van Boxtel; xem <a href="huong-dan-giao-vien.html">hướng dẫn cho thầy cô</a>.</p>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footIn">
+    <span>© 2026 ThuyHuong Digital · <span lang="en">Pure HTML5 games</span><span lang="vi">Trò chơi HTML5 thuần</span></span>
+    <span><a href="index.html"><span lang="en">All games</span><span lang="vi">Về cổng trò chơi</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="vi">Quyền riêng tư</span></a></span>
+  </div>
+</footer>
+
+<script src="assets/portal/site.js"></script>
+<script>
+'use strict';
+// Bộ câu hỏi theo từng trò chơi. kind: khái niệm tư duy lịch sử được luyện
+const GAMES = {
+  'van-don': {
+    ten: 'Vân Đồn (bản 2D và 3D)', choi: 'van-don-3d/index.html',
+    intro: 'Năm 1149, thuyền buôn Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán; triều Lý cho lập trang Vân Đồn (theo Đại Việt sử ký toàn thư).',
+    q: [
+      ['Bằng chứng', 'Ghi hai chi tiết trong trò chơi có nhãn «Theo sử» và một chi tiết «Trò chơi dựng». Vì sao người làm trò chơi phải dựng thêm?'],
+      ['Nguyên nhân và hệ quả', 'Khi em đổi thuế cảng, số hàng thuyền buôn đặt và danh vọng thay đổi thế nào? Vì sao?'],
+      ['Góc nhìn lịch sử', 'Một thương nhân Trảo Oa năm 1149 sẽ cân nhắc gì trước khi chọn buôn ở Vân Đồn?'],
+      ['Chiều cạnh đạo đức', 'Người Đồ Bồ trả giá gấp ba để mua lén ngọc trai. Vì sao triều đình cấm? Hôm nay có tình huống nào tương tự?'],
+      ['Lập luận', '«Thuế cảng 25% có phải là quyết định tốt cho Vân Đồn không, xét cả ngắn hạn và dài hạn?» Nêu nhận định của em.'],
+      ['Bằng chứng cho lập luận', 'Đưa ít nhất hai bằng chứng: một từ trò chơi, một từ sử liệu hoặc bài học.'],
+      ['Phản biện', 'Một ý kiến ngược lại là gì, và em trả lời thế nào?'],
+    ],
+  },
+  'bac-hai-dao': {
+    ten: 'Bắc Hải Đảo (bản 2D và 3D)', choi: 'bac-hai-dao/index.html',
+    intro: 'Truyện hư cấu trên bối cảnh có thật: vịnh Bắc Bộ năm 1780, thuyền buồm cánh dơi, các thương cảng và sản vật vùng biển Đông Bắc.',
+    q: [
+      ['Bằng chứng', 'Ghi ba chi tiết em nghĩ là có thật và ba chi tiết hư cấu. Em dựa vào đâu?'],
+      ['Đối chiếu niên đại', 'Trò chơi có gốm Chu Đậu ở năm 1780. Em tra được lò Chu Đậu thịnh nhất vào thời nào? Chi tiết này có hợp lý không?'],
+      ['Nguyên nhân và hệ quả', 'Vì sao căng buồm to trong bão lại vỡ thuyền? Người đi biển xưa học điều đó bằng cách nào?'],
+      ['Góc nhìn lịch sử', 'Trò chơi thay galleon, rượu rum bằng ghe mành, nước mắm. Điều đó thay đổi cách em nhìn vùng biển này thế nào?'],
+      ['Lập luận', '«Một trò chơi hư cấu giúp học lịch sử tốt hơn hay dễ gây hiểu sai hơn?» Nêu nhận định và hai ví dụ từ Bắc Hải Đảo.'],
+    ],
+  },
+  'cho-noi': {
+    ten: 'Chợ Nổi', choi: 'cho-noi/index.html',
+    intro: 'Thế kỷ 19, lưu dân theo kênh rạch khẩn hoang đồng bằng sông Cửu Long; ghe xuồng tụ giữa sông thành chợ nổi.',
+    q: [
+      ['Bối cảnh', 'Khi đường bộ chưa mở, kênh rạch đóng vai trò gì trong đời sống và buôn bán?'],
+      ['Khái niệm', 'Giải thích bằng lời của em: khẩn hoang, ghe bầu, xuồng ba lá, cây bẹo.'],
+      ['Liên tục và thay đổi', 'Cây bẹo «treo hàng gì, bán hàng nấy» còn thấy ở chợ nổi hôm nay không? Điều gì đã đổi khác?'],
+      ['Lập luận', '«Chợ nổi nên được giữ như một di sản sống hay để tự thay đổi theo thời?» Nêu nhận định và bằng chứng.'],
+    ],
+  },
+};
+const qs = new URLSearchParams(location.search);
+const id = GAMES[qs.get('game')] ? qs.get('game') : 'van-don';
+const G = GAMES[id], KEY = 'thd-phantu-' + id;
+const $ = s => document.getElementById(s);
+
+$('tabs').innerHTML = Object.entries(GAMES).map(([k, g]) =>
+  `<li><a href="?game=${k}"${k === id ? ' aria-current="page"' : ''}>${g.ten}</a></li>`).join('');
+$('h-game').textContent = G.ten;
+$('intro').innerHTML = `${G.intro} <a href="${G.choi}">Chơi lại</a>.`;
+$('cauHoi').innerHTML = G.q.map(([k, t], i) =>
+  `<label><span class="kind">${i + 1}. ${k}</span>${t}<textarea id="c${i}" name="c${i}" maxlength="3000"></textarea></label>`).join('');
+
+let data = {};
+try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
+const fields = ['ten', 'lop', ...G.q.map((_, i) => 'c' + i)];
+for (const f of fields) if (typeof data[f] === 'string') $(f).value = data[f];
+// tên, lớp dùng chung cho mọi phiếu
+try { const nguoi = JSON.parse(localStorage.getItem('thd-phantu-nguoi') || '{}');
+  if (!$('ten').value && nguoi.ten) $('ten').value = nguoi.ten; if (!$('lop').value && nguoi.lop) $('lop').value = nguoi.lop; } catch (e) {}
+
+let t = 0;
+function luu(){
+  const d = {}; for (const f of fields) d[f] = $(f).value; d.luc = new Date().toISOString();
+  try {
+    localStorage.setItem(KEY, JSON.stringify(d));
+    localStorage.setItem('thd-phantu-nguoi', JSON.stringify({ ten: d.ten, lop: d.lop }));
+    $('daLuu').textContent = 'Đã lưu trên máy này lúc ' + new Date().toLocaleTimeString('vi-VN') + '.';
+  } catch (e) { $('daLuu').textContent = 'Trình duyệt không cho lưu; hãy tải bài làm về.'; }
+}
+$('phieu').addEventListener('submit', e => { e.preventDefault(); luu(); });
+$('phieu').addEventListener('input', () => { clearTimeout(t); t = setTimeout(luu, 500); });
+
+$('btnTai').addEventListener('click', () => {
+  luu();
+  const L = [`PHIẾU PHẢN TƯ: ${G.ten}`, `Họ tên: ${$('ten').value}`, `Lớp: ${$('lop').value}`,
+    `Ngày: ${new Date().toLocaleDateString('vi-VN')}`, ''];
+  G.q.forEach(([k, q], i) => { L.push(`${i + 1}. [${k}] ${q}`, ($(`c${i}`).value || '(chưa trả lời)'), ''); });
+  L.push('Cổng Trò Chơi Sử Việt · https://games.jemappellehuong.com/');
+  const blob = new Blob([L.join('\r\n')], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  const ten = ($('ten').value || 'hoc-sinh').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D')
+    .replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+  a.download = `phan-tu-${id}-${ten || 'hoc-sinh'}.txt`; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+});
+$('btnIn').addEventListener('click', () => { luu(); print(); });
+$('btnXoa').addEventListener('click', () => {
+  if (!confirm('Xóa bài làm của trò chơi này trên máy này?')) return;
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  for (const f of fields) if (f !== 'ten' && f !== 'lop') $(f).value = '';
+  $('daLuu').textContent = 'Đã xóa bài làm trên máy này.';
+});
+
+if ('serviceWorker' in navigator) addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+</script>
+</body>
+</html>

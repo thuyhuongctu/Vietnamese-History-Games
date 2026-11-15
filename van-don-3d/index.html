@@ -95,7 +95,7 @@
   .card details{text-align:left;font-size:14px;margin:10px 0}
   .song{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0 0}
   .songName{font-size:13px;color:var(--celadon);flex-basis:100%}
-  .song a.btn{text-decoration:none;display:inline-flex;align-items:center}
+  .song a.btn,a.btn.lnk{text-decoration:none;display:inline-flex;align-items:center}
   .lyrics{max-height:40vh;overflow:auto;padding-right:6px}
   .lyrics p{margin:0 0 10px;line-height:1.55}
   .lyrics .tag{margin:12px 0 4px;color:var(--celadon);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
@@ -259,6 +259,7 @@
       <button class="btn pri" id="btnAgain" type="button">Chơi lại</button>
       <button class="btn btnSong" type="button" data-bai="game" aria-pressed="false">🎵 Nghe bài hát</button>
       <button class="btn btnSong" type="button" data-bai="chung" aria-pressed="false">🎵 Nghe bài hát</button>
+      <a class="btn lnk" href="../phan-tu.html?game=van-don">📝 Phản tư sau khi chơi</a>
       <a class="btn" href="../index.html" style="text-decoration:none;display:inline-flex;align-items:center">Về cổng trò chơi</a>
     </div>
   </div>
