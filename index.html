@@ -112,16 +112,15 @@
   .card.soon .thumb svg{width:40px;height:40px;color:var(--muted)}
 
   /* ===== Bài hát ===== */
-  .moods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px;list-style:none}
-  .moods li{margin:0}
-  .moods a{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--nga-2)}
-  .moods img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;background:var(--img-bg);transition:transform .4s}
-  .moods li.wide{grid-column:span 2}
-  .moods li.wide img{aspect-ratio:3/2}
-  .moods a:hover img{transform:scale(1.02)}
-  .moods span{font-size:13px;line-height:1.45}
-  .moods b{display:block;color:var(--nga);font-size:14px}
-  @media (max-width:720px){.moods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  /* Dải ảnh bài hát: một hàng ảnh nhỏ, vuốt ngang trên điện thoại */
+  .moods{display:flex;gap:12px;margin-top:24px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .moods li{flex:1 0 132px;max-width:200px;margin:0;scroll-snap-align:start}
+  .moods a{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--nga-2)}
+  .moods img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;background:var(--img-bg);transition:transform .4s}
+  .moods a:hover img{transform:scale(1.03)}
+  .moods span{font-size:12px;line-height:1.4}
+  .moods b{display:block;color:var(--nga);font-size:12.5px;font-weight:700}
   .songs{list-style:none;margin-top:36px;border-top:1px solid var(--line)}
   .song{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--line)}
   .song img{width:88px;height:88px;object-fit:cover;border-radius:14px;flex:0 0 auto;background:var(--img-bg)}
@@ -248,7 +247,7 @@
 
     <div class="grid">
       <article class="card" id="era1149">
-        <div class="thumb"><img src="assets/portal/van-don.webp" width="800" height="500" loading="lazy" alt="Vân Đồn: the port seen from above" data-vi-alt="Màn chơi Vân Đồn: bến cảng nhìn từ trên cao"></div>
+        <div class="thumb"><img src="assets/portal/bia-van-don.webp" width="1376" height="768" loading="lazy" alt="Vân Đồn: the trading port with kilns, silk racks and merchant junks among limestone islands" data-vi-alt="Vân Đồn: thương cảng với lò gốm, giàn phơi lụa và thuyền buôn giữa các đảo đá vôi"></div>
         <span class="era"><b>1149</b> · <span lang="en">Lý dynasty</span><span lang="vi">Triều Lý</span></span>
         <h3>Vân Đồn<span lang="en">The First Trading Port</span><span lang="vi">Đệ Nhất Thương Cảng</span></h3>
         <p lang="en">Raise Đại Việt’s first international port from a sandy shore. Welcome ships from Song China, Srivijaya, Java and Siam; open kilns, silk workshops and pearl-diving stations.</p>
@@ -271,7 +270,7 @@
         </div>
       </article>
       <article class="card" id="era1780">
-        <div class="thumb"><img src="assets/portal/bac-hai-dao.webp" width="800" height="500" loading="lazy" alt="Bắc Hải Đảo: a sailing junk on the gulf" data-vi-alt="Bắc Hải Đảo: thuyền buồm giữa vịnh"></div>
+        <div class="thumb"><img src="assets/portal/bia-bac-hai-dao.webp" width="1376" height="768" loading="lazy" alt="Bắc Hải Đảo: a red-sailed junk crossing the gulf between limestone islands" data-vi-alt="Bắc Hải Đảo: thuyền buồm nâu đỏ vượt vịnh giữa các đảo đá vôi"></div>
         <span class="era"><b>1780</b> · <span lang="en">Gulf of Tonkin</span><span lang="vi">Vịnh Bắc Bộ</span></span>
         <h3>Bắc Hải Đảo<span lang="en">Pirates of the Gulf of Tonkin</span><span lang="vi">Hải Tặc Vịnh Bắc Bộ</span></h3>
         <p lang="en">Sail a bat-wing junk between six old ports, trade fish sauce, silk and agarwood, sink Tàu Ô raiders and defeat the pirate lord Hắc Giao.</p>
@@ -320,7 +319,7 @@
         <h2 id="songTitle"><span lang="en">Four songs, sung in Vietnamese</span><span lang="vi">Bốn bài hát của cổng game</span></h2>
       </div>
     </div>
-    <ul class="moods">
+    <ul class="moods" tabindex="0">
       <li><a href="#bai-trong-toi"><img src="assets/nhac/anh-viet-thu-phap.webp" width="448" height="600" loading="lazy" alt="Writing with a brush on a long paper scroll at a low wooden desk" data-vi-alt="Viết bút lông trên cuộn giấy dài bên án thư gỗ"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Writing the words</span><span lang="vi">Người viết lời</span></span></a></li>
       <li><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-chuong-ban-do.webp" width="448" height="600" loading="lazy" alt="Beside an old bronze temple bell, reading an old map" data-vi-alt="Bên chuông đồng cổ của chùa, đọc tấm bản đồ xưa"><span><b>«Người trao ta chân trời»</b><span lang="en">An old bell, an old map</span><span lang="vi">Chuông xưa, bản đồ cũ</span></span></a></li>
       <li><a href="#bai-van-don"><img src="assets/nhac/anh-them-rong.webp" width="448" height="600" loading="lazy" alt="Standing by a stone dragon on the steps of an old temple at sunset" data-vi-alt="Đứng bên rồng đá trên thềm điện cổ lúc hoàng hôn"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Echoes from the dragon steps</span><span lang="vi">Tiếng vọng từ thềm rồng</span></span></a></li>
