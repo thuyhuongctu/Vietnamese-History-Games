@@ -99,3 +99,11 @@ html[data-mode="dark"] .pref .i-moon{display:none}
 /* ===== Tiêu đề hiện đại: đậm, khít chữ ===== */
 h1,h2,h3{letter-spacing:-.02em}
 h1{letter-spacing:-.035em}
+
+/* Dấu bản quyền trên ảnh (lớp phủ CSS, không sửa tệp ảnh gốc) */
+.cr{position:relative}
+.cr::after{content:"\00A9  ThuyHuong Digital";position:absolute;right:8px;bottom:8px;z-index:1;
+  font:600 10px/1 system-ui,sans-serif;letter-spacing:.02em;color:#fff;
+  background:rgba(0,0,0,.5);padding:4px 7px;border-radius:999px;pointer-events:none;white-space:nowrap}
+.moods .cr::after{right:6px;top:6px;bottom:auto;font-size:9px;padding:3px 6px}
+.credit{font-size:12px;color:var(--muted)}

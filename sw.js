@@ -1,7 +1,7 @@
 /* ThuyHuong Digital — service worker
    Cache-first cho toàn bộ cổng game: cài một lần, chơi ngoại tuyến. */
 'use strict';
-const VERSION = 'thd-v54';
+const VERSION = 'thd-v55';
 const SHELL = [
   './',
   './index.html',

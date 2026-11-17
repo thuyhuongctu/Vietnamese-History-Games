@@ -361,6 +361,11 @@ to the most recent release. Individual releases carry their own DOIs:
 **© 2026 Do Thuy Huong (Đỗ Thùy Hương). All rights reserved.** See
 [`LICENSE`](LICENSE) for the full bilingual terms.
 
+This covers every image, character design, cover, screenshot and song in the repository
+(including `assets/portal/`, `van-don-3d/assets/` and `bac-hai-dao/assets/`). The portal and
+intro pages mark pictures with a small «© ThuyHuong Digital» overlay drawn in CSS, and each
+game's start screen carries a copyright line; the original image files are left unmarked.
+
 The games are published to be played, taught with and cited, not to be reused as
 source material. Playing the games at the official address, non-commercial classroom
 use by teachers and institutions, reading the source for personal learning, academic
