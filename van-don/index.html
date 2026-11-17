@@ -117,6 +117,8 @@
 :focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
   .ov p.crNote,.overlay p.crNote{font-size:11px;opacity:.7;text-align:center;margin:10px 0 0}
+  .kbHint{margin:0;padding:0 10px 8px;font-size:11px;color:#c9b993;text-align:center}
+  @media (hover:none) and (pointer:coarse){ .kbHint{display:none} }
 </style>
 </head>
 <body>
@@ -239,6 +241,7 @@
 <div id="bottom">
   <div class="songly"></div>
   <div id="buildHint">Chọn công trình rồi chạm vào ô đất trống để dựng</div>
+  <p class="kbHint">Bàn phím: 1–9 chọn công trình · mũi tên hoặc W A S D chọn ô · Enter dựng · Esc bỏ chọn</p>
   <div id="chips"></div>
 </div>
 
@@ -752,11 +755,13 @@ function renderChips(){
     const locked=b.lv>game.level+1;
     const poor=game.gold<b.cost;
     return `<div class="chip ${selBuild===b.id?'sel':''} ${locked?'locked':''} ${poor?'poor':''}"
-      data-id="${b.id}">
+      data-id="${b.id}" role="button" tabindex="0" aria-pressed="${selBuild===b.id}"
+      aria-label="${b.name}, ${locked?'mở ở cấp '+b.lv:b.cost+' quan'}">
       <div class="ic">${b.ic}</div><div class="nm">${b.name}</div>
       <div class="cost">${locked?'🔒 cấp '+b.lv:b.cost+' quan'}</div></div>`;
   }).join('');
   for(const el of document.querySelectorAll('.chip')){
+    el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopPropagation(); el.click(); } };
     el.onclick=()=>{
       const b=BUILDS.find(x=>x.id===el.dataset.id);
       if(b.lv>game.level+1){ toast(`🔒 <b>${b.name}</b> mở ở cấp bến ${b.lv}. ${b.desc}.`); return; }
@@ -764,7 +769,9 @@ function renderChips(){
       $('buildHint').innerHTML = selBuild
         ? `${b.ic} <b>${b.name}</b> — ${b.desc}. ${b.shore?'Chạm ô <b>ven bờ</b> (hàng dưới cùng)':'Chạm ô <b>đất trống</b>'} để dựng.`
         : 'Chọn công trình rồi chạm vào ô đất trống để dựng';
+      const wasFocus=document.activeElement===el;
       renderChips();
+      if(wasFocus){ const n=document.querySelector('.chip[data-id="'+b.id+'"]'); if(n) n.focus(); }
     };
   }
 }
@@ -776,6 +783,10 @@ cv.addEventListener('pointerdown', e=>{
   const px=e.clientX-rect.left, py=e.clientY-rect.top;
   const c=Math.floor((px-L.ox)/L.tile), r=Math.floor((py-L.oy)/L.tile);
   if(c<0||c>=COLS||r<0||r>=ROWS) return;
+  kc.show=false;
+  actAt(r,c);
+});
+function actAt(r,c){
   const cur=game.grid[r][c];
   if(cur){ openUp(r,c); return; }
   if(!selBuild) return;
@@ -791,6 +802,54 @@ cv.addEventListener('pointerdown', e=>{
   fly(L.ox+(c+0.5)*L.tile, L.oy+(r+0.3)*L.tile, b.ic+' Đã dựng!', '#d9a441');
   if(b.id==='cau') toast('⚓ Cầu tàu mới dựng xong — thuyền buôn sẽ vào đông hơn!');
   renderChips(); saveGame();
+}
+
+// ---------- Điều khiển bằng bàn phím ----------
+// Mũi tên / W A S D: di chuyển ô chọn · Enter / Space: dựng hoặc mở công trình
+// 1–9: chọn công trình · Esc: bỏ chọn, đóng bảng · Trận 1288: Space / Enter bắn tên
+const kc={r:0,c:0,show:false};
+function ovOpen(){
+  for(const o of document.querySelectorAll('.ov')) if(getComputedStyle(o).display!=='none') return o;
+  return null;
+}
+document.addEventListener('keydown', e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  const tg=e.target, tag=(tg&&tg.tagName)||'';
+  if(/INPUT|TEXTAREA|SELECT/.test(tag)) return;
+  const k=e.key, onCtl = tag==='BUTTON'||tag==='A'||tag==='SUMMARY'||(tg.classList&&tg.classList.contains('chip'));
+  const ov=ovOpen();
+  if(k==='Escape'){
+    if(ov && ov.id!=='introOv'){ ov.style.display='none'; e.preventDefault(); return; }
+    if(selBuild){ selBuild=null; $('buildHint').innerHTML='Chọn công trình rồi chạm vào ô đất trống để dựng'; renderChips(); }
+    return;
+  }
+  if(ov) return;
+  if(M1288.active){
+    if((k===' '||k==='Enter') && !onCtl){
+      e.preventDefault();
+      // bắn vào thuyền giặc đi xa nhất (sắp thoát)
+      let best=null; for(const en of M1288.enemies) if(!best||en.x>best.x) best=en;
+      if(best) tap1288(best.x,best.y);
+    }
+    return;
+  }
+  if(!game.started) return;
+  const mv={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1],w:[-1,0],s:[1,0],a:[0,-1],d:[0,1],W:[-1,0],S:[1,0],A:[0,-1],D:[0,1]}[k];
+  if(mv && !(onCtl && k.length===1)){
+    e.preventDefault();
+    if(kc.show){ kc.r=clamp(kc.r+mv[0],0,ROWS-1); kc.c=clamp(kc.c+mv[1],0,COLS-1); }
+    kc.show=true; return;
+  }
+  if((k==='Enter'||k===' ') && !onCtl){
+    e.preventDefault();
+    if(!kc.show){ kc.show=true; return; }
+    actAt(kc.r,kc.c); return;
+  }
+  if(/^[1-9]$/.test(k)){
+    const b=BUILDS[+k-1]; if(!b) return;
+    const el=document.querySelector('.chip[data-id="'+b.id+'"]'); if(el) el.click();
+    kc.show=true;
+  }
 });
 
 // ---------- Nâng cấp công trình theo bậc ----------
@@ -912,6 +971,12 @@ function draw(dt){
         cx.textBaseline='alphabetic';
       }
     }
+  }
+  // --- ô chọn bằng bàn phím ---
+  if(kc.show && game.started){
+    const x=L.ox+kc.c*L.tile, y=L.oy+kc.r*L.tile;
+    cx.strokeStyle='#fff3c4'; cx.lineWidth=3;
+    cx.strokeRect(x+2,y+2,L.tile-4,L.tile-4); cx.lineWidth=1;
   }
   // --- thuyền ---
   for(const s of game.ships) drawShip(s,t);
