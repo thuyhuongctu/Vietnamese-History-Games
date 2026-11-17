@@ -126,26 +126,26 @@
 <div id="top">
   <div id="topIn">
     <div id="title">
-      <div class="eyebrow">ĐẠI VIỆT · NĂM 1149</div>
+      <div class="eyebrow" data-en="ĐẠI VIỆT · THE YEAR 1149">ĐẠI VIỆT · NĂM 1149</div>
       <h1 class="serif">VÂN ĐỒN</h1>
     </div>
     <div id="res">
-      <button id="btnMusic" title="Nhạc nền">🔊</button>
-      <button id="btnStats" title="Bảng thành tích">🏆</button>
-      <button id="btnSu" title="Sổ sử ký">📖</button>
+      <button id="btnMusic" title="Nhạc nền" data-en-title="Background music">🔊</button>
+      <button id="btnStats" title="Bảng thành tích" data-en-title="Achievements">🏆</button>
+      <button id="btnSu" title="Sổ sử ký" data-en-title="History notebook">📖</button>
       <span id="lvlSeal">Trang nhỏ</span>
-      <span>💰 <b id="rGold">0</b><i class="lbl"> quan</i></span>
-      <span>🏮 <b id="rRep">0</b><i class="lbl"> danh vọng</i></span>
+      <span>💰 <b id="rGold">0</b><i class="lbl" data-en=" strings of cash"> quan</i></span>
+      <span>🏮 <b id="rRep">0</b><i class="lbl" data-en=" prestige"> danh vọng</i></span>
     </div>
   </div>
   <div id="goodsRow"></div>
   <div class="songly"></div>
 </div>
 
-<canvas id="game" role="img" aria-label="Bến Vân Đồn nhìn từ trên cao: các công trình, cầu tàu và thương thuyền"></canvas>
+<canvas id="game" role="img" aria-label="Bến Vân Đồn nhìn từ trên cao: các công trình, cầu tàu và thương thuyền" data-en-aria-label="The port of Vân Đồn from above: buildings, piers and merchant ships"></canvas>
 <div id="tribBar">
   <span id="tribTxt"></span>
-  <button id="btnTrib">🐉 Dâng tiến</button>
+  <button id="btnTrib" data-en="🐉 Send tribute">🐉 Dâng tiến</button>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -154,13 +154,13 @@
   <div class="pn" style="max-width:400px">
     <div class="songly"></div>
     <div class="pnIn">
-      <div class="eyebrow">CÔNG TRÌNH</div>
+      <div class="eyebrow" data-en="BUILDING">CÔNG TRÌNH</div>
       <h2 class="serif" id="upName"></h2>
       <p id="upDesc" style="color:#c9baa0"></p>
       <p id="upNow"></p>
       <p style="text-align:center;margin-top:14px">
         <button id="btnUp"></button>
-        <button id="btnUpClose" class="ghost">Đóng</button></p>
+        <button id="btnUpClose" class="ghost" data-en="Close">Đóng</button></p>
     </div>
     <div class="songly"></div>
   </div>
@@ -171,13 +171,13 @@
   <div class="pn" style="max-width:430px">
     <div class="songly"></div>
     <div class="pnIn">
-      <div class="eyebrow">BẢNG THÀNH TÍCH</div>
-      <h2 class="serif">Công trạng quan trấn thủ</h2>
+      <div class="eyebrow" data-en="ACHIEVEMENTS">BẢNG THÀNH TÍCH</div>
+      <h2 class="serif" data-en="The governor&#39;s record">Công trạng quan trấn thủ</h2>
       <div id="statsBody"></div>
       <p style="text-align:center;margin-top:14px">
-        <button id="btnStatsClose">Đóng</button></p>
-      <p id="lkBizon" style="text-align:center;margin:10px 0 0;font-size:13px"><span style="display:block;opacity:.75">Game Vân Đồn có liên quan đến</span>
-        <a href="https://bizonland.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;color:var(--dong)">BizOn (bizonland.com): học kinh doanh quốc tế qua trò chơi ↗</a></p>
+        <button id="btnStatsClose" data-en="Close">Đóng</button></p>
+      <p id="lkBizon" style="text-align:center;margin:10px 0 0;font-size:13px"><span style="display:block;opacity:.75" data-en="Vân Đồn is linked to">Game Vân Đồn có liên quan đến</span>
+        <a href="https://bizonland.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;color:var(--dong)" data-en="BizOn (bizonland.com): learn international business through games ↗">BizOn (bizonland.com): học kinh doanh quốc tế qua trò chơi ↗</a></p>
     </div>
     <div class="songly"></div>
   </div>
@@ -188,8 +188,9 @@
   <div class="pn">
     <div class="songly"></div>
     <div class="pnIn">
-      <div class="eyebrow">SỔ SỬ KÝ</div>
-      <h2 class="serif">Vân Đồn trong chính sử</h2>
+      <div class="eyebrow" data-en="HISTORY NOTEBOOK">SỔ SỬ KÝ</div>
+      <h2 class="serif" data-en="Vân Đồn in the official chronicles">Vân Đồn trong chính sử</h2>
+      <div id="suBody">
       <div class="suItem"><h3>📜 Lập trang Vân Đồn, năm 1149</h3>
         <p><i>Đại Việt sử ký toàn thư</i> chép: năm Kỷ Tỵ (1149), mùa xuân, tháng 2,
         thuyền buôn ba nước Trảo Oa (Java), Lộ Lạc, Xiêm La vào Hải Đông xin cư trú
@@ -229,19 +230,55 @@
         <b>Trầm hương</b> không phải sản vật của vùng đảo Vân Đồn: trạm trầm trong
         game là nơi gom hàng trung chuyển. Ngọc trai thời ấy là ngọc mò ngoài biển,
         chưa có nghề nuôi cấy.</p></div>
+      </div>
+      <template id="suBodyEn">
+      <div class="suItem"><h3>📜 The founding of Vân Đồn, 1149</h3>
+        <p>The <i>Complete Annals of Đại Việt</i> record that in the spring of 1149, in the second month,
+        merchant ships from three countries, Java (Trảo Oa), Lộ Lạc and Siam (Xiêm La), came to Hải Đông asking to settle and trade.
+        The court then set up a trading post on the islands, called <b>Vân Đồn</b>, to buy and sell
+        precious goods and to present local products as tribute. King Lý Anh Tông was then only about 13.
+        Vân Đồn is usually considered Đại Việt&#39;s first international trading port; the <i>Annals</i> also
+        record that earlier, under the Lý, merchant ships had come in through the Tha and Viên estuaries in Diễn province.</p></div>
+      <div class="suItem"><h3>⛵ A harbour for every direction</h3>
+        <p>The <i>Annals</i> go on: in 1184 merchants from Siam and Srivijaya (Tam Phật Tề) came to Vân Đồn
+        to present treasures and ask to trade; in 1348 ships from Java (Đồ Bồ) came secretly to buy pearls;
+        in 1360 ships from Lộ Hạc, Trà Nha and Siam came to trade. Northern merchants (Song, then Yuan and Ming)
+        came and went regularly. Excavations at Cống Đông, Cống Tây and Cái Làng (Quan Lạn) have found great
+        amounts of pottery from many periods, including Lý-era celadon; at Cái Làng most finds date from the 16th to 18th centuries.</p></div>
+      <div class="suItem"><h3>🏺 Đại Việt ceramics through Vân Đồn</h3>
+        <p>Vân Đồn both passed on Chinese ceramics and carried Đại Việt wares out to sea: brown-glazed pieces of
+        the Trần, then blue-and-white of the early Lê. The <b>Chu Đậu</b> blue-and-white ware (in today&#39;s Hải Dương)
+        appeared at the end of the 14th century and flourished in the 15th–16th, more than two hundred years after
+        the post was founded; a Chu Đậu vase is kept today at the Topkapı Palace Museum in Turkey.</p></div>
+      <div class="suItem"><h3>🗼 Guarding the sea gate</h3>
+        <p>Vân Đồn was also a defensive outpost: in 1288 Trần Khánh Dư ambushed Zhang Wenhu&#39;s (Trương Văn Hổ)
+        grain fleet in the waters of Vân Đồn – Cửa Lục, helping to bring about the great victory of Bạch Đằng.
+        In 1349 the Trần court appointed a garrison commander, road officials, a coastal inspector and the
+        Bình Hải troops to the <b>garrison of Vân Đồn</b>.</p></div>
+      <div class="suItem"><h3>📌 Where the game simplifies</h3>
+        <p>One game folds several centuries into a single port: from the Lý trading post (1149) to the Trần
+        garrison (1349) and the heyday of early Lê blue-and-white. Prices, port taxes and prestige are game
+        numbers, not historical data.</p>
+        <p>In 1149 Vân Đồn was only a <b>trading post</b>; the post of garrison commander was created in 1349,
+        so calling the player a «governor» at the start is a simplification. The name <b>Siam</b> follows the
+        <i>Annals</i>; many scholars think it does not fit the year 1149, since the Thai kingdom of Sukhothai was
+        only founded in 1238. <b>Lộ Lạc</b> has not been identified (possibly La Hộc, the Lopburi area).
+        <b>Agarwood</b> was not a product of the Vân Đồn islands: the agarwood station in the game is a
+        collection point for goods in transit. Pearls then were gathered by divers from the sea; pearl farming did not yet exist.</p></div>
+      </template>
       <p style="text-align:center;margin-top:14px">
-        <button id="btn1288b" class="ghost">⚔️ Vào trận 1288</button>
-        <button id="btnSuClose">Gấp sổ lại</button></p>
+        <button id="btn1288b" class="ghost" data-en="⚔️ Fight the 1288 battle">⚔️ Vào trận 1288</button>
+        <button id="btnSuClose" data-en="Close the notebook">Gấp sổ lại</button></p>
     </div>
-    <div class="songly"><p class="suItem"><a class="lnkPt" href="../phan-tu.html?game=van-don">📝 Phản tư sau khi chơi</a>: câu hỏi theo các khung tư duy lịch sử, lưu trên máy, tải về nộp thầy cô.</p>
+    <div class="songly"><p class="suItem" data-en="&lt;a class=&quot;lnkPt&quot; href=&quot;../phan-tu.html?game=van-don&quot;&gt;📝 Reflect after playing&lt;/a&gt;: questions based on historical thinking frameworks, saved on your device, downloadable for your teacher."><a class="lnkPt" href="../phan-tu.html?game=van-don">📝 Phản tư sau khi chơi</a>: câu hỏi theo các khung tư duy lịch sử, lưu trên máy, tải về nộp thầy cô.</p>
       </div>
   </div>
 </div>
 
 <div id="bottom">
   <div class="songly"></div>
-  <div id="buildHint">Chọn công trình rồi chạm vào ô đất trống để dựng</div>
-  <p class="kbHint">Bàn phím: 1–9 chọn công trình · mũi tên hoặc W A S D chọn ô · Enter dựng · Esc bỏ chọn</p>
+  <div id="buildHint" data-en="Pick a building, then tap an empty plot to build it">Chọn công trình rồi chạm vào ô đất trống để dựng</div>
+  <p class="kbHint" data-en="Keyboard: 1–9 pick a building · arrows or W A S D move · Enter build · Esc cancel">Bàn phím: 1–9 chọn công trình · mũi tên hoặc W A S D chọn ô · Enter dựng · Esc bỏ chọn</p>
   <div id="chips"></div>
 </div>
 
@@ -250,9 +287,10 @@
   <div class="pn">
     <div class="songly"></div>
     <div class="pnIn">
-      <div class="eyebrow">ĐỜI VUA LÝ ANH TÔNG · NĂM KỶ TỴ</div>
-      <h1 class="serif">DỰNG TRANG VÂN ĐỒN</h1>
+      <div class="eyebrow" data-en="REIGN OF KING LÝ ANH TÔNG · 1149">ĐỜI VUA LÝ ANH TÔNG · NĂM KỶ TỴ</div>
+      <h1 class="serif" data-en="FOUND THE PORT OF VÂN ĐỒN">DỰNG TRANG VÂN ĐỒN</h1>
       <div id="introArt">🏮⛵🏺</div>
+      <div id="introTxt">
       <p>Mùa xuân năm Kỷ Tỵ 1149, thuyền buôn ba nước <b>Trảo Oa, Lộ Lạc, Xiêm La</b>
       vào Hải Đông xin cư trú buôn bán. Sử chép: triều đình <i>«bèn cho lập trang ở
       nơi hải đảo, gọi là <b>Vân Đồn</b>, để mua bán hàng hóa quý, dâng tiến sản vật
@@ -261,14 +299,25 @@
       hãy dựng <b>cầu tàu</b> đón thương thuyền bốn phương, mở <b>lò gốm</b>,
       <b>xưởng lụa</b>, <b>bến mò ngọc trai</b> — thu thuế cho quốc khố, tích danh vọng
       để Vân Đồn xưng danh <b class="son">Đệ Nhất Thương Cảng Đại Việt</b>.</p>
+      </div>
+      <template id="introTxtEn">
+      <p>In the spring of 1149, merchant ships from three countries, <b>Java, Lộ Lạc and Siam</b>,
+      came to Hải Đông asking to settle and trade. The chronicle records that the court <i>«set up a trading
+      post on the islands, called <b>Vân Đồn</b>, to buy and sell precious goods and present local products as tribute»</i>.</p>
+      <p>You are the official the court has entrusted with this task. Starting from a sandy beach on the bay,
+      build <b>piers</b> to welcome ships from every direction, open <b>kilns</b>, <b>silk workshops</b> and
+      <b>pearl-diving landings</b>; collect taxes for the treasury and earn prestige until Vân Đồn is hailed as
+      <b class="son">the First Trading Port of Đại Việt</b>.</p>
+      </template>
       <p style="text-align:center;margin-top:14px">
-        <button id="btnStart">🏗️ Nhận mệnh, dựng bến</button>
-        <button id="btnCont" class="ghost" style="display:none">Chơi tiếp ván cũ</button></p>
+        <button id="btnStart" data-en="🏗️ Accept the charge and build">🏗️ Nhận mệnh, dựng bến</button>
+        <button id="btnCont" class="ghost" style="display:none" data-en="Continue saved game">Chơi tiếp ván cũ</button></p>
       <p style="text-align:center;margin-top:4px">
-        <button id="btn1288" class="ghost">⚔️ Thử thách 1288 — Trận Vân Đồn</button></p>
+        <button id="btn1288" class="ghost" data-en="⚔️ 1288 challenge: the Battle of Vân Đồn">⚔️ Thử thách 1288 — Trận Vân Đồn</button>
+        <button id="btnLang" type="button" class="ghost" lang="en">English</button></p>
     </div>
     <div class="songly"></div>
-    <p class="crNote">Hình ảnh, nhân vật và âm nhạc © 2026 Đỗ Thùy Hương · ThuyHuong Digital. Bảo lưu mọi quyền; không sao chép, sử dụng lại khi chưa được phép.</p>
+    <p class="crNote" data-en="Images, characters and music © 2026 Đỗ Thùy Hương · ThuyHuong Digital. All rights reserved; do not copy or reuse without permission.">Hình ảnh, nhân vật và âm nhạc © 2026 Đỗ Thùy Hương · ThuyHuong Digital. Bảo lưu mọi quyền; không sao chép, sử dụng lại khi chưa được phép.</p>
   </div>
 </div>
 
@@ -281,7 +330,7 @@
       <div style="font-size:46px;margin:4px 0">🐉</div>
       <h2 class="serif" id="lvlTitle"></h2>
       <p id="lvlText" style="text-align:left"></p>
-      <p><button id="btnLvl">Tiếp tục kiến thiết</button></p>
+      <p><button id="btnLvl" data-en="Keep building">Tiếp tục kiến thiết</button></p>
     </div>
     <div class="songly"></div>
   </div>
@@ -294,6 +343,34 @@
 // =====================================================================
 const TAU = Math.PI*2;
 const SAVE_KEY = 'van-don-save-v1';
+
+// ---------- Ngôn ngữ: theo lựa chọn ở cổng (thd-lang) hoặc ?lang=en ----------
+const EN = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'vi') return q === 'en';
+  try { return localStorage.getItem('thd-lang') === 'en'; } catch (e) { return false; }
+})();
+const T = (vi, en) => (EN ? en : vi);
+const NUM = n => n.toLocaleString(EN ? 'en-US' : 'vi-VN');
+(function applyLang(){
+  const d = document;
+  d.documentElement.lang = EN ? 'en' : 'vi';
+  const nut = d.getElementById('btnLang');
+  nut.textContent = EN ? 'Tiếng Việt' : 'English';
+  nut.setAttribute('lang', EN ? 'vi' : 'en');
+  nut.addEventListener('click', () => {
+    try { localStorage.setItem('thd-lang', EN ? 'vi' : 'en'); } catch (e) {}
+    const u = new URL(location.href); u.searchParams.delete('lang'); location.href = u.href;
+  });
+  if (!EN) return;
+  d.title = 'Vân Đồn: the First Trading Port';
+  for (const el of d.querySelectorAll('[data-en]')) el.innerHTML = el.dataset.en;
+  for (const el of d.querySelectorAll('[data-en-title]')) el.title = el.dataset.enTitle;
+  for (const el of d.querySelectorAll('[data-en-aria-label]')) el.setAttribute('aria-label', el.dataset.enAriaLabel);
+  for (const id of ['suBody', 'introTxt']) {
+    d.getElementById(id).innerHTML = d.getElementById(id + 'En').innerHTML;
+  }
+})();
 const $ = id => document.getElementById(id);
 const rand = (a,b) => a + Math.random()*(b-a);
 const pick = a => a[Math.floor(Math.random()*a.length)];
@@ -403,58 +480,58 @@ $('btnMusic').onclick = () => {
   music.on = !music.on;
   store.set('van-don-music', music.on?'on':'off');
   musicStart();
-  toast(music.on ? '🔊 Nhạc nền: bật' : '🔇 Nhạc nền: tắt', 1400);
+  toast(music.on ? T('🔊 Nhạc nền: bật','🔊 Music: on') : T('🔇 Nhạc nền: tắt','🔇 Music: off'), 1400);
 };
 musicBtnUI();
 
 // ---------- Hàng hóa ----------
 const GOODS = [
-  { id:'gom',  ic:'🏺', name:'Gốm Đại Việt', price:26, lv:1 },
-  { id:'lua',  ic:'🧵', name:'Lụa tơ tằm',  price:48, lv:2 },
-  { id:'ngoc', ic:'🦪', name:'Ngọc trai',   price:95, lv:3 },
-  { id:'tram', ic:'🌿', name:'Trầm hương',  price:150, lv:3 },
+  { id:'gom',  ic:'🏺', name:T('Gốm Đại Việt','Đại Việt ceramics'), price:26, lv:1 },
+  { id:'lua',  ic:'🧵', name:T('Lụa tơ tằm','Silk'),  price:48, lv:2 },
+  { id:'ngoc', ic:'🦪', name:T('Ngọc trai','Pearls'),   price:95, lv:3 },
+  { id:'tram', ic:'🌿', name:T('Trầm hương','Agarwood'),  price:150, lv:3 },
 ];
 
 // ---------- Thương thuyền bốn phương ----------
 const NATIONS = [
-  { id:'tong', name:'Tống',    flag:'#c94b3c', sail:'#e8d9b0', prefs:['gom','lua'],  mult:1.0 },
+  { id:'tong', name:T('Tống','Song'),    flag:'#c94b3c', sail:'#e8d9b0', prefs:['gom','lua'],  mult:1.0 },
   // mã 'nhat' giữ nguyên để bản lưu cũ vẫn dùng được; tên hiển thị theo Toàn thư (1184)
-  { id:'nhat', name:'Tam Phật Tề',flag:'#7a2a22', sail:'#c7772e', prefs:['gom','tram'], mult:1.15 },
-  { id:'trao', name:'Trảo Oa', flag:'#3f7a4f', sail:'#d9a441', prefs:['lua','ngoc'], mult:1.1 },
-  { id:'xiem', name:'Xiêm La', flag:'#d9a441', sail:'#9ec5ab', prefs:['gom','ngoc'], mult:1.05 },
+  { id:'nhat', name:T('Tam Phật Tề','Srivijaya'),flag:'#7a2a22', sail:'#c7772e', prefs:['gom','tram'], mult:1.15 },
+  { id:'trao', name:T('Trảo Oa','Java'), flag:'#3f7a4f', sail:'#d9a441', prefs:['lua','ngoc'], mult:1.1 },
+  { id:'xiem', name:T('Xiêm La','Siam'), flag:'#d9a441', sail:'#9ec5ab', prefs:['gom','ngoc'], mult:1.05 },
 ];
 
 // ---------- Cấp bến ----------
 const LEVELS = [
-  { rep:0,   name:'Trang nhỏ',        title:'TRANG NHỎ VEN VỊNH' },
-  { rep:40,  name:'Trang Vân Đồn',    title:'TRANG VÂN ĐỒN',
-    text:'Sứ thần đọc chiếu: bến cát nay chính thức mang tên <b>Trang Vân Đồn</b>. Triều đình ban thưởng <b>250 quan</b>. Từ nay khanh được mở <b>Xưởng dệt lụa</b>, <b>Đền thần biển</b> và <b>Chợ phiên</b>.', reward:250 },
-  { rep:120, name:'Trấn Vân Đồn',     title:'TRẤN VÂN ĐỒN',
-    text:'Danh tiếng bến cảng vang tới kinh sư. Vua thăng Vân Đồn làm <b>Trấn</b>, ban thưởng <b>600 quan</b>. Khanh được mở <b>Bến mò ngọc trai</b>, <b>Trạm trầm hương</b> và <b>Vọng lâu thủy binh</b>.', reward:600 },
-  { rep:300, name:'Đệ Nhất Thương Cảng', title:'ĐỆ NHẤT THƯƠNG CẢNG ĐẠI VIỆT',
-    text:'Rồng thiêng hiện trên mây. Thuyền buôn mười phương nối đuôi vào vịnh — <b>Vân Đồn</b> nay là thương cảng phồn thịnh bậc nhất Đại Việt, tên tuổi khanh lưu vào quốc sử. Triều đình ban thưởng <b>1500 quan</b>. Bến cảng vẫn trong tay khanh — hãy tiếp tục cho thời huy hoàng kéo dài mãi!', reward:1500 },
+  { rep:0,   name:T('Trang nhỏ','Small post'),        title:T('TRANG NHỎ VEN VỊNH','A SMALL POST ON THE BAY') },
+  { rep:40,  name:T('Trang Vân Đồn','Vân Đồn Post'),    title:T('TRANG VÂN ĐỒN','THE VÂN ĐỒN TRADING POST'),
+    text:T('Sứ thần đọc chiếu: bến cát nay chính thức mang tên <b>Trang Vân Đồn</b>. Triều đình ban thưởng <b>250 quan</b>. Từ nay khanh được mở <b>Xưởng dệt lụa</b>, <b>Đền thần biển</b> và <b>Chợ phiên</b>.','The envoy reads the edict: the sandy landing is now officially the <b>Vân Đồn Trading Post</b>. The court grants you <b>250 strings of cash</b>. You may now open the <b>Silk workshop</b>, the <b>Sea-god temple</b> and the <b>Market</b>.'), reward:250 },
+  { rep:120, name:T('Trấn Vân Đồn','Vân Đồn Garrison'),     title:T('TRẤN VÂN ĐỒN','THE GARRISON OF VÂN ĐỒN'),
+    text:T('Danh tiếng bến cảng vang tới kinh sư. Vua thăng Vân Đồn làm <b>Trấn</b>, ban thưởng <b>600 quan</b>. Khanh được mở <b>Bến mò ngọc trai</b>, <b>Trạm trầm hương</b> và <b>Vọng lâu thủy binh</b>.','The port&#39;s fame reaches the capital. The king raises Vân Đồn to a <b>garrison</b> and grants <b>600 strings of cash</b>. You may now open the <b>Pearl-diving landing</b>, the <b>Agarwood station</b> and the <b>Naval watchtower</b>.'), reward:600 },
+  { rep:300, name:T('Đệ Nhất Thương Cảng','First Trading Port'), title:T('ĐỆ NHẤT THƯƠNG CẢNG ĐẠI VIỆT','THE FIRST TRADING PORT OF ĐẠI VIỆT'),
+    text:T('Rồng thiêng hiện trên mây. Thuyền buôn mười phương nối đuôi vào vịnh — <b>Vân Đồn</b> nay là thương cảng phồn thịnh bậc nhất Đại Việt, tên tuổi khanh lưu vào quốc sử. Triều đình ban thưởng <b>1500 quan</b>. Bến cảng vẫn trong tay khanh — hãy tiếp tục cho thời huy hoàng kéo dài mãi!','A sacred dragon appears in the clouds. Ships from every land queue into the bay: <b>Vân Đồn</b> is now the most prosperous port in Đại Việt, and your name enters the national history. The court grants <b>1500 strings of cash</b>. The port is still yours: keep its golden age going!'), reward:1500 },
 ];
 
 // ---------- Công trình ----------
 const BUILDS = [
-  { id:'cau',  ic:'⚓', name:'Cầu tàu',        cost:120, lv:1, shore:true,
-    desc:'Thêm một chỗ cho thuyền cập bến' },
-  { id:'logom',ic:'🏺', name:'Lò gốm', cost:150, lv:1, make:'gom',  rate:6,
-    desc:'Nung 1 gốm mỗi 6 nhịp' },
-  { id:'kho',  ic:'🏛️', name:'Kho hàng',       cost:100, lv:1, cap:30,
-    desc:'+30 sức chứa hàng hóa' },
-  { id:'cho',  ic:'🏮', name:'Chợ phiên',      cost:200, lv:2, sell:0.1,
-    desc:'Giá bán +10% (cộng dồn)' },
-  { id:'lua',  ic:'🧵', name:'Xưởng dệt lụa',  cost:260, lv:2, make:'lua',  rate:9,
-    desc:'Dệt 1 lụa mỗi 9 nhịp' },
-  { id:'den',  ic:'⛩️', name:'Đền thần biển',  cost:300, lv:2, bless:2,
-    desc:'+2 danh vọng mỗi thuyền rời bến' },
-  { id:'ngoc', ic:'🦪', name:'Bến mò ngọc trai',   cost:420, lv:3, shore:true, make:'ngoc', rate:13,
-    desc:'Mò 1 ngọc mỗi 13 nhịp (đặt ven bờ)' },
-  { id:'tram', ic:'🌿', name:'Trạm trầm hương',cost:500, lv:3, make:'tram', rate:17,
-    desc:'Gom 1 trầm mỗi 17 nhịp' },
-  { id:'vong', ic:'🗼', name:'Vọng lâu thủy binh', cost:380, lv:3, guard:true,
-    desc:'Đẩy lui giặc biển, +8 danh vọng' },
+  { id:'cau',  ic:'⚓', name:T('Cầu tàu','Pier'),        cost:120, lv:1, shore:true,
+    desc:T('Thêm một chỗ cho thuyền cập bến','One more berth for ships') },
+  { id:'logom',ic:'🏺', name:T('Lò gốm','Kiln'), cost:150, lv:1, make:'gom',  rate:6,
+    desc:T('Nung 1 gốm mỗi 6 nhịp','Fires 1 ceramic every 6 beats') },
+  { id:'kho',  ic:'🏛️', name:T('Kho hàng','Warehouse'),       cost:100, lv:1, cap:30,
+    desc:T('+30 sức chứa hàng hóa','+30 storage') },
+  { id:'cho',  ic:'🏮', name:T('Chợ phiên','Market'),      cost:200, lv:2, sell:0.1,
+    desc:T('Giá bán +10% (cộng dồn)','Sale prices +10% (stacks)') },
+  { id:'lua',  ic:'🧵', name:T('Xưởng dệt lụa','Silk workshop'),  cost:260, lv:2, make:'lua',  rate:9,
+    desc:T('Dệt 1 lụa mỗi 9 nhịp','Weaves 1 silk every 9 beats') },
+  { id:'den',  ic:'⛩️', name:T('Đền thần biển','Sea-god temple'),  cost:300, lv:2, bless:2,
+    desc:T('+2 danh vọng mỗi thuyền rời bến','+2 prestige for each ship that leaves') },
+  { id:'ngoc', ic:'🦪', name:T('Bến mò ngọc trai','Pearl-diving landing'),   cost:420, lv:3, shore:true, make:'ngoc', rate:13,
+    desc:T('Mò 1 ngọc mỗi 13 nhịp (đặt ven bờ)','Dives 1 pearl every 13 beats (shore plot)') },
+  { id:'tram', ic:'🌿', name:T('Trạm trầm hương','Agarwood station'),cost:500, lv:3, make:'tram', rate:17,
+    desc:T('Gom 1 trầm mỗi 17 nhịp','Collects 1 agarwood every 17 beats') },
+  { id:'vong', ic:'🗼', name:T('Vọng lâu thủy binh','Naval watchtower'), cost:380, lv:3, guard:true,
+    desc:T('Đẩy lui giặc biển, +8 danh vọng','Drives off pirates, +8 prestige') },
 ];
 
 // ---------- Trạng thái ----------
@@ -566,7 +643,7 @@ function updateShips(dt){
     s.bob+=dt;
     if(s.state==='in'){
       const dx=s.tx-s.x, dy=s.ty-s.y, d=Math.hypot(dx,dy);
-      if(d<4){ s.state='trade'; toast(`⛵ Thuyền <b>${s.nat.name}</b> cập bến, muốn mua hàng!`,2400); }
+      if(d<4){ s.state='trade'; toast(T(`⛵ Thuyền <b>${s.nat.name}</b> cập bến, muốn mua hàng!`,`⛵ A <b>${s.nat.name}</b> ship has docked and wants to buy!`),2400); }
       else { s.x+=dx/d*46*dt; s.y+=dy/d*46*dt; }
     }
     else if(s.state==='trade'){
@@ -579,7 +656,7 @@ function updateShips(dt){
           const p=Math.round(g.price*s.nat.mult*sellMult());
           game.storage[want]--; s.wants[want]--;
           game.gold+=p; game.earned+=p; sfx('coin');
-          fly(s.x, s.y-34, `+${p} quan`, '#d9a441');
+          fly(s.x, s.y-34, T(`+${p} quan`,`+${p} cash`), '#d9a441');
         }
       }
       const done=Object.values(s.wants).every(v=>v<=0);
@@ -624,27 +701,27 @@ function updateProd(dt){
 
 // ---------- Sự kiện ----------
 function updateEvents(dt){
-  if(game.storm>0){ game.storm-=dt; if(game.storm<=0) toast('🌤️ Bão tan, thuyền lại vào vịnh.'); return; }
+  if(game.storm>0){ game.storm-=dt; if(game.storm<=0) toast(T('🌤️ Bão tan, thuyền lại vào vịnh.','🌤️ The storm clears; ships return to the bay.')); return; }
   game.eventT-=dt;
   if(game.eventT>0) return;
   game.eventT=rand(55,90);
   const roll=Math.random();
   if(roll<0.4){
     game.storm=12; sfx('bad');
-    toast('⛈️ <b>Bão nổi trên vịnh!</b> Thuyền neo tránh, lò xưởng tạm nghỉ…',3800);
+    toast(T('⛈️ <b>Bão nổi trên vịnh!</b> Thuyền neo tránh, lò xưởng tạm nghỉ…','⛈️ <b>Storm over the bay!</b> Ships shelter at anchor and workshops pause…'),3800);
   } else if(roll<0.7){
     if(countB('vong')>0){
       const gain=4+4*sumLvl('vong');
       game.rep+=gain; game.guardN++; sfx('gong'); checkLevel();
-      toast(`🗼 Vọng lâu phát hiện <b>giặc biển</b>! Thủy binh đẩy lui — <b>+${gain} danh vọng</b>.`,4200);
+      toast(T(`🗼 Vọng lâu phát hiện <b>giặc biển</b>! Thủy binh đẩy lui — <b>+${gain} danh vọng</b>.`,`🗼 The watchtower spots <b>pirates</b>! The navy drives them off: <b>+${gain} prestige</b>.`),4200);
     } else {
       const loss=Math.min(game.gold, Math.max(30, Math.round(game.gold*0.15)));
       game.gold-=loss; sfx('bad');
-      toast(`☠️ <b>Giặc biển cướp bến!</b> Mất <b>${loss} quan</b>. Hãy dựng Vọng lâu thủy binh!`,4200);
+      toast(T(`☠️ <b>Giặc biển cướp bến!</b> Mất <b>${loss} quan</b>. Hãy dựng Vọng lâu thủy binh!`,`☠️ <b>Pirates raid the port!</b> You lose <b>${loss} cash</b>. Build a Naval watchtower!`),4200);
     }
   } else {
     const bonus=60+game.level*40; game.gold+=bonus; game.earned+=bonus; sfx('coin');
-    toast(`🐘 Đoàn cống sứ ghé bến nghỉ chân, biếu <b>${bonus} quan</b> trà nước.`,3600);
+    toast(T(`🐘 Đoàn cống sứ ghé bến nghỉ chân, biếu <b>${bonus} quan</b> trà nước.`,`🐘 A tribute mission rests at the port and leaves <b>${bonus} cash</b> as a gift.`),3600);
   }
 }
 
@@ -655,7 +732,7 @@ function updateTribute(dt){
     game.tribute.time-=dt;
     if(game.tribute.time<=0){
       game.rep=Math.max(0, game.rep-5); sfx('bad');
-      toast('📜 <b>Trễ hạn cống phẩm!</b> Sứ thần phật ý — <b>-5 danh vọng</b>.',3800);
+      toast(T('📜 <b>Trễ hạn cống phẩm!</b> Sứ thần phật ý — <b>-5 danh vọng</b>.','📜 <b>Tribute is late!</b> The envoy is displeased: <b>−5 prestige</b>.'),3800);
       game.tribute=null; game.tributeCd=rand(50,80);
     }
   } else {
@@ -665,7 +742,7 @@ function updateTribute(dt){
       const qty=Math.floor(rand(4,9));
       game.tribute={ good:g.id, qty, time:75 };
       sfx('gong');
-      toast(`📜 <b>Chiếu triều đình:</b> dâng tiến <b>${qty} ${g.ic} ${g.name}</b> trong 75 nhịp!`,4600);
+      toast(T(`📜 <b>Chiếu triều đình:</b> dâng tiến <b>${qty} ${g.ic} ${g.name}</b> trong 75 nhịp!`,`📜 <b>Royal edict:</b> send <b>${qty} ${g.ic} ${g.name}</b> as tribute within 75 beats!`),4600);
     }
   }
 }
@@ -676,7 +753,7 @@ function renderTribute(){
   el.style.display='flex';
   el.style.top=$('top').offsetHeight+'px';
   $('tribTxt').innerHTML =
-    `📜 Dâng <b>${tr.qty} ${g.ic} ${g.name}</b> (kho có ${game.storage[tr.good]}) · còn <span class="t">${Math.ceil(tr.time)}</span> nhịp`;
+    T(`📜 Dâng <b>${tr.qty} ${g.ic} ${g.name}</b> (kho có ${game.storage[tr.good]}) · còn <span class="t">${Math.ceil(tr.time)}</span> nhịp`,`📜 Send <b>${tr.qty} ${g.ic} ${g.name}</b> (in store: ${game.storage[tr.good]}) · <span class="t">${Math.ceil(tr.time)}</span> beats left`);
   $('btnTrib').disabled = game.storage[tr.good]<tr.qty;
 }
 $('btnTrib').onclick=()=>{
@@ -686,8 +763,8 @@ $('btnTrib').onclick=()=>{
   game.storage[tr.good]-=tr.qty;
   const reward=Math.round(g.price*tr.qty*1.6);
   game.gold+=reward; game.earned+=reward; game.rep+=10; game.tribOk++; sfx('gong');
-  fly(cv.width/2, cv.height*0.3, `+${reward} quan · +10 🏮`, '#d9a441');
-  toast(`🐉 Sứ thần hài lòng dâng vua! Ban <b>${reward} quan</b>, <b>+10 danh vọng</b>.`,4200);
+  fly(cv.width/2, cv.height*0.3, T(`+${reward} quan · +10 🏮`,`+${reward} cash · +10 🏮`), '#d9a441');
+  toast(T(`🐉 Sứ thần hài lòng dâng vua! Ban <b>${reward} quan</b>, <b>+10 danh vọng</b>.`,`🐉 The envoy is pleased and presents it to the king! Reward: <b>${reward} cash</b>, <b>+10 prestige</b>.`),4200);
   game.tribute=null; game.tributeCd=rand(60,90);
   checkLevel(); saveGame();
 };
@@ -695,33 +772,33 @@ $('btnTrib').onclick=()=>{
 // ---------- Bảng thành tích ----------
 function fmtPlayT(s){
   const m=Math.floor(s/60);
-  return m>=60 ? Math.floor(m/60)+' giờ '+(m%60)+' phút' : m+' phút '+Math.floor(s%60)+' giây';
+  return m>=60 ? Math.floor(m/60)+T(' giờ ',' h ')+(m%60)+T(' phút',' min') : m+T(' phút ',' min ')+Math.floor(s%60)+T(' giây',' s');
 }
 function renderStats(){
   let builds=0, lvls=0;
   for(let r=0;r<ROWS;r++) for(let c2=0;c2<COLS;c2++)
     if(game.grid[r][c2]){ builds++; lvls+=lvlAt(r,c2); }
   const rows=[
-    ['🏯 Cấp bến', LEVELS[game.level].name],
-    ['⛵ Thuyền đã tiếp', game.served],
-    ['💰 Quan tiền tích lũy', game.earned.toLocaleString('vi-VN')+' quan'],
-    ['🏺 Món hàng sản xuất', game.prodN],
-    ['📜 Cống phẩm dâng đúng hạn', game.tribOk],
-    ['🗼 Lần đẩy lui giặc biển', game.guardN],
-    ['🏗️ Công trình (tổng cấp)', builds+' ('+lvls+')'],
-    ['⏳ Thời gian trấn thủ', fmtPlayT(game.playT)],
+    [T('🏯 Cấp bến','🏯 Port rank'), LEVELS[game.level].name],
+    [T('⛵ Thuyền đã tiếp','⛵ Ships served'), game.served],
+    [T('💰 Quan tiền tích lũy','💰 Cash earned'), NUM(game.earned)+T(' quan',' cash')],
+    [T('🏺 Món hàng sản xuất','🏺 Goods produced'), game.prodN],
+    [T('📜 Cống phẩm dâng đúng hạn','📜 Tributes sent on time'), game.tribOk],
+    [T('🗼 Lần đẩy lui giặc biển','🗼 Pirate raids repelled'), game.guardN],
+    [T('🏗️ Công trình (tổng cấp)','🏗️ Buildings (total levels)'), builds+' ('+lvls+')'],
+    [T('⏳ Thời gian trấn thủ','⏳ Time in office'), fmtPlayT(game.playT)],
   ];
   const titles=[
-    ['👑 Đệ Nhất Thương Cảng', game.level>=3],
-    ['⚖️ Thần buôn — tiếp 50 thuyền', game.served>=50],
-    ['🛡️ Hộ quốc — đẩy giặc 3 lần', game.guardN>=3],
-    ['🏗️ Đại kiến trúc sư — tổng cấp ≥ 15', lvls>=15],
-    ['📜 Trung thần — dâng 5 cống phẩm', game.tribOk>=5],
+    [T('👑 Đệ Nhất Thương Cảng','👑 First Trading Port'), game.level>=3],
+    [T('⚖️ Thần buôn — tiếp 50 thuyền','⚖️ Merchant prince: serve 50 ships'), game.served>=50],
+    [T('🛡️ Hộ quốc — đẩy giặc 3 lần','🛡️ Defender: repel 3 raids'), game.guardN>=3],
+    [T('🏗️ Đại kiến trúc sư — tổng cấp ≥ 15','🏗️ Master builder: total level ≥ 15'), lvls>=15],
+    [T('📜 Trung thần — dâng 5 cống phẩm','📜 Loyal servant: send 5 tributes'), game.tribOk>=5],
   ];
   $('statsBody').innerHTML =
     rows.map(x=>`<p style="display:flex;justify-content:space-between;margin-bottom:6px">
       <span>${x[0]}</span><b>${x[1]}</b></p>`).join('') +
-    '<h3 style="color:var(--dong);font-size:14px;margin:12px 0 8px">Danh hiệu</h3>' +
+    '<h3 style="color:var(--dong);font-size:14px;margin:12px 0 8px">'+T('Danh hiệu','Titles')+'</h3>' +
     titles.map(x=>`<p style="margin-bottom:5px;${x[1]?'':'opacity:.45'}">
       ${x[1]?'✅':'⬜'} ${x[0]}</p>`).join('');
 }
@@ -739,10 +816,10 @@ function checkLevel(){
   game.level++;
   game.gold+=next.reward; game.earned+=next.reward;
   sfx('gong');
-  $('lvlEyebrow').textContent = game.level>=3 ? 'QUỐC SỬ CHÉP RẰNG' : 'SỨ THẦN TRIỀU ĐÌNH ĐẾN BẾN';
+  $('lvlEyebrow').textContent = game.level>=3 ? T('QUỐC SỬ CHÉP RẰNG','THE NATIONAL HISTORY RECORDS') : T('SỨ THẦN TRIỀU ĐÌNH ĐẾN BẾN','A ROYAL ENVOY ARRIVES');
   $('lvlTitle').textContent = next.title;
   $('lvlText').innerHTML = next.text +
-    (game.level>=3 ? '<br><br>🏆 Xem <b>Bảng thành tích</b> (nút 🏆 trên thanh trên) để điểm lại công trạng!' : '');
+    (game.level>=3 ? T('<br><br>🏆 Xem <b>Bảng thành tích</b> (nút 🏆 trên thanh trên) để điểm lại công trạng!','<br><br>🏆 Open <b>Achievements</b> (the 🏆 button at the top) to review your record!') : '');
   $('lvlOv').style.display='flex';
   renderChips(); saveGame();
 }
@@ -756,19 +833,19 @@ function renderChips(){
     const poor=game.gold<b.cost;
     return `<div class="chip ${selBuild===b.id?'sel':''} ${locked?'locked':''} ${poor?'poor':''}"
       data-id="${b.id}" role="button" tabindex="0" aria-pressed="${selBuild===b.id}"
-      aria-label="${b.name}, ${locked?'mở ở cấp '+b.lv:b.cost+' quan'}">
+      aria-label="${b.name}, ${locked?T('mở ở cấp ','opens at rank ')+b.lv:b.cost+T(' quan',' cash')}">
       <div class="ic">${b.ic}</div><div class="nm">${b.name}</div>
-      <div class="cost">${locked?'🔒 cấp '+b.lv:b.cost+' quan'}</div></div>`;
+      <div class="cost">${locked?T('🔒 cấp ','🔒 rank ')+b.lv:b.cost+T(' quan',' cash')}</div></div>`;
   }).join('');
   for(const el of document.querySelectorAll('.chip')){
     el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopPropagation(); el.click(); } };
     el.onclick=()=>{
       const b=BUILDS.find(x=>x.id===el.dataset.id);
-      if(b.lv>game.level+1){ toast(`🔒 <b>${b.name}</b> mở ở cấp bến ${b.lv}. ${b.desc}.`); return; }
+      if(b.lv>game.level+1){ toast(T(`🔒 <b>${b.name}</b> mở ở cấp bến ${b.lv}. ${b.desc}.`,`🔒 <b>${b.name}</b> opens at port rank ${b.lv}. ${b.desc}.`)); return; }
       selBuild = selBuild===b.id ? null : b.id;
       $('buildHint').innerHTML = selBuild
-        ? `${b.ic} <b>${b.name}</b> — ${b.desc}. ${b.shore?'Chạm ô <b>ven bờ</b> (hàng dưới cùng)':'Chạm ô <b>đất trống</b>'} để dựng.`
-        : 'Chọn công trình rồi chạm vào ô đất trống để dựng';
+        ? T(`${b.ic} <b>${b.name}</b> — ${b.desc}. ${b.shore?'Chạm ô <b>ven bờ</b> (hàng dưới cùng)':'Chạm ô <b>đất trống</b>'} để dựng.`,`${b.ic} <b>${b.name}</b>: ${b.desc}. Tap ${b.shore?'a <b>shore plot</b> (bottom row)':'an <b>empty plot</b>'} to build.`)
+        : T('Chọn công trình rồi chạm vào ô đất trống để dựng','Pick a building, then tap an empty plot to build it');
       const wasFocus=document.activeElement===el;
       renderChips();
       if(wasFocus){ const n=document.querySelector('.chip[data-id="'+b.id+'"]'); if(n) n.focus(); }
@@ -792,15 +869,15 @@ function actAt(r,c){
   if(!selBuild) return;
   const b=BUILDS.find(x=>x.id===selBuild);
   const isShore = r===ROWS-1;
-  if(b.shore && !isShore){ toast(`${b.ic} ${b.name} phải đặt ở <b>ô ven bờ</b> (hàng dưới cùng).`); return; }
-  if(!b.shore && isShore){ toast(`Ô ven bờ chỉ đặt được <b>Cầu tàu</b> hoặc <b>Bến mò ngọc trai</b>.`); return; }
-  if(game.gold<b.cost){ toast(`💸 Không đủ quan tiền (${b.cost} quan).`); return; }
+  if(b.shore && !isShore){ toast(T(`${b.ic} ${b.name} phải đặt ở <b>ô ven bờ</b> (hàng dưới cùng).`,`${b.ic} ${b.name} must go on a <b>shore plot</b> (bottom row).`)); return; }
+  if(!b.shore && isShore){ toast(T(`Ô ven bờ chỉ đặt được <b>Cầu tàu</b> hoặc <b>Bến mò ngọc trai</b>.`,`Shore plots only take a <b>Pier</b> or a <b>Pearl-diving landing</b>.`)); return; }
+  if(game.gold<b.cost){ toast(T(`💸 Không đủ quan tiền (${b.cost} quan).`,`💸 Not enough cash (${b.cost} needed).`)); return; }
   game.gold-=b.cost;
   game.grid[r][c]=b.id;
   if(b.cap) game.cap+=b.cap;
   sfx('build');
-  fly(L.ox+(c+0.5)*L.tile, L.oy+(r+0.3)*L.tile, b.ic+' Đã dựng!', '#d9a441');
-  if(b.id==='cau') toast('⚓ Cầu tàu mới dựng xong — thuyền buôn sẽ vào đông hơn!');
+  fly(L.ox+(c+0.5)*L.tile, L.oy+(r+0.3)*L.tile, b.ic+T(' Đã dựng!',' Built!'), '#d9a441');
+  if(b.id==='cau') toast(T('⚓ Cầu tàu mới dựng xong — thuyền buôn sẽ vào đông hơn!','⚓ New pier ready: more merchant ships will come!'));
   renderChips(); saveGame();
 }
 
@@ -820,7 +897,7 @@ document.addEventListener('keydown', e=>{
   const ov=ovOpen();
   if(k==='Escape'){
     if(ov && ov.id!=='introOv'){ ov.style.display='none'; e.preventDefault(); return; }
-    if(selBuild){ selBuild=null; $('buildHint').innerHTML='Chọn công trình rồi chạm vào ô đất trống để dựng'; renderChips(); }
+    if(selBuild){ selBuild=null; $('buildHint').innerHTML=T('Chọn công trình rồi chạm vào ô đất trống để dựng','Pick a building, then tap an empty plot to build it'); renderChips(); }
     return;
   }
   if(ov) return;
@@ -856,26 +933,26 @@ document.addEventListener('keydown', e=>{
 let upSel=null;
 function effText(b,lv){
   if(b.make){ const g=GOODS.find(x=>x.id===b.make);
-    return `mỗi <b>${(b.rate/(1+0.5*(lv-1))).toFixed(1)}</b> nhịp ra 1 ${g.ic}`; }
-  if(b.cap)  return `tổng <b>+${b.cap*lv}</b> sức chứa kho`;
-  if(b.sell) return `góp <b>+${10*lv}%</b> giá bán mọi mặt hàng`;
-  if(b.bless)return `<b>+${2*lv}</b> danh vọng mỗi thuyền rời bến`;
-  if(b.guard)return `góp <b>+${4*lv}</b> danh vọng khi đẩy lui giặc`;
-  if(b.id==='cau') return `thuế <b>${8*lv} quan</b> mỗi thuyền cập bến này`;
+    return T(`mỗi <b>${(b.rate/(1+0.5*(lv-1))).toFixed(1)}</b> nhịp ra 1 ${g.ic}`,`1 ${g.ic} every <b>${(b.rate/(1+0.5*(lv-1))).toFixed(1)}</b> beats`); }
+  if(b.cap)  return T(`tổng <b>+${b.cap*lv}</b> sức chứa kho`,`<b>+${b.cap*lv}</b> storage in total`);
+  if(b.sell) return T(`góp <b>+${10*lv}%</b> giá bán mọi mặt hàng`,`<b>+${10*lv}%</b> on the price of all goods`);
+  if(b.bless)return T(`<b>+${2*lv}</b> danh vọng mỗi thuyền rời bến`,`<b>+${2*lv}</b> prestige for each ship that leaves`);
+  if(b.guard)return T(`góp <b>+${4*lv}</b> danh vọng khi đẩy lui giặc`,`<b>+${4*lv}</b> prestige when pirates are repelled`);
+  if(b.id==='cau') return T(`thuế <b>${8*lv} quan</b> mỗi thuyền cập bến này`,`<b>${8*lv} cash</b> tax per ship at this pier`);
   return b.desc;
 }
 function openUp(r,c){ upSel={r,c}; renderUp(); $('upOv').style.display='flex'; }
 function renderUp(){
   const {r,c}=upSel; const id=game.grid[r][c]; if(!id) return;
   const b=BUILDS.find(x=>x.id===id); const lv=lvlAt(r,c);
-  $('upName').innerHTML=`${b.ic} ${b.name} <span style="color:var(--dong)">· cấp ${lv}${'★'.repeat(lv-1)}</span>`;
+  $('upName').innerHTML=`${b.ic} ${b.name} <span style="color:var(--dong)">· ${T('cấp','level')} ${lv}${'★'.repeat(lv-1)}</span>`;
   $('upDesc').textContent=b.desc+'.';
-  $('upNow').innerHTML=`Hiện tại: ${effText(b,lv)}`+
-    (lv<3?`<br>Cấp ${lv+1}: ${effText(b,lv+1)}`:'<br>Đã đạt cấp tối đa.');
+  $('upNow').innerHTML=T(`Hiện tại: ${effText(b,lv)}`,`Now: ${effText(b,lv)}`)+
+    (lv<3?`<br>${T('Cấp','Level')} ${lv+1}: ${effText(b,lv+1)}`:T('<br>Đã đạt cấp tối đa.','<br>Maximum level reached.'));
   const btn=$('btnUp');
-  if(lv>=3){ btn.textContent='★★ Tối đa'; btn.disabled=true; }
+  if(lv>=3){ btn.textContent=T('★★ Tối đa','★★ Maxed'); btn.disabled=true; }
   else{ const cost=upCost(b,lv);
-    btn.textContent=`⬆️ Nâng cấp ${lv+1} — ${cost} quan`;
+    btn.textContent=T(`⬆️ Nâng cấp ${lv+1} — ${cost} quan`,`⬆️ Upgrade to ${lv+1}: ${cost} cash`);
     btn.disabled=game.gold<cost; }
 }
 $('btnUp').onclick=()=>{
@@ -888,20 +965,20 @@ $('btnUp').onclick=()=>{
   if(b.cap) game.cap+=b.cap;
   delete prodTimers[r+'_'+c];          // chu kỳ mới áp dụng ngay
   sfx('build');
-  fly(L.ox+(c+0.5)*L.tile, L.oy+(r+0.3)*L.tile, `⬆️ Cấp ${lv+1}!`, '#d9a441');
+  fly(L.ox+(c+0.5)*L.tile, L.oy+(r+0.3)*L.tile, T(`⬆️ Cấp ${lv+1}!`,`⬆️ Level ${lv+1}!`), '#d9a441');
   renderUp(); updateHUD(); saveGame();
 };
 $('btnUpClose').onclick=()=>{ $('upOv').style.display='none'; };
 
 // ---------- HUD ----------
 function updateHUD(){
-  $('rGold').textContent=game.gold.toLocaleString('vi-VN');
+  $('rGold').textContent=NUM(game.gold);
   $('rRep').textContent=game.rep;
   $('lvlSeal').textContent=LEVELS[game.level].name;
   $('goodsRow').innerHTML =
-    `<span>📦 Kho <b>${stored()}/${game.cap}</b></span>` +
+    `<span>📦 ${T('Kho','Store')} <b>${stored()}/${game.cap}</b></span>` +
     unlockedGoods().map(g=>`<span>${g.ic} <b>${game.storage[g.id]}</b></span>`).join('') +
-    `<span>⛵ Đã tiếp <b>${game.served}</b> thuyền</span>`;
+    T(`<span>⛵ Đã tiếp <b>${game.served}</b> thuyền</span>`,`<span>⛵ <b>${game.served}</b> ships served</span>`);
 }
 setInterval(()=>{ if(M1288.active){ renderHUD1288(); return; }
   if(game.started){ updateHUD(); renderTribute();
@@ -1117,27 +1194,27 @@ function startM1288(){
   resize();
   musicStart();
   startWave1288(1);
-  toast('🌊 <b>Đông 1287–1288.</b> Đoàn thuyền lương của Trương Văn Hổ tiến vào vịnh. '+
-    'Chạm vào <b>thuyền giặc</b> để bắn tên lửa — đừng để <b>5 thuyền</b> lọt qua!', 6000);
+  toast(T('🌊 <b>Đông 1287–1288.</b> Đoàn thuyền lương của Trương Văn Hổ tiến vào vịnh. '+
+    'Chạm vào <b>thuyền giặc</b> để bắn tên lửa — đừng để <b>5 thuyền</b> lọt qua!','🌊 <b>Winter 1287–1288.</b> Zhang Wenhu&#39;s grain fleet sails into the bay. Tap the <b>enemy ships</b> to shoot fire arrows; do not let <b>5 ships</b> get through!'), 6000);
   sfx('gong');
 }
 function exitM1288(){
   M1288.active=false;
   $('bottom').style.display='block';
   resize();
-  if(game.campaignOn) toast('⚓ Trở về bến Vân Đồn, tiếp tục kiến thiết.');
+  if(game.campaignOn) toast(T('⚓ Trở về bến Vân Đồn, tiếp tục kiến thiết.','⚓ Back to the port of Vân Đồn: keep building.'));
   else $('introOv').style.display='flex';
 }
 function startWave1288(n){
   M1288.wave=n; M1288.toSpawn=5+n*2; M1288.spawnT=1;
-  if(n>1) toast(`⚔️ <b>Đợt ${n}/3</b> — thuyền lương giặc lại tiến vào!`, 3200);
+  if(n>1) toast(T(`⚔️ <b>Đợt ${n}/3</b> — thuyền lương giặc lại tiến vào!`,`⚔️ <b>Wave ${n}/3</b>: more enemy grain ships are coming!`), 3200);
 }
 function spawn1288(boss){
   const H=cv.height, W=cv.width;
   const y = rand(70, H-90);
   if(boss){
     M1288.enemies.push({ x:-70, y:H*0.4, hp:400, maxHp:400, spd:26, boss:true, sway:rand(0,TAU) });
-    toast('☠️ <b>Soái thuyền Trương Văn Hổ</b> xuất hiện! Đánh chìm hắn!', 4200);
+    toast(T('☠️ <b>Soái thuyền Trương Văn Hổ</b> xuất hiện! Đánh chìm hắn!','☠️ <b>Zhang Wenhu&#39;s flagship</b> appears! Sink it!'), 4200);
     sfx('bad');
   } else {
     const w=M1288.wave;
@@ -1176,7 +1253,7 @@ function update1288(dt){
     e.x+=e.spd*dt; e.y+=Math.sin(e.sway*1.3)*6*dt;
     if(e.x>cv.width+50 && !e.dead){
       e.dead=true; M1288.escaped++;
-      sfx('bad'); fly(cv.width-40, e.y, '⚠️ thoát!', '#e07a63');
+      sfx('bad'); fly(cv.width-40, e.y, T('⚠️ thoát!','⚠️ escaped!'), '#e07a63');
       if(M1288.escaped>=5) end1288(false);
     }
   }
@@ -1191,7 +1268,7 @@ function update1288(dt){
         vx:rand(-30,30), vy:rand(-55,-15), life:rand(0.4,0.9), c:pick(['#e8913c','#d9a441','#a5402e']) });
       if(a.tgt.hp<=0 && !a.tgt.dead){
         a.tgt.dead=true; M1288.sunk++;
-        fly(a.tgt.x, a.tgt.y-24, a.tgt.boss?'☠️ Soái thuyền chìm!':'🔥 +1 thuyền lương chìm', '#d9a441');
+        fly(a.tgt.x, a.tgt.y-24, a.tgt.boss?T('☠️ Soái thuyền chìm!','☠️ Flagship sunk!'):T('🔥 +1 thuyền lương chìm','🔥 +1 grain ship sunk'), '#d9a441');
         for(let i=0;i<14;i++) M1288.parts.push({ x:a.tgt.x+rand(-16,16), y:a.tgt.y+rand(-10,10),
           vx:rand(-45,45), vy:rand(-70,-10), life:rand(0.5,1.1), c:pick(['#e8913c','#6f4a2b','#a5402e']) });
         if(a.tgt.boss){ M1288.bossDead=true; end1288(true); }
@@ -1209,20 +1286,29 @@ function update1288(dt){
 function end1288(win){
   M1288.over=true; M1288.endPending=true;
   sfx('gong');
-  $('lvlEyebrow').textContent='QUỐC SỬ CHÉP RẰNG';
+  $('lvlEyebrow').textContent=T('QUỐC SỬ CHÉP RẰNG','THE NATIONAL HISTORY RECORDS');
   if(win){
-    $('lvlTitle').textContent='ĐẠI THẮNG VÂN ĐỒN!';
-    $('lvlText').innerHTML=`Nhân Huệ Vương <b>Trần Khánh Dư</b> phục binh đánh tan đoàn
+    $('lvlTitle').textContent=T('ĐẠI THẮNG VÂN ĐỒN!','GREAT VICTORY AT VÂN ĐỒN!');
+    $('lvlText').innerHTML=T(`Nhân Huệ Vương <b>Trần Khánh Dư</b> phục binh đánh tan đoàn
       thuyền lương — <b>${M1288.sunk} thuyền</b> chìm xuống vịnh, Trương Văn Hổ tháo chạy
       về Quỳnh Châu. Đại quân Nguyên ở Thăng Long <b>cạn lương</b>, buộc phải rút —
       mở đường cho <b>đại thắng Bạch Đằng</b> tháng 4 năm 1288. Chiến công của khanh
-      được tâu về triều, vua tha tội trận thua trước, ban thưởng trọng hậu!`;
+      được tâu về triều, vua tha tội trận thua trước, ban thưởng trọng hậu!`,
+      `Prince Nhân Huệ <b>Trần Khánh Dư</b> springs the ambush and breaks the grain fleet:
+      <b>${M1288.sunk} ships</b> sink into the bay and Zhang Wenhu flees to Qiongzhou. The Yuan army
+      in Thăng Long <b>runs out of grain</b> and has to withdraw, opening the way to the
+      <b>great victory of Bạch Đằng</b> in the fourth month of 1288. Your feat is reported to the court;
+      the king pardons the earlier defeat and rewards you richly!`);
   } else {
-    $('lvlTitle').textContent='THUYỀN LƯƠNG LỌT LƯỚI…';
-    $('lvlText').innerHTML=`Năm thuyền lương giặc vượt qua vịnh — quân Nguyên có thêm
+    $('lvlTitle').textContent=T('THUYỀN LƯƠNG LỌT LƯỚI…','THE GRAIN SHIPS SLIP THROUGH…');
+    $('lvlText').innerHTML=T(`Năm thuyền lương giặc vượt qua vịnh — quân Nguyên có thêm
       lương thảo, thế giặc thêm vững. Nhưng lịch sử còn đó: hãy vào trận lại,
       như Trần Khánh Dư sau trận thua đầu đã <i>«thu tàn quân, phục ở Vân Đồn
-      chờ thuyền lương giặc»</i>. (Đã chìm ${M1288.sunk} thuyền)`;
+      chờ thuyền lương giặc»</i>. (Đã chìm ${M1288.sunk} thuyền)`,
+      `Five enemy grain ships cross the bay: the Yuan army gets more supplies and grows stronger.
+      But history is still there: fight again, as Trần Khánh Dư did after his first defeat when he
+      <i>«gathered his remaining troops and lay in wait at Vân Đồn for the enemy grain ships»</i>.
+      (Ships sunk: ${M1288.sunk})`);
   }
   $('lvlOv').style.display='flex';
 }
@@ -1276,7 +1362,7 @@ function draw1288(dt){
     cx.fillStyle='#a5402e'; cx.fillRect(e.x-w/2, e.y-(e.boss?58:36), w*e.hp/e.maxHp, 4);
     if(e.boss){
       cx.fillStyle='#f2e8d5'; cx.font='bold 12px sans-serif'; cx.textAlign='center';
-      cx.fillText('☠️ Trương Văn Hổ', e.x, e.y-64);
+      cx.fillText(T('☠️ Trương Văn Hổ','☠️ Zhang Wenhu'), e.x, e.y-64);
     }
   }
   // tên lửa
@@ -1304,10 +1390,10 @@ function draw1288(dt){
 }
 function renderHUD1288(){
   $('goodsRow').innerHTML =
-    `<span>⚔️ Đợt <b>${M1288.wave}/3</b></span>`+
-    `<span>🔥 Chìm <b>${M1288.sunk}</b></span>`+
-    `<span style="color:${M1288.escaped>=3?'var(--son)':'inherit'}">⚠️ Thoát <b>${M1288.escaped}/5</b></span>`+
-    `<span>🏹 Chạm thuyền giặc để bắn</span>`;
+    `<span>⚔️ ${T('Đợt','Wave')} <b>${M1288.wave}/3</b></span>`+
+    `<span>🔥 ${T('Chìm','Sunk')} <b>${M1288.sunk}</b></span>`+
+    `<span style="color:${M1288.escaped>=3?'var(--son)':'inherit'}">⚠️ ${T('Thoát','Escaped')} <b>${M1288.escaped}/5</b></span>`+
+    `<span>🏹 ${T('Chạm thuyền giặc để bắn','Tap enemy ships to shoot')}</span>`;
 }
 $('btn1288').onclick=startM1288;
 $('btn1288b').onclick=startM1288;
@@ -1334,7 +1420,7 @@ function begin(fresh){
   game.started=true; game.campaignOn=true;
   musicStart();
   resize(); renderChips(); updateHUD();
-  toast('🏗️ Chạm <b>🏺 Lò gốm</b> ở thanh dưới, rồi chạm ô đất trống để dựng lò đầu tiên!',5200);
+  toast(T('🏗️ Chạm <b>🏺 Lò gốm</b> ở thanh dưới, rồi chạm ô đất trống để dựng lò đầu tiên!','🏗️ Tap <b>🏺 Kiln</b> in the bar below, then tap an empty plot to build your first kiln!'),5200);
 }
 $('btnStart').onclick=()=>begin(true);
 $('btnCont').onclick=()=>begin(false);
