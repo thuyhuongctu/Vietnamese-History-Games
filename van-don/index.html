@@ -14,7 +14,7 @@
     --sea:#2f5a4e; --sea2:#22443b;
     --earth:#8a5a33; --sand:#d8c49a;
     --wood:#5c3d24; --panel:#241708; --panel2:#31200d;
-    --son:#a5402e; --dong:#d9a441; --nga:#f2e8d5; --celadon:#9ec5ab;
+    --son:#e07a63; --dong:#d9a441; --nga:#f2e8d5; --celadon:#9ec5ab;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{width:100%;height:100%;overflow:hidden;background:var(--panel);
@@ -1111,7 +1111,7 @@ function update1288(dt){
     e.x+=e.spd*dt; e.y+=Math.sin(e.sway*1.3)*6*dt;
     if(e.x>cv.width+50 && !e.dead){
       e.dead=true; M1288.escaped++;
-      sfx('bad'); fly(cv.width-40, e.y, '⚠️ thoát!', '#a5402e');
+      sfx('bad'); fly(cv.width-40, e.y, '⚠️ thoát!', '#e07a63');
       if(M1288.escaped>=5) end1288(false);
     }
   }
