@@ -28,6 +28,8 @@
   #khung canvas{display:block}
   footer{text-align:center;color:#a39373;font-size:11.5px;padding:0 16px 26px;line-height:1.8}
   footer b{color:var(--celadon)}
+  .lang{margin-top:8px;background:none;border:1px solid var(--wood);color:var(--nga);border-radius:999px;padding:5px 14px;font:600 12.5px system-ui,sans-serif;cursor:pointer}
+  .lang:hover{border-color:var(--dong)}
 /* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
 :focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
@@ -35,15 +37,16 @@
 </head>
 <body>
 <header>
-  <a href="../index.html">⟵ CỔNG TRÒ CHƠI SỬ VIỆT</a>
-  <h1>CHỢ NỔI — PHIÊN CHỢ TRÊN SÔNG</h1>
+  <a href="../index.html" id="lnkHome">⟵ CỔNG TRÒ CHƠI SỬ VIỆT</a>
+  <h1 id="tieuDe">CHỢ NỔI — PHIÊN CHỢ TRÊN SÔNG</h1>
+  <button type="button" id="btnLang" class="lang">English</button>
 </header>
 <div class="songly"></div>
 <div id="khung"></div>
 <footer>
-  Thế kỷ 19, lưu dân theo kênh rạch khẩn hoang Đất Phương Nam; ghe xuồng tụ lại
-  thành <b>chợ nổi</b> — treo bẹo hàng gì, bán hàng nấy.<br>
-  © 2026 <b>ThuyHuong Digital</b> · dựng bằng Phaser 3 (MIT)
+  <span id="chanTrang">Thế kỷ 19, lưu dân theo kênh rạch khẩn hoang Đất Phương Nam; ghe xuồng tụ lại
+  thành <b>chợ nổi</b> — treo bẹo hàng gì, bán hàng nấy.</span><br>
+  © 2026 <b>ThuyHuong Digital</b> · <span id="dungBang">dựng bằng Phaser 3 (MIT)</span>
 </footer>
 
 <script src="../assets/vendor/phaser.min.js"></script>
@@ -56,6 +59,29 @@
 // Máy bật «giảm chuyển động» thì không rung màn hình khi va gỗ trôi
 const GIAM_CHUYEN_DONG = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const W = 480, H = 720;
+
+/* ---- Ngôn ngữ: theo lựa chọn ở cổng (thd-lang) hoặc ?lang=en ---- */
+const EN = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'vi') return q === 'en';
+  try { return localStorage.getItem('thd-lang') === 'en'; } catch (e) { return false; }
+})();
+const T = (vi, en) => (EN ? en : vi);
+document.documentElement.lang = EN ? 'en' : 'vi';
+if (EN) {
+  document.title = 'Floating Market — A Market Day on the River · ThuyHuong Digital';
+  document.getElementById('lnkHome').textContent = '⟵ VIETNAMESE HISTORY GAMES';
+  document.getElementById('tieuDe').textContent = 'FLOATING MARKET — A MARKET DAY ON THE RIVER';
+  document.getElementById('dungBang').textContent = 'built with Phaser 3 (MIT)';
+  document.getElementById('chanTrang').innerHTML = 'In the 19th century, settlers followed the canals to clear the southern frontier; their boats gathered into <b>floating markets</b>, each hanging what it sells from a tall pole.';
+}
+const nutNN = document.getElementById('btnLang');
+nutNN.textContent = EN ? 'Tiếng Việt' : 'English';
+nutNN.setAttribute('lang', EN ? 'vi' : 'en');
+nutNN.addEventListener('click', () => {
+  try { localStorage.setItem('thd-lang', EN ? 'vi' : 'en'); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.delete('lang'); location.href = u.href;
+});
 const NONG_SAN = [
   { hinh: '🥥', diem: 1 }, { hinh: '🍌', diem: 1 }, { hinh: '🍉', diem: 2 },
   { hinh: '🥭', diem: 2 }, { hinh: '🍍', diem: 3 }, { hinh: '🌾', diem: 3 },
@@ -118,31 +144,39 @@ class ManMoDau extends Phaser.Scene {
   constructor() { super('modau'); }
   create() {
     veSong(this);
-    this.add.text(W / 2, 128, 'CHỢ NỔI', {
-      fontFamily: 'Georgia, serif', fontSize: '52px', color: '#d9a441',
+    this.add.text(W / 2, 128, T('CHỢ NỔI', 'FLOATING MARKET'), {
+      fontFamily: 'Georgia, serif', fontSize: EN ? '42px' : '52px', color: '#d9a441',
     }).setOrigin(0.5);
-    this.add.text(W / 2, 176, 'Phiên chợ trên sông · Đất Phương Nam', {
-      fontSize: '16px', color: '#9ec5ab', fontStyle: 'italic',
+    this.add.text(W / 2, 176, T('Phiên chợ trên sông · Đất Phương Nam', 'A market day on the river · the southern frontier'), {
+      fontFamily: '"Segoe UI", system-ui, sans-serif', fontSize: EN ? '14.5px' : '16px', color: '#9ec5ab', fontStyle: 'italic',
     }).setOrigin(0.5);
     this.add.text(W / 2, 300, '🛶', { fontSize: '84px' }).setOrigin(0.5);
-    const luat = [
+    const luat = (EN ? [
+      'The trading junk drops produce: paddle over to catch it.',
+      '🥥 🍌 +1 · 🍉 🥭 +2 · 🍍 🌾 +3',
+      '🪵 driftwood: −5 points and a soaked boat!',
+      '',
+      '⬅️ ➡️ arrow keys or A / D, or drag / tap',
+      `The market lasts ${PHIEN_CHO_GIAY} seconds.`,
+    ] : [
       'Ghe bầu thả hàng — chèo xuồng tới hứng:',
       '🥥 🍌 +1 · 🍉 🥭 +2 · 🍍 🌾 +3',
       '🪵 gỗ trôi: −5 điểm, ướt cả xuồng!',
       '',
       '⬅️ ➡️ phím mũi tên hoặc A / D · hoặc rê / chạm màn hình',
       `Phiên chợ dài ${PHIEN_CHO_GIAY} giây.`,
-    ].join('\n');
+    ]).join('\n');
     this.add.text(W / 2, 430, luat, {
-      fontSize: '16.5px', color: '#f2e8d5', align: 'center', lineSpacing: 9,
+      fontSize: EN ? '15px' : '16.5px', color: '#f2e8d5', align: 'center', lineSpacing: 9,
+      fontFamily: '"Segoe UI", system-ui, sans-serif', wordWrap: { width: 430 },
     }).setOrigin(0.5);
     const ky_luc = Number(localStorage.getItem(KHOA_KY_LUC) || 0);
     if (ky_luc > 0) {
-      this.add.text(W / 2, 540, `🏆 Kỷ lục của bạn: ${ky_luc} điểm`, {
+      this.add.text(W / 2, 540, T(`🏆 Kỷ lục của bạn: ${ky_luc} điểm`, `🏆 Your best: ${ky_luc} points`), {
         fontSize: '15px', color: '#d9a441',
       }).setOrigin(0.5);
     }
-    const nut = this.add.text(W / 2, 615, '⚓ NHÓM CHỢ', {
+    const nut = this.add.text(W / 2, 615, T('⚓ NHÓM CHỢ', '⚓ OPEN THE MARKET'), {
       fontFamily: 'Georgia, serif', fontSize: '26px', color: '#fff8e0',
       backgroundColor: '#8a6a1c', padding: { x: 26, y: 12 },
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
@@ -203,7 +237,7 @@ class ManChoi extends Phaser.Scene {
   }
 
   capNhatBang() {
-    this.bangDiem.setText(`🧺 ${this.diem} điểm`);
+    this.bangDiem.setText(T(`🧺 ${this.diem} điểm`, `🧺 ${this.diem} points`));
     this.bangGio.setText(`⏱ ${this.conLai}s`);
   }
 
@@ -264,39 +298,39 @@ class ManTanCho extends Phaser.Scene {
     const kyLucMoi = this.diem > cu;
     if (kyLucMoi) localStorage.setItem(KHOA_KY_LUC, String(this.diem));
 
-    this.add.text(W / 2, 150, 'TAN CHỢ', {
+    this.add.text(W / 2, 150, T('TAN CHỢ', 'MARKET CLOSED'), {
       fontFamily: 'Georgia, serif', fontSize: '46px', color: '#d9a441',
     }).setOrigin(0.5);
-    this.add.text(W / 2, 250, `🧺 Khoang xuồng: ${this.diem} điểm`, {
+    this.add.text(W / 2, 250, T(`🧺 Khoang xuồng: ${this.diem} điểm`, `🧺 In your boat: ${this.diem} points`), {
       fontSize: '26px', color: '#f2e8d5',
     }).setOrigin(0.5);
     this.add.text(W / 2, 300, kyLucMoi
-      ? '🏆 KỶ LỤC MỚI! Ghe thương hồ nể mặt.'
-      : `Kỷ lục của bạn: ${Math.max(cu, this.diem)} điểm`, {
+      ? T('🏆 KỶ LỤC MỚI! Ghe thương hồ nể mặt.', '🏆 NEW RECORD! The river traders tip their hats.')
+      : T(`Kỷ lục của bạn: ${Math.max(cu, this.diem)} điểm`, `Your best: ${Math.max(cu, this.diem)} points`), {
       fontSize: '17px', color: kyLucMoi ? '#d9a441' : '#9ec5ab',
     }).setOrigin(0.5);
 
     let bac, loi;
-    if (this.diem >= 120) { bac = '👑 Chủ vựa chợ nổi'; loi = 'Mua tận gốc bán tận ngọn, thương hồ khắp sông đều biết tên.'; }
-    else if (this.diem >= 70) { bac = '⚓ Thương hồ lành nghề'; loi = 'Xuồng đầy khoang, chèo về miệt vườn trước con nước lớn.'; }
-    else if (this.diem >= 30) { bac = '🛶 Bạn hàng mới nhóm'; loi = 'Buổi chợ đầu đủ vốn — mai nhóm sớm hơn nghen!'; }
-    else { bac = '🌊 Ướt cả xuồng'; loi = 'Sông nước miền Tây khó lường; chèo thêm vài phiên là quen tay.'; }
+    if (this.diem >= 120) { bac = T('👑 Chủ vựa chợ nổi', '👑 Master of the market'); loi = T('Mua tận gốc bán tận ngọn, thương hồ khắp sông đều biết tên.', 'You buy at the orchard and sell at the landing; every trader on the river knows your name.'); }
+    else if (this.diem >= 70) { bac = T('⚓ Thương hồ lành nghề', '⚓ Seasoned river trader'); loi = T('Xuồng đầy khoang, chèo về miệt vườn trước con nước lớn.', 'A full boat, home to the orchards before the high tide.'); }
+    else if (this.diem >= 30) { bac = T('🛶 Bạn hàng mới nhóm', '🛶 New stallholder'); loi = T('Buổi chợ đầu đủ vốn — mai nhóm sớm hơn nghen!', 'Your first market paid its way. Come earlier tomorrow!'); }
+    else { bac = T('🌊 Ướt cả xuồng', '🌊 A soaked boat'); loi = T('Sông nước miền Tây khó lường; chèo thêm vài phiên là quen tay.', 'The Mekong rivers are hard to read; a few more markets and you will get the knack.'); }
     this.add.text(W / 2, 392, bac, { fontSize: '25px', color: '#fff8e0' }).setOrigin(0.5);
     this.add.text(W / 2, 442, loi, {
       fontSize: '15.5px', color: '#e0d4bb', fontStyle: 'italic',
       align: 'center', wordWrap: { width: 380 },
     }).setOrigin(0.5);
 
-    const nut = this.add.text(W / 2, 560, '🔁 NHÓM PHIÊN MỚI', {
+    const nut = this.add.text(W / 2, 560, T('🔁 NHÓM PHIÊN MỚI', '🔁 NEW MARKET DAY'), {
       fontFamily: 'Georgia, serif', fontSize: '24px', color: '#fff8e0',
       backgroundColor: '#8a6a1c', padding: { x: 24, y: 12 },
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
     nut.on('pointerdown', () => { keu(4); this.scene.start('choi'); });
-    const pt = this.add.text(W / 2, 622, '📝 Phản tư sau khi chơi', {
+    const pt = this.add.text(W / 2, 622, T('📝 Phản tư sau khi chơi', '📝 Reflect after playing'), {
       fontSize: '16px', color: '#f2d48a',
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
     pt.on('pointerdown', () => { location.href = '../phan-tu.html?game=cho-noi'; });
-    const ve = this.add.text(W / 2, 664, '⟵ Về cổng trò chơi', {
+    const ve = this.add.text(W / 2, 664, T('⟵ Về cổng trò chơi', '⟵ Back to all games'), {
       fontSize: '15px', color: '#9ec5ab',
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
     ve.on('pointerdown', () => { location.href = '../index.html'; });
@@ -304,7 +338,7 @@ class ManTanCho extends Phaser.Scene {
     this.input.keyboard.on('keydown-ENTER', () => this.scene.start('choi'));
     this.input.keyboard.on('keydown-P', () => { location.href = '../phan-tu.html?game=cho-noi'; });
     this.input.keyboard.on('keydown-ESC', () => { location.href = '../index.html'; });
-    this.add.text(W / 2, 700, 'Space/Enter: phiên mới · P: phản tư · Esc: về cổng', {
+    this.add.text(W / 2, 700, T('Space/Enter: phiên mới · P: phản tư · Esc: về cổng', 'Space/Enter: new day · P: reflect · Esc: all games'), {
       fontSize: '12.5px', color: '#c9b993',
     }).setOrigin(0.5);
   }
