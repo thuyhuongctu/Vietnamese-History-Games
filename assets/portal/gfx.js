@@ -24,10 +24,14 @@
   function gan() {
     var bs = document.querySelectorAll('[data-gfx-toggle]');
     for (var i = 0; i < bs.length; i++) (function (b) {
-      b.textContent = '🎛️ Đồ hoạ: ' + (nhe ? 'Nhẹ' : 'Đẹp');
+      var en = document.documentElement.lang === 'en';
+      b.textContent = en ? '🎛️ Graphics: ' + (nhe ? 'Light' : 'Full')
+                         : '🎛️ Đồ hoạ: ' + (nhe ? 'Nhẹ' : 'Đẹp');
       b.setAttribute('aria-pressed', nhe ? 'true' : 'false');
-      b.title = nhe ? 'Đang dùng đồ hoạ nhẹ cho máy yếu. Bấm để chuyển sang đồ hoạ đẹp (tải lại trang).'
-                    : 'Bấm để chuyển sang đồ hoạ nhẹ cho máy yếu (tải lại trang).';
+      b.title = en ? (nhe ? 'Using light graphics for slower devices. Click for full graphics (reloads the page).'
+                          : 'Click for light graphics on slower devices (reloads the page).')
+                   : (nhe ? 'Đang dùng đồ hoạ nhẹ cho máy yếu. Bấm để chuyển sang đồ hoạ đẹp (tải lại trang).'
+                          : 'Bấm để chuyển sang đồ hoạ nhẹ cho máy yếu (tải lại trang).');
       b.addEventListener('click', function () { window.THD_GFX.set(nhe ? 'dep' : 'nhe'); });
     })(bs[i]);
   }
