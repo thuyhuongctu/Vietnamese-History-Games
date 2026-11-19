@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Sa bàn đất sét — nguồn dựng ảnh bìa (Bắc Hải Đảo 3D, Chợ Nổi)</title>
+<meta name="robots" content="noindex">
+<style>
+  html,body{margin:0;height:100%;background:#241708;overflow:hidden}
+  canvas{display:block;width:100vw;height:100vh}
+</style>
+</head>
+<body>
+<!--
+  Nguồn dựng hai ảnh bìa kiểu sa bàn đất sét trên trang cổng:
+    sa-ban.html?canh=bac-hai-dao  ->  assets/portal/bac-hai-dao-3d-v2.webp
+    sa-ban.html?canh=cho-noi      ->  assets/portal/cho-noi-v2.webp
+  Mở trong trình duyệt ở khung 1600x1000 rồi chụp màn hình. Mọi hình khối dựng bằng mã
+  với lib/three.min.js có sẵn trong kho, không dùng mô hình hay ảnh ngoài.
+-->
+<canvas id="c"></canvas>
+<script src="../../lib/three.min.js"></script>
+<script>
+'use strict';
+const CANH = new URLSearchParams(location.search).get('canh') || 'bac-hai-dao';
+
+// ---------- số ngẫu nhiên có hạt giống: ảnh dựng lại lần nào cũng giống nhau ----------
+let _s = CANH === 'cho-noi' ? 20261 : 17801;
+const rnd = () => { _s = (_s * 1664525 + 1013904223) >>> 0; return _s / 4294967296; };
+const R = (a, b) => a + rnd() * (b - a);
+const nz = (x, y, z) => Math.sin(x*1.7 + y*0.9) * Math.cos(z*1.3 - x*0.6) * 0.5
+                      + Math.sin(y*2.3 + z*1.9 + x*0.4) * 0.3 + Math.sin(x*4.1 - z*3.7 + y*2.9) * 0.2;
+
+const cv = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight, false);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(34, innerWidth / innerHeight, 0.5, 600);
+
+// ---------- chất liệu đất sét: lì, có vân sần nhẹ như dấu tay ----------
+const bump = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const x = c.getContext('2d'); const im = x.createImageData(256, 256);
+  for (let i = 0; i < 256 * 256; i++) {
+    const u = (i % 256) / 256 * 40, v = Math.floor(i / 256) / 256 * 40;
+    const g = 128 + 70 * nz(u, v, 1.3) + 40 * nz(u * 3.1, v * 3.1, 7.7) + (rnd() - 0.5) * 30;
+    im.data[i*4] = im.data[i*4+1] = im.data[i*4+2] = g; im.data[i*4+3] = 255;
+  }
+  x.putImageData(im, 0, 0);
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 3); return t;
+})();
+const lin = hex => new THREE.Color(hex).convertSRGBToLinear();   // mã màu viết theo sRGB
+const _mat = {};
+const clay = (color, rough) => _mat[color + '_' + (rough || 0.9)] || (_mat[color + '_' + (rough || 0.9)] =
+  new THREE.MeshStandardMaterial({ color: lin(color), roughness: rough || 0.9, metalness: 0, bumpMap: bump, bumpScale: 0.035 }));
+
+// nặn méo khối cho giống làm tay
+function lump(g, amt, freq) {
+  const p = g.attributes.position, f = freq || 1;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
+    const n = nz(x*f, y*f, z*f), l = Math.hypot(x, y, z) || 1;
+    p.setXYZ(i, x + x/l*n*amt, y + y/l*n*amt, z + z/l*n*amt);
+  }
+  g.computeVertexNormals(); return g;
+}
+function add(g, color, x, y, z, parent, sx, sy, sz, rough) {
+  const m = new THREE.Mesh(g, clay(color, rough)); m.position.set(x||0, y||0, z||0);
+  if (sx !== undefined) m.scale.set(sx, sy === undefined ? sx : sy, sz === undefined ? sx : sz);
+  m.castShadow = m.receiveShadow = true; (parent || scene).add(m); return m;
+}
+const ball = (r, amt) => lump(new THREE.SphereGeometry(r, 28, 20), amt === undefined ? r*0.06 : amt, 1.6 / r);
+
+// ---------- ánh sáng ----------
+function lights(skyCol, sunCol, sx, sy, sz, range) {
+  scene.add(new THREE.HemisphereLight(lin(skyCol), lin(0x8a7350), 0.85));
+  const sun = new THREE.DirectionalLight(lin(sunCol), 2.3); sun.position.set(sx, sy, sz);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0006; sun.shadow.radius = 5;
+  const c = sun.shadow.camera; c.left = -range; c.right = range; c.top = range; c.bottom = -range; c.near = 1; c.far = 220;
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(lin(0xbfe0ff), 0.35); fill.position.set(-sx, sy*0.5, sz*0.6); scene.add(fill);
+}
+
+// ---------- mặt nước nặn bằng đất sét, có gợn và bọt ----------
+function water(color, foam, size, wavAmp, nFoam, zMin, zMax, xSpan) {
+  const g = new THREE.PlaneGeometry(size, size, 200, 200); g.rotateX(-Math.PI / 2);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), z = p.getZ(i);
+    p.setY(i, (nz(x*0.5, 0.3, z*0.5) * 0.7 + nz(x*1.6, 2.1, z*1.6) * 0.3) * wavAmp);
+  }
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, clay(color, 0.62)); m.receiveShadow = true; scene.add(m);
+  const fg = new THREE.TorusGeometry(0.55, 0.075, 6, 12, Math.PI * 0.85);
+  for (let i = 0; i < nFoam; i++) {
+    const w = add(fg, foam, R(-xSpan, xSpan), wavAmp * 0.55, R(zMin, zMax), scene, R(0.6, 1.5), R(0.6, 1.5), 1, 0.8);
+    w.rotation.set(-Math.PI / 2 + R(-0.08, 0.08), 0, R(0, 6.28)); w.castShadow = false;
+  }
+}
+
+// =====================================================================
+//  CẢNH 1 — BẮC HẢI ĐẢO 3D: thuyền buồm cánh dơi giữa đảo đá vôi, nhìn từ sau lái
+// =====================================================================
+function karst(x, z, r, h) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); scene.add(g);
+  const pts = []; const n = 9;
+  for (let i = 0; i <= n; i++) { const t = i / n; pts.push(new THREE.Vector2(r * (1 - Math.pow(t, 1.6) * 0.78) * R(0.72, 1.12) * (i === n ? 0.3 : 1), t * h)); }
+  pts.push(new THREE.Vector2(0.001, h * 1.03));
+  const rock = add(lump(new THREE.LatheGeometry(pts, 26), r * 0.2, 0.55 / r * 3), R(0,1) > 0.5 ? 0x8f9187 : 0x9a9a8c, 0, -0.4, 0, g);
+  rock.rotation.y = R(0, 6.28);
+  // tán cây: những nắm đất sét xanh ấn lên đỉnh và sườn
+  const greens = [0x4f8a4a, 0x3f7a4f, 0x6a9a52, 0x2f6a45];
+  for (let i = 0; i < 9; i++) {
+    const a = R(0, 6.28), t = i < 5 ? R(0.86, 1.0) : R(0.35, 0.8), rr = r * (1 - t*t*0.72) * (i < 5 ? R(0, 0.75) : 1.0);
+    add(ball(r * R(0.22, 0.4)), greens[i % 4], Math.cos(a) * rr, t * h + (i < 5 ? r * 0.12 : 0), Math.sin(a) * rr, g, 1, R(0.6, 0.8), 1);
+  }
+  // bãi cát nhỏ dưới chân
+  add(lump(new THREE.CylinderGeometry(r * 1.25, r * 1.45, 0.5, 28), 0.14, 0.5), 0xdcc79a, 0, 0.05, 0, g, 1, 1, R(0.8, 1.1));
+  return g;
+}
+function batSail(w, h, color) {
+  const s = new THREE.Shape();
+  s.moveTo(-w * 0.1, 0); s.lineTo(w * 0.62, h * 0.04);
+  const n = 5;                                   // mép sau hình răng cưa cong như cánh dơi
+  for (let i = 1; i <= n; i++) {
+    const t = i / n, x = w * (0.62 + 0.38 * Math.sin(t * Math.PI * 0.55)), y = h * (0.04 + 0.9 * t);
+    s.quadraticCurveTo(x - w * 0.09, y - h * 0.09, x, y);
+  }
+  s.lineTo(-w * 0.02, h); s.lineTo(-w * 0.1, 0);
+  const g = new THREE.Group();
+  const geo = new THREE.ExtrudeGeometry(s, { depth: 0.14, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.06, bevelSegments: 3, curveSegments: 10 });
+  add(lump(geo, 0.03, 0.9), color, 0, 0, -0.07, g);
+  for (let i = 0; i <= n; i++) {                 // nẹp tre
+    const t = i / n, len = w * (0.72 + 0.38 * Math.sin(t * Math.PI * 0.55)) + 0.2;
+    const rib = add(new THREE.CylinderGeometry(0.055, 0.055, len, 8), 0x4a2f1a, len / 2 - w * 0.12, h * (0.04 + 0.9 * t), 0.12, g);
+    rib.rotation.z = Math.PI / 2 - (t - 0.5) * 0.22;
+  }
+  return g;
+}
+function junk(scale, sailCol) {
+  const g = new THREE.Group();
+  // thân thuyền: nửa quả cầu kéo dài, mũi và lái vểnh
+  const hull = new THREE.SphereGeometry(1, 30, 18, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5);
+  const hp = hull.attributes.position;
+  for (let i = 0; i < hp.count; i++) { const z = hp.getZ(i); hp.setY(i, hp.getY(i) + Math.abs(z) * z * z * 0.38); }
+  add(lump(hull, 0.03, 2), 0x7a4b2a, 0, 1.25, 0, g, 1.75, 1.35, 4.6);
+  add(lump(new THREE.CylinderGeometry(1, 1, 0.22, 30), 0.02, 2), 0xa9773f, 0, 1.2, 0, g, 1.62, 1, 4.3);          // mặt boong
+  const rail = add(new THREE.TorusGeometry(1, 0.085, 8, 40), 0x5a3519, 0, 1.36, 0, g, 1.72, 4.5, 1); rail.rotation.x = Math.PI / 2;
+  add(lump(new THREE.BoxGeometry(2.3, 1.2, 1.9, 4, 4, 4), 0.07, 1.2), 0x8a5a33, 0, 2.0, 3.2, g);                    // lầu lái
+  add(lump(new THREE.CylinderGeometry(1.35, 1.35, 2.2, 14, 1, false, 0, Math.PI), 0.05, 1.3), 0xc9a45c, 0, 2.55, 3.2, g, 1, 1, 0.5).rotation.set(0, Math.PI/2, Math.PI/2);
+  add(ball(0.55, 0.04), 0x5a3519, 0, 0.75, 4.75, g, 0.35, 1.5, 0.9);                                                // bánh lái
+  // ba cột buồm
+  const masts = [[-1.9, 7.8, 4.6, 6.2], [0.9, 9.6, 5.6, 7.8], [3.1, 6.2, 3.6, 4.8]];   // z, cao cột, rộng buồm, cao buồm
+  masts.forEach((m, i) => {
+    add(new THREE.CylinderGeometry(0.1, 0.15, m[1], 10), 0x4a2f1a, 0, 1.3 + m[1] / 2, m[0], g);
+    const s = batSail(m[2], m[3], sailCol[i % sailCol.length]); s.position.set(0.1, 2.5 + (m[1] - m[3]) * 0.55, m[0]);
+    s.rotation.y = -0.42; g.add(s);
+  });
+  add(lump(new THREE.BoxGeometry(0.9, 0.5, 0.06, 3, 2, 1), 0.03, 2), 0xc94b3c, 0.5, 11.3, 0.9, g).rotation.y = -0.4;      // cờ đuôi nheo
+  g.scale.setScalar(scale); return g;
+}
+function canhBacHaiDao() {
+  scene.background = lin(0xcfe6de); scene.fog = new THREE.Fog(lin(0xcfe6de), 80, 230);
+  lights(0xe8f6ff, 0xffdcae, -26, 34, 20, 70);
+  water(0x49b3a7, 0xe6f4ec, 420, 0.7, 420, -110, 30, 70);
+  const ship = junk(1.3, [0x9c3f2c, 0xa8462f, 0x8f3828]); ship.position.set(0, 0.15, 0); ship.rotation.set(0.02, 0.0, -0.04); scene.add(ship);
+  // vệt sóng đuôi thuyền
+  for (let i = 0; i < 46; i++) {
+    const t = i / 46, side = i % 2 ? 1 : -1, sp = 0.5 + t * 4.4;
+    add(ball(R(0.22, 0.5), 0.03), 0xf2faf5, side * sp * R(0.5, 1), 0.4, 6.6 + t * 16 + R(-0.6, 0.6), scene, 1, 0.42, 1, 0.75);
+  }
+  for (let i = 0; i < 10; i++) add(ball(R(0.25, 0.45), 0.03), 0xf2faf5, R(-2.4, 2.4), 0.45, -6.3 + R(-0.6, 0.6), scene, 1, 0.45, 1, 0.75);   // bọt mũi
+  // đảo đá vôi hai bên, xa dần vào sương
+  [[-20, -4, 3.6, 15], [-30, -28, 4.6, 22], [-12, -48, 3.4, 15], [19, -14, 3.2, 13], [28, -36, 5.0, 24], [9, -64, 4.0, 18],
+   [-40, -70, 5.5, 27], [40, -76, 6, 30], [-4, -96, 5, 22], [-58, -44, 5, 20], [56, -50, 4.6, 18], [-27, 12, 2.6, 8], [31, 8, 2.4, 7],
+   [18, -112, 6, 26], [-34, -120, 7, 30], [-16, -24, 2.2, 7]].forEach(k => karst(k[0], k[1], k[2], k[3]));
+  // hai chiếc thuyền nhỏ phía xa
+  const s2 = junk(0.34, [0xb0752e, 0xa86a2a]); s2.position.set(-7.5, 0.1, -30); s2.rotation.y = 0.9; scene.add(s2);
+  const s3 = junk(0.26, [0x9c3f2c]); s3.position.set(11, 0.1, -46); s3.rotation.y = -0.7; scene.add(s3);
+  camera.position.set(14, 12, 32); camera.lookAt(-2.5, 2.2, -8);
+}
+
+// =====================================================================
+//  CẢNH 2 — CHỢ NỔI: xuồng ba lá hứng nông sản từ ghe bầu, bờ sông dừa nước
+// =====================================================================
+const dua = (p, x, y, z, s) => add(ball(0.3, 0.02), 0x6f9a4a, x, y, z, p, s || 1, (s || 1) * 1.08, s || 1);
+const xoai = (p, x, y, z, ry) => { const m = add(ball(0.22, 0.015), 0xf2b23a, x, y, z, p, 0.8, 0.75, 1.35); m.rotation.y = ry || 0; return m; };
+function khom(p, x, y, z, s) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); p.add(g);
+  add(ball(0.3, 0.03), 0xd9962e, 0, 0.36, 0, g, 0.85, 1.25, 0.85);
+  for (let i = 0; i < 7; i++) { const a = i / 7 * 6.28; const l = add(new THREE.ConeGeometry(0.09, 0.5, 6), 0x4f8a4a, Math.cos(a) * 0.1, 0.92, Math.sin(a) * 0.1, g);
+    l.rotation.set(Math.sin(a) * 0.5, 0, -Math.cos(a) * 0.5); }
+  add(new THREE.ConeGeometry(0.08, 0.5, 6), 0x5f9a52, 0, 1.0, 0, g); return g;
+}
+function lua(p, x, y, z, rz) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.z = rz || 0; p.add(g);
+  add(new THREE.CylinderGeometry(0.2, 0.1, 0.9, 10), 0xe3c45a, 0, 0.45, 0, g);
+  add(ball(0.24, 0.05), 0xd9b040, 0, 0.98, 0, g, 1, 0.7, 1);
+  add(new THREE.TorusGeometry(0.13, 0.035, 6, 12), 0x8a5a33, 0, 0.4, 0, g).rotation.x = Math.PI / 2; return g;
+}
+function nguoi(p, x, y, z, ao, ry) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry || 0; p.add(g);
+  add(lump(new THREE.CylinderGeometry(0.3, 0.46, 0.95, 14), 0.02, 2), ao, 0, 0.5, 0, g);
+  add(ball(0.2, 0.01), ao, -0.36, 0.86, 0, g); add(ball(0.2, 0.01), ao, 0.36, 0.86, 0, g);
+  add(ball(0.33, 0.012), 0xe8b98a, 0, 1.28, 0, g);
+  add(new THREE.SphereGeometry(0.035, 8, 8), 0x2a1a12, -0.11, 1.3, 0.3, g); add(new THREE.SphereGeometry(0.035, 8, 8), 0x2a1a12, 0.11, 1.3, 0.3, g);
+  add(lump(new THREE.ConeGeometry(0.62, 0.36, 22), 0.012, 2), 0xe2cf9a, 0, 1.6, 0, g);                               // nón lá
+  return g;
+}
+function xuong(len, wid, wood) {            // thân xuồng: nửa quả cầu kéo dài, hai đầu nhọn vểnh
+  const g = new THREE.Group();
+  const hull = new THREE.SphereGeometry(1, 30, 16, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5);
+  const hp = hull.attributes.position;
+  for (let i = 0; i < hp.count; i++) { const z = hp.getZ(i); hp.setY(i, hp.getY(i) + z * z * z * z * 0.55); }
+  add(lump(hull, 0.025, 2), wood, 0, 0.55, 0, g, wid, 0.62, len);
+  const rail = add(new THREE.TorusGeometry(1, 0.06, 8, 40), 0x4a2f1a, 0, 0.6, 0, g, wid * 0.98, len * 0.98, 1); rail.rotation.x = Math.PI / 2;
+  add(lump(new THREE.CylinderGeometry(1, 1, 0.1, 28), 0.01, 2), 0xb98a52, 0, 0.3, 0, g, wid * 0.82, 1, len * 0.84);   // sạp xuồng
+  return g;
+}
+function duaNuoc(x, z, s) {                 // bụi dừa nước: tàu lá vươn từ gốc
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s); scene.add(g);
+  for (let i = 0; i < 9; i++) {
+    const a = i / 9 * 6.28 + R(-0.2, 0.2), tilt = R(0.25, 0.7);
+    const f = add(lump(new THREE.SphereGeometry(1, 14, 10), 0.05, 1.5), i % 2 ? 0x4f8a4a : 0x3f7a4f, Math.sin(a) * 0.5, 1.9, Math.cos(a) * 0.5, g, 0.28, 2.3, 0.08);
+    f.rotation.set(Math.cos(a) * tilt, a, -Math.sin(a) * tilt);
+  }
+  add(ball(0.5, 0.06), 0x6b4a2a, 0, 0.2, 0, g, 1, 0.6, 1);
+}
+function cayDua(x, z, h, lean) {            // cây dừa: thân cong, tàu lá rủ
+  const g = new THREE.Group(); g.position.set(x, 0, z); scene.add(g);
+  const cur = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(lean * 0.35, h * 0.45, 0), new THREE.Vector3(lean, h, 0.3)]);
+  add(lump(new THREE.TubeGeometry(cur, 16, 0.3, 10), 0.03, 2), 0x8a6a45, 0, 0, 0, g);
+  for (let i = 0; i < 9; i++) {
+    const a = i / 9 * 6.28;
+    const f = add(lump(new THREE.SphereGeometry(1, 14, 10), 0.04, 1.5), i % 2 ? 0x4f8a4a : 0x5f9a52, lean + Math.cos(a) * 1.4, h - 0.35, 0.3 + Math.sin(a) * 1.4, g, 1.9, 0.09, 0.42);
+    f.rotation.set(0, -a, -0.5);
+  }
+  for (let i = 0; i < 4; i++) dua(g, lean + R(-0.35, 0.35), h - 0.45, 0.3 + R(-0.35, 0.35), 0.8);
+}
+function nhaSan(x, z, ry) {                 // nhà sàn mái lá
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; scene.add(g);
+  for (const [a, b] of [[-1.5, -1], [1.5, -1], [-1.5, 1], [1.5, 1]]) add(new THREE.CylinderGeometry(0.12, 0.14, 2.2, 8), 0x5a3a20, a, 1.0, b, g);
+  add(lump(new THREE.BoxGeometry(3.6, 0.25, 2.8, 4, 1, 4), 0.03, 1.5), 0x8a5a33, 0, 2.1, 0, g);
+  add(lump(new THREE.BoxGeometry(3.1, 1.5, 2.3, 4, 4, 4), 0.04, 1.5), 0xcdb07a, 0, 2.95, 0, g);
+  add(new THREE.BoxGeometry(0.7, 1.0, 0.1), 0x4a2f1a, 0, 2.75, 1.17, g);
+  const roof = add(lump(new THREE.CylinderGeometry(1.7, 1.7, 4.2, 3, 6, false, Math.PI / 2), 0.07, 1.4), 0xc9a45c, 0, 4.2, 0, g, 1, 1, 1.15);
+  roof.rotation.z = Math.PI / 2;
+}
+function canhChoNoi() {
+  scene.background = lin(0xf3e6c8); scene.fog = new THREE.Fog(lin(0xf3e6c8), 60, 160);
+  lights(0xfff1d6, 0xffd9a0, -22, 30, 18, 52);
+  water(0x6f9a78, 0xdfe9cf, 300, 0.3, 240, -60, 22, 46);
+  // bờ sông phía xa và bên trái
+  add(lump(new THREE.BoxGeometry(160, 2.2, 26, 60, 2, 12), 0.5, 0.25), 0x7fa066, 0, 0.1, -40, scene);
+  add(lump(new THREE.BoxGeometry(160, 1.2, 6, 60, 2, 4), 0.3, 0.3), 0xa98a5a, 0, 0.1, -27.6, scene);
+  nhaSan(-15, -31, 0.25); nhaSan(6, -33, -0.15); nhaSan(22, -31, 0.1);
+  cayDua(-22, -30, 9, 1.6); cayDua(-6, -34, 10.5, -1.2); cayDua(14, -32, 9.5, 1.4); cayDua(30, -33, 8.5, -1.0); cayDua(-34, -33, 9, 1.0);
+  for (let i = 0; i < 16; i++) duaNuoc(-44 + i * 5.8 + R(-1, 1), -26.6 + R(-0.5, 0.6), R(0.75, 1.15));
+  duaNuoc(-17, 3, 1.5); duaNuoc(-19.5, -4, 1.3); duaNuoc(18.5, 6, 1.4);
+
+  // ghe bầu: thân lớn, mui lá cong, mắt ghe, cây bẹo treo trái
+  const ghe = xuong(7.2, 2.3, 0x6b4226); ghe.position.set(4.6, 0.05, -5.5); ghe.rotation.y = 0.5; ghe.scale.setScalar(1.25); scene.add(ghe);
+  const mui = add(lump(new THREE.CylinderGeometry(1.75, 1.75, 6.2, 22, 6, false, 0, Math.PI), 0.06, 1.2), 0xc9a45c, 0, 0.75, 1.0, ghe);
+  mui.rotation.set(Math.PI / 2, Math.PI / 2, 0);
+  for (let i = 0; i < 5; i++) { const b = add(new THREE.TorusGeometry(1.78, 0.05, 6, 20, Math.PI), 0x8a5a33, 0, 0.75, -1.6 + i * 1.3, ghe); }
+  for (const sd of [-1, 1]) { add(new THREE.SphereGeometry(0.34, 14, 10), 0xf2e8d5, sd * 1.25, 0.95, -5.6, ghe, 0.35, 1, 1.3); add(new THREE.SphereGeometry(0.16, 10, 8), 0x1c1c1c, sd * 1.36, 0.95, -5.7, ghe, 0.35, 1, 1.2);
+    add(lump(new THREE.BoxGeometry(0.1, 0.55, 2.6, 1, 2, 6), 0.02, 2), 0xa5402e, sd * 1.5, 0.75, -4.6, ghe); }
+  const beo = add(new THREE.CylinderGeometry(0.07, 0.1, 9, 8), 0xb99a52, 0, 5.0, -5.4, ghe); beo.rotation.x = -0.28;
+  [[6.2, 'k'], [5.0, 'd'], [3.9, 'x'], [2.9, 'k']].forEach((t, i) => {
+    const y = t[0], z = -5.4 - (y - 0.6) * 0.29; add(new THREE.CylinderGeometry(0.02, 0.02, 0.7, 5), 0x4a2f1a, 0.12, y + 0.1, z, ghe);
+    if (t[1] === 'k') khom(ghe, 0.12, y - 0.95, z, 0.75); else if (t[1] === 'd') dua(ghe, 0.12, y - 0.42, z, 1.0); else xoai(ghe, 0.12, y - 0.36, z, 1);
+  });
+  for (let i = 0; i < 14; i++) { const x = R(-1.2, 1.2), z = R(2.4, 5.2); (i % 3 === 0 ? khom(ghe, x, 0.38, z, 0.7) : i % 3 === 1 ? dua(ghe, x, 0.68, z, 1) : xoai(ghe, x, 0.6, z, R(0, 3))); }
+  nguoi(ghe, 0.3, 0.42, -3.2, 0x6b4a2a, 2.6);
+
+  // xuồng ba lá ở tiền cảnh: người chèo đội nón lá, khoang đầy dừa, xoài, khóm, lúa
+  const xg = xuong(4.4, 1.15, 0x8a5a33); xg.position.set(-2.6, 0.08, 4.2); xg.rotation.y = -0.62; xg.scale.setScalar(1.3); scene.add(xg);
+  nguoi(xg, 0, 0.36, 2.5, 0x5c3d24, Math.PI);
+  const cheo = add(new THREE.CylinderGeometry(0.05, 0.05, 4.6, 8), 0xb98a52, 1.15, 0.8, 2.3, xg); cheo.rotation.set(0.9, 0, -0.55);
+  add(lump(new THREE.BoxGeometry(0.4, 1.0, 0.08, 2, 3, 1), 0.02, 2), 0xb98a52, 2.2, -0.45, 3.55, xg).rotation.set(0.9, 0, -0.55);
+  const pile = [[-0.35, 0.62, -2.2, 'd'], [0.3, 0.62, -2.0, 'd'], [0, 0.95, -1.9, 'd'], [-0.45, 0.6, -1.3, 'x'], [0.4, 0.6, -1.2, 'x'], [0, 0.6, -1.0, 'x'], [-0.1, 0.82, -1.25, 'x'],
+    [-0.4, 0.36, -0.2, 'k'], [0.35, 0.36, -0.35, 'k'], [0, 0.36, 0.5, 'k'], [-0.35, 0.4, 1.2, 'l'], [0.3, 0.4, 1.25, 'l'], [0, 0.6, -2.9, 'd'], [0.1, 0.55, -0.7, 'x']];
+  pile.forEach(q => q[3] === 'd' ? dua(xg, q[0], q[1], q[2], 1) : q[3] === 'x' ? xoai(xg, q[0], q[1], q[2], R(0, 3)) : q[3] === 'k' ? khom(xg, q[0], q[1], q[2], 0.72) : lua(xg, q[0], q[1], q[2], q[0] > 0 ? -0.35 : 0.35));
+  // trái đang rơi từ ghe xuống xuồng
+  dua(scene, 0.4, 3.3, 0.6, 1.25); xoai(scene, -0.6, 2.4, 1.6, 0.6).scale.multiplyScalar(1.3); khom(scene, 1.3, 4.0, -0.9, 0.95).rotation.z = 0.5;
+  // vài xuồng nhỏ phía xa và khúc gỗ trôi
+  const x2 = xuong(3.6, 1.0, 0x7a4b2a); x2.position.set(-13, 0.05, -12); x2.rotation.y = 1.1; scene.add(x2); nguoi(x2, 0, 0.36, 1.6, 0x31476b, 0); dua(x2, 0, 0.62, -1.2); dua(x2, 0.3, 0.62, -0.6); khom(x2, -0.1, 0.36, 0.2, 0.7);
+  const x3 = xuong(3.4, 1.0, 0x8a5a33); x3.position.set(14.5, 0.05, -16); x3.rotation.y = -0.9; scene.add(x3); nguoi(x3, 0, 0.36, -1.5, 0x8a2424, 3.1); xoai(x3, 0, 0.6, 0.4); xoai(x3, 0.25, 0.6, 0.9); lua(x3, -0.1, 0.4, 1.4, 0.2);
+  const go = add(lump(new THREE.CylinderGeometry(0.34, 0.38, 3.4, 12, 4), 0.05, 1.5), 0x5a3a20, 7.5, 0.22, 7.5, scene); go.rotation.set(0, 0.5, Math.PI / 2);
+  for (let i = 0; i < 14; i++) add(ball(R(0.16, 0.3), 0.02), 0xeaf2dc, -2.6 + R(-3.2, 3.2), 0.22, 4.2 + R(-3.4, 3.4), scene, 1, 0.4, 1, 0.75);
+  camera.position.set(-1.5, 11.5, 27); camera.lookAt(0.6, 2.4, -3.5);
+}
+
+(CANH === 'cho-noi' ? canhChoNoi : canhBacHaiDao)();
+renderer.render(scene, camera);
+document.title = 'xong';
+</script>
+</body>
+</html>
