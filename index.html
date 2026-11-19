@@ -132,6 +132,9 @@
   .song.feature h3{font-size:clamp(1.5rem,2.6vw,2rem)}
   .songTxt p{font-size:15px;line-height:1.6;color:var(--soft);max-width:44rem}
   .songTxt audio{width:100%;max-width:460px;height:44px;margin-top:4px}
+  .songVideo{margin:6px 0 2px;max-width:640px}
+  .songVideo video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:#000}
+  .songVideo figcaption{margin-top:6px;font-size:13px;color:var(--muted)}
   .songLink{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;font-weight:500}
   .lyrics summary{cursor:pointer;min-height:44px;display:inline-flex;align-items:center;font-weight:600;color:var(--nga)}
   .lyrics .keep{columns:3 230px;column-gap:36px;padding:8px 0 4px;font-size:15px;line-height:1.7;color:var(--nga-2)}
@@ -321,6 +324,8 @@
     </div>
     <ul class="moods" tabindex="0">
       <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-viet-thu-phap.webp" width="448" height="600" loading="lazy" alt="Writing with a brush on a long paper scroll at a low wooden desk" data-vi-alt="Viết bút lông trên cuộn giấy dài bên án thư gỗ"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Writing the words</span><span lang="vi">Người viết lời</span></span></a></li>
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-den-dau-dung-ben.webp" width="448" height="600" loading="lazy" alt="By an oil lamp at night, building a model wharf with a boat and a stilt house" data-vi-alt="Bên ngọn đèn dầu, dựng mô hình bến cũ có thuyền và nhà sàn"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Building the old wharf</span><span lang="vi">Ngồi dựng bến cũ</span></span></a></li>
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-mo-cua-binh-minh.webp" width="448" height="600" loading="lazy" alt="In a dark blue áo dài, opening an old wooden door onto the morning light" data-vi-alt="Áo dài xanh đêm, mở cánh cửa gỗ cũ đón nắng sớm"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Opening the door at dawn</span><span lang="vi">Mở cửa đón bình minh</span></span></a></li>
       <li class="cr"><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-chuong-ban-do.webp" width="448" height="600" loading="lazy" alt="Beside an old bronze temple bell, reading an old map" data-vi-alt="Bên chuông đồng cổ của chùa, đọc tấm bản đồ xưa"><span><b>«Người trao ta chân trời»</b><span lang="en">An old bell, an old map</span><span lang="vi">Chuông xưa, bản đồ cũ</span></span></a></li>
       <li class="cr"><a href="#bai-van-don"><img src="assets/nhac/anh-them-rong.webp" width="448" height="600" loading="lazy" alt="Standing by a stone dragon on the steps of an old temple at sunset" data-vi-alt="Đứng bên rồng đá trên thềm điện cổ lúc hoàng hôn"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Echoes from the dragon steps</span><span lang="vi">Tiếng vọng từ thềm rồng</span></span></a></li>
       <li class="cr"><a href="#bai-van-don"><img src="assets/nhac/anh-bat-sen.webp" width="448" height="600" loading="lazy" alt="Smiling over a lotus-moulded celadon bowl in a wooden study with bamboo scrolls" data-vi-alt="Mỉm cười bên bát men ngọc hoa sen trong phòng đọc có thẻ tre"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Celadon, the port’s trade ware</span><span lang="vi">Gốm men ngọc, hàng của thương cảng</span></span></a></li>
@@ -339,6 +344,16 @@
             and why she builds these games: <em>«Từng trò chơi, tôi gửi một chút lòng»</em>, into every game, I put a little of my heart.</p>
           <p lang="vi">Sinh ra khi tiếng bom đã lặng, người làm game gửi lời biết ơn những người không trở lại, và lý do của từng trò chơi:
             <em>«Từng trò chơi, tôi gửi một chút lòng.»</em></p>
+          <figure class="songVideo">
+            <video controls playsinline preload="none" width="1280" height="720"
+              poster="assets/nhac/trong-toi-co-mot-nuoc-nam-mv-bia.webp"
+              aria-label="Music video excerpt: A Vietnam Within Me" data-vi-aria-label="Trích đoạn video nhạc: Trong tôi có một nước Nam">
+              <source src="assets/nhac/trong-toi-co-mot-nuoc-nam-mv.mp4" type="video/mp4">
+              <span lang="en">Your browser cannot play this video.</span><span lang="vi">Trình duyệt của bạn chưa phát được video.</span>
+            </video>
+            <figcaption><span lang="en">Music video excerpt · 1:52 · Vietnamese lyrics on screen</span><span lang="vi">Video demo · trích đoạn bài hát · 1:52</span></figcaption>
+          </figure>
+          <a class="songLink" href="https://youtu.be/ozqctDsUfl0" target="_blank" rel="noopener"><span lang="en">Watch on YouTube ↗</span><span lang="vi">Xem trên YouTube ↗</span></a>
           <audio controls preload="none" src="assets/nhac/trong-toi-co-mot-nuoc-nam.mp3">
             <span lang="en">Your browser cannot play this audio.</span><span lang="vi">Trình duyệt của bạn chưa phát được âm thanh.</span>
           </audio>

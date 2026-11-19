@@ -1,7 +1,7 @@
 /* ThuyHuong Digital — service worker
    Cache-first cho toàn bộ cổng game: cài một lần, chơi ngoại tuyến. */
 'use strict';
-const VERSION = 'thd-v63';
+const VERSION = 'thd-v64';
 const SHELL = [
   './',
   './index.html',
@@ -12,6 +12,9 @@ const SHELL = [
   './assets/nhac/anh-khung-cua.webp',
   './assets/nhac/anh-hanh-lang.webp',
   './assets/nhac/anh-san-dinh.webp',
+  './assets/nhac/anh-den-dau-dung-ben.webp',
+  './assets/nhac/anh-mo-cua-binh-minh.webp',
+  './assets/nhac/trong-toi-co-mot-nuoc-nam-mv-bia.webp',
   './huong-dan-giao-vien.html',
   './phan-tu.html',
   './manifest.webmanifest',
@@ -112,6 +115,9 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return;   // không đụng tài nguyên ngoài
+  // Video, nhạc và yêu cầu theo đoạn (Range) đi thẳng mạng: bộ nhớ đệm không giữ được
+  // phản hồi 206, và giữ cả tệp lớn thì tua video không được.
+  if (e.request.headers.has('range') || /\.(mp4|mp3)$/i.test(url.pathname)) return;
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(cached => {
       // cache-first, đồng thời tải bản mới về cập nhật cho lần sau
