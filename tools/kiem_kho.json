@@ -1,0 +1,13 @@
+{
+  "ten": "Vietnamese-History-Games (Cổng Trò Chơi Sử Việt)",
+  "sw": {
+    "tep": "sw.js",
+    "bien_phien_ban": "VERSION",
+    "mau": "thd-v\\d+",
+    "mang": "SHELL"
+  },
+  "manifest": ["manifest.webmanifest"],
+  "bo_qua_thu_muc": [".claude", "store-assets", "docs"],
+  "nguon_ngoai_duoc_phep": [],
+  "may_chu_goi_duoc_phep": []
+}
