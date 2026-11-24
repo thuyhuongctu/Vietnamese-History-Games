@@ -82,7 +82,7 @@ lựa chọn được ghi nhớ.
 - `bac-hai-dao-bia.jpg`: ảnh bìa
 
 Bài nằm trong bộ sưu tập «Bac Hai Dao – Pirates of the Gulf of Tonkin» của app
-nghe nhạc [Chansonia](https://thuyhuongctu.github.io/Chansonia/app/), có lời
+nghe nhạc [Chansonia](https://chansonia.jemappellehuong.com/app/), có lời
 chạy theo nhạc; app phát thẳng các tệp này từ GitHub Pages, nên **không đổi tên
 hay di chuyển các tệp**.
 
