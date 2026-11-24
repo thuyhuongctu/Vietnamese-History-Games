@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.suvietgames",
+      "sha256_cert_fingerprints": [
+        "A6:EE:0D:F7:3E:8D:51:6A:D7:8F:5C:64:BF:C9:D2:0F:FC:94:A0:0B:00:15:91:36:8D:A5:57:93:EC:D6:83:5B"
+      ]
+    }
+  }
+]
