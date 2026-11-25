@@ -9,7 +9,7 @@ Bản 2D dựng bến nằm ở [`../van-don/`](../van-don/).
 
 **Chơi:** mở [`index.html`](index.html) bằng trình duyệt. Không cần cài đặt, không
 tải gì từ bên ngoài, chơi được cả khi mất mạng sau lần mở đầu tiên.
-Trò chơi không dành cho trẻ em (người chơi từ 16 tuổi).
+Trò chơi không dành cho trẻ em (người chơi 18 tuổi trở lên).
 
 ## Cách chơi
 

@@ -123,9 +123,6 @@ Tác giả commit luôn là `thuyhuongctu <thuyhuongctu@gmail.com>`. Không thê
 
 Ghi lại để người sau khỏi dò lại; sửa xong thì xóa dòng tương ứng.
 
-- **`.zenodo.json` mô tả bản cũ.** Phần `description` nói cổng có *bốn* trò chơi, *không kèm tệp âm thanh*, và giao
-  diện *bằng tiếng Việt*. `README.md` và mã hiện có *năm* trò chơi (thêm Vân Đồn 3D), bốn bài hát MP3, và giao diện
-  hai thứ tiếng. Zenodo đọc tệp này ở mỗi lần phát hành, nên phải sửa trước lần gắn tag kế tiếp.
 - **Gói Android 1.2 mở địa chỉ cũ.** Ứng dụng versionCode 1 trên kênh thử nghiệm vẫn trỏ tới địa chỉ trước khi
   đổi tên kho; từ 24/11/2026 địa chỉ ấy chuyển hướng sang `games.jemappellehuong.com`. Gói versionCode 2 mở thẳng
   tên miền mới đã dựng ngày 24/11/2026; xóa dòng này khi bản ấy đã lên kênh thử nghiệm.

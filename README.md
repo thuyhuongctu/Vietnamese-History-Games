@@ -353,7 +353,8 @@ to the most recent release. Individual releases carry their own DOIs:
 
 | Version | DOI |
 |---|---|
-| 1.2 (latest) | [10.5281/zenodo.21899097](https://doi.org/10.5281/zenodo.21899097) |
+| 1.3 (latest) | [10.5281/zenodo.24523071](https://doi.org/10.5281/zenodo.24523071) |
+| 1.2 | [10.5281/zenodo.21899097](https://doi.org/10.5281/zenodo.21899097) |
 | 1.1 | [10.5281/zenodo.21898774](https://doi.org/10.5281/zenodo.21898774) |
 | 1.0 | [10.5281/zenodo.21850565](https://doi.org/10.5281/zenodo.21850565) |
 
