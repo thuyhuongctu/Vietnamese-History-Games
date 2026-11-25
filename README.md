@@ -9,12 +9,12 @@ installable, offline-capable web application.
 
 [![Release](https://img.shields.io/github/v/release/thuyhuongctu/Vietnamese-History-Games?label=release&color=b8860b)](https://github.com/thuyhuongctu/Vietnamese-History-Games/releases)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21850564.svg)](https://doi.org/10.5281/zenodo.21850564)
-[![PWA](https://img.shields.io/badge/PWA-installable%20%C2%B7%20offline-5a3&logo=pwa)](https://thuyhuongctu.github.io/Vietnamese-History-Games/)
+[![PWA](https://img.shields.io/badge/PWA-installable%20%C2%B7%20offline-5a3&logo=pwa)](https://games.jemappellehuong.com/)
 [![License](https://img.shields.io/badge/license-proprietary%20·%20all%20rights%20reserved-lightgrey)](LICENSE)
 [![three.js](https://img.shields.io/badge/3D-three.js-049EF4?logo=threedotjs&logoColor=white)](van-don-3d/)
 [![Phaser](https://img.shields.io/badge/2D-Phaser%203-2ea3f2)](cho-noi/)
 
-**[▶ Play now: thuyhuongctu.github.io/Vietnamese-History-Games](https://thuyhuongctu.github.io/Vietnamese-History-Games/)**
+**[▶ Play now: games.jemappellehuong.com](https://games.jemappellehuong.com/)**
 
 *No installation, no account, no advertising, no data collection.*
 
@@ -25,6 +25,10 @@ installable, offline-capable web application.
 > but the old GitHub Pages address (`thuyhuongctu.github.io/ThuyHuong_Digital-2026-Games/`)
 > no longer serves the site. Please update bookmarks and links. Steps for the Google Play
 > build are in [`HUONG-DAN-PHAT-HANH.md`](HUONG-DAN-PHAT-HANH.md#doi-ten-kho).
+>
+> **Since 15 November 2026 the portal lives at its own domain,
+> [games.jemappellehuong.com](https://games.jemappellehuong.com/).** The address
+> `thuyhuongctu.github.io/Vietnamese-History-Games/` redirects there automatically.
 
 ---
 
@@ -99,11 +103,11 @@ web. It is free to play and to teach with, but it is not open-source software: s
 
 | | Game | Setting | Basis | Genre | Play |
 |---|---|---|---|---|---|
-| 🏮 | **Vân Đồn**: The First Trading Port | 1149 | Historical records | City building, port management | [Play](https://thuyhuongctu.github.io/Vietnamese-History-Games/van-don/) · [About](https://thuyhuongctu.github.io/Vietnamese-History-Games/van-don/gioi-thieu.html) · [Guide](van-don/README.md) |
-| 🚶 | **Vân Đồn 3D**: Walking the Quay | 1149–1348 | Historical records | 3D trading, time pressure, building | [Play](https://thuyhuongctu.github.io/Vietnamese-History-Games/van-don-3d/) · [About](https://thuyhuongctu.github.io/Vietnamese-History-Games/van-don/gioi-thieu.html) · [Guide](van-don-3d/README.md) |
-| 🏴‍☠️ | **Bắc Hải Đảo**: Pirates of the Gulf of Tonkin | 1780 | Fiction | Adventure, trading, naval combat | [Play](https://thuyhuongctu.github.io/Vietnamese-History-Games/bac-hai-dao/) · [About](https://thuyhuongctu.github.io/Vietnamese-History-Games/bac-hai-dao/gioi-thieu.html) · [Guide](bac-hai-dao/README.md) |
-| 🌊 | **Bắc Hải Đảo 3D** | 1780 | Fiction | The same world rendered in 3D | [Play](https://thuyhuongctu.github.io/Vietnamese-History-Games/bac-hai-dao-3d/) · [Guide](bac-hai-dao-3d/README.md) |
-| 🛶 | **Chợ Nổi**: Floating Market | 19th century | Historical setting | Arcade, reaction and timing | [Play](https://thuyhuongctu.github.io/Vietnamese-History-Games/cho-noi/) · [About](https://thuyhuongctu.github.io/Vietnamese-History-Games/cho-noi/gioi-thieu.html) · [Guide](cho-noi/README.md) |
+| 🏮 | **Vân Đồn**: The First Trading Port | 1149 | Historical records | City building, port management | [Play](https://games.jemappellehuong.com/van-don/) · [About](https://games.jemappellehuong.com/van-don/gioi-thieu.html) · [Guide](van-don/README.md) |
+| 🚶 | **Vân Đồn 3D**: Walking the Quay | 1149–1348 | Historical records | 3D trading, time pressure, building | [Play](https://games.jemappellehuong.com/van-don-3d/) · [About](https://games.jemappellehuong.com/van-don/gioi-thieu.html) · [Guide](van-don-3d/README.md) |
+| 🏴‍☠️ | **Bắc Hải Đảo**: Pirates of the Gulf of Tonkin | 1780 | Fiction | Adventure, trading, naval combat | [Play](https://games.jemappellehuong.com/bac-hai-dao/) · [About](https://games.jemappellehuong.com/bac-hai-dao/gioi-thieu.html) · [Guide](bac-hai-dao/README.md) |
+| 🌊 | **Bắc Hải Đảo 3D** | 1780 | Fiction | The same world rendered in 3D | [Play](https://games.jemappellehuong.com/bac-hai-dao-3d/) · [Guide](bac-hai-dao-3d/README.md) |
+| 🛶 | **Chợ Nổi**: Floating Market | 19th century | Historical setting | Arcade, reaction and timing | [Play](https://games.jemappellehuong.com/cho-noi/) · [About](https://games.jemappellehuong.com/cho-noi/gioi-thieu.html) · [Guide](cho-noi/README.md) |
 
 ### Vân Đồn: The First Trading Port (1149)
 
@@ -204,14 +208,15 @@ invest in buildings, how tax rates affect demand) that can open a class discussi
   phones and tablets
 - **Local progress storage**: saved games and high scores stay in browser storage on
   the device
-- **Bilingual material**: game text in Vietnamese; documentation and store listings
-  in Vietnamese and English
+- **Bilingual interface**: every game and page in English and Vietnamese; the app opens
+  in English, and the choice of language is remembered on the device; documentation and
+  store listings in Vietnamese and English
 
 ## Getting started
 
 ### Play online
 
-Open the [portal](https://thuyhuongctu.github.io/Vietnamese-History-Games/) in any
+Open the [portal](https://games.jemappellehuong.com/) in any
 modern browser. On Android, choose **Install** (or **Add to Home Screen**) to get
 the full-screen offline application. On iOS, use Safari and choose
 **Share → Add to Home Screen**. A Google Play build (a Trusted Web Activity wrapping
@@ -356,6 +361,11 @@ to the most recent release. Individual releases carry their own DOIs:
 
 **© 2026 Do Thuy Huong (Đỗ Thùy Hương). All rights reserved.** See
 [`LICENSE`](LICENSE) for the full bilingual terms.
+
+This covers every image, character design, cover, screenshot and song in the repository
+(including `assets/portal/`, `van-don-3d/assets/` and `bac-hai-dao/assets/`). The portal and
+intro pages mark pictures with a small «© ThuyHuong Digital» overlay drawn in CSS, and each
+game's start screen carries a copyright line; the original image files are left unmarked.
 
 The games are published to be played, taught with and cited, not to be reused as
 source material. Playing the games at the official address, non-commercial classroom

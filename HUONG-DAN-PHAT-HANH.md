@@ -18,7 +18,7 @@ lại game bằng engine nào khác** (GDevelop, Unity, C++…) — chỉ cần 
 
 Trang web đã phát hành tại:
 
-**https://thuyhuongctu.github.io/Vietnamese-History-Games/**
+**https://games.jemappellehuong.com/**
 
 Nếu link trên chưa hoạt động, bật GitHub Pages như sau:
 
@@ -47,13 +47,23 @@ này) — app tự cập nhật theo web.
 
 Các bước 2.1 đến 2.4 bên dưới là hướng dẫn chung. Thực tế đã làm khác ở mấy điểm sau:
 
-- Gói Android dựng bằng **Bubblewrap** (TWA), không dùng PWABuilder; trang mở là `https://thuyhuongctu.github.io/Vietnamese-History-Games/index.html`.
+- Gói Android dựng bằng **Bubblewrap** (TWA), không dùng PWABuilder. Bản 1.2 (versionCode 1) mở `https://thuyhuongctu.github.io/ThuyHuong_Digital-2026-Games/index.html`; từ bản dựng versionCode 2 (24/11/2026) app mở `https://games.jemappellehuong.com/index.html`.
 - Tên gói: `io.github.thuyhuongctu.suvietgames` (không phải `vn.thuyhuongdigital.suvietgames`). Tên trên Play: `Su Viet Games: Vietnam History`. Bản đầu: 1.2 (versionCode 1), minSdk 24, targetSdk 36.
 - Khóa tải lên do tác giả giữ ngoài kho mã; Play App Signing giữ khóa ký phát hành.
-- `assetlinks.json` đặt ở kho `thuyhuongctu.github.io` (tệp `.well-known/assetlinks.json` ở gốc tên miền), không đặt trong kho này; vân tay khóa ký của Play sẽ bổ sung sau khi tải lên.
+- `assetlinks.json`: bản 1.2 cần tệp ở kho `thuyhuongctu.github.io` (gốc tên miền cũ); bản versionCode 2 cần tệp `.well-known/assetlinks.json` **trong kho này** (phục vụ ở `https://games.jemappellehuong.com/.well-known/assetlinks.json`, `_config.yml` khai `include: [.well-known]` để Jekyll của GitHub Pages không bỏ qua thư mục này mà vẫn không đăng `.claude`). Mỗi tệp giữ cả vân tay khóa tải lên lẫn vân tay khóa ký của Play.
 - Trang chính sách khai với Play: `privacy.html` của kho này. Đối tượng khai trên Play: 18 tuổi trở lên.
 - Kênh thử nghiệm khép kín (Alpha) đã gửi Google xét duyệt ngày 11/11/2026; cần 12 người thử liên tục 14 ngày rồi mới xin phát hành công khai.
 - Nội dung game sửa trên `main` thì app tự cập nhật theo web, không phải nộp lại.
+
+### Việc đã làm ngày 24/11/2026 {#da-lam-24-11}
+
+- Địa chỉ cũ `thuyhuongctu.github.io/ThuyHuong_Digital-2026-Games/` có trang chuyển hướng sang
+  `games.jemappellehuong.com` (kho `thuyhuongctu.github.io`), nên app bản 1.2 đã cài không còn rơi vào 404.
+- Thêm `.well-known/assetlinks.json` và `_config.yml` (chỉ để Jekyll đăng thư mục `.well-known`) vào kho này.
+- Dựng lại gói Android versionCode 2 (versionName giữ 1.2) với `host` = `games.jemappellehuong.com`,
+  `startUrl` = `/index.html`; cùng gói `io.github.thuyhuongctu.suvietgames` và cùng khóa tải lên.
+- Còn lại: tải gói lên kênh thử nghiệm khép kín, sửa *Privacy policy URL* và trang web trên Play Console
+  (tác giả bấm Gửi).
 
 ### Đổi tên kho ngày 13/11/2026 {#doi-ten-kho}
 
@@ -77,6 +87,42 @@ Việc cần làm ngoài kho này:
 4. **Zenodo:** bản lưu trữ đã phát hành giữ đường dẫn cũ; bản phát hành sau sẽ lấy
    `.zenodo.json` và `CITATION.cff` mới.
 
+### Chuyển sang tên miền riêng ngày 15/11/2026 {#ten-mien-rieng}
+
+Trang game chuyển sang **https://games.jemappellehuong.com/** (tệp `CNAME` ở gốc kho).
+Địa chỉ `https://thuyhuongctu.github.io/Vietnamese-History-Games/` tự chuyển hướng sang tên
+miền mới, nên link cũ không hỏng.
+
+**Cài đặt một lần (ngoài kho):**
+
+1. **DNS ở PA Vietnam** (quản lý `jemappellehuong.com`): thêm bản ghi
+   `CNAME` · tên `games` · giá trị `thuyhuongctu.github.io` · TTL 3600.
+2. **GitHub:** Settings → Pages → *Custom domain* hiện `games.jemappellehuong.com`
+   (tự điền từ tệp `CNAME`). Chờ kiểm tra DNS xong (vài phút đến vài giờ), rồi bật
+   **Enforce HTTPS**.
+
+**Gói Android (làm sau, khi phát hành bản kế tiếp):** tên miền gốc của app đổi từ
+`thuyhuongctu.github.io` sang `games.jemappellehuong.com`, nên phải dựng lại gói. Trước khi
+dựng lại, app bản cũ vẫn chạy nhưng hiện thanh địa chỉ (do bị chuyển hướng sang tên miền khác).
+
+1. Trong `twa-manifest.json`: `host` → `games.jemappellehuong.com`; `startUrl` → `/index.html`;
+   `webManifestUrl` → `https://games.jemappellehuong.com/manifest.webmanifest`; `iconUrl`,
+   `maskableIconUrl` → `https://games.jemappellehuong.com/icons/…`; `fullScopeUrl` →
+   `https://games.jemappellehuong.com/`. Tăng `appVersionCode` (và `appVersion`).
+   **Giữ nguyên** `packageId` `io.github.thuyhuongctu.suvietgames` và khóa tải lên.
+2. Chạy `bubblewrap update` rồi `bubblewrap build`, tải `.aab` mới lên Play Console.
+3. **assetlinks.json:** giờ phải nằm trong **kho này**, tại
+   `.well-known/assetlinks.json` (phục vụ ở
+   `https://games.jemappellehuong.com/.well-known/assetlinks.json`). Chép nội dung từ kho
+   `thuyhuongctu.github.io`, giữ cả vân tay khóa tải lên lẫn vân tay khóa ký của Play
+   (Play Console → Setup → App signing). Kho này phục vụ từ nhánh bằng Jekyll, nên `_config.yml`
+   khai `include: [.well-known]` để GitHub Pages không bỏ qua thư mục `.well-known` (ngày 24/11/2026
+   chọn cách này thay cho `.nojekyll` để thư mục `.claude` vẫn không bị đăng lên trang).
+4. **Play Console:** *Privacy policy URL* → `https://games.jemappellehuong.com/privacy.html`;
+   sửa địa chỉ trang web trong Store listing.
+5. **App Chansonia:** sửa đường dẫn nhạc game sang `https://games.jemappellehuong.com/…`
+   (làm sau khi tên miền đã chạy).
+
 ### Bước 2.1 — Đăng ký tài khoản nhà phát triển {#play-console}
 
 1. Vào https://play.google.com/console/signup
@@ -94,7 +140,7 @@ Việc cần làm ngoài kho này:
 
 1. Vào **https://www.pwabuilder.com**
 2. Dán địa chỉ web app:
-   `https://thuyhuongctu.github.io/Vietnamese-History-Games/`
+   `https://games.jemappellehuong.com/`
 3. Bấm **Start** → chờ chấm điểm PWA → bấm **Package for stores**
 4. Chọn **Android** → điền:
    - **Package ID**: `vn.thuyhuongdigital.suvietgames` (tên miền đảo ngược,
@@ -126,7 +172,7 @@ SHA-256 thật trong file tải về):
 ```
 
 Đẩy lên `main` để file có tại:
-`https://thuyhuongctu.github.io/Vietnamese-History-Games/.well-known/assetlinks.json`
+`https://games.jemappellehuong.com/.well-known/assetlinks.json`
 
 ### Bước 2.4 — Tạo ứng dụng trên Play Console và nộp {#play-submit}
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Vân Đồn 3D — Dạo Bến Thương Cảng (1149)</title>
-<meta name="description" content="Vân Đồn 3D: vào vai quan trấn thủ, tự đi lại trên bến Vân Đồn, mua hàng ở lò xưởng, bán cho thương thuyền Tống, Tam Phật Tề, Trảo Oa, Xiêm La và định mức thuế cảng. Bản thử nghiệm.">
+<title>Vân Đồn 3D: Walking the Trading Port (1149)</title>
+<meta name="description" content="Vân Đồn 3D: as the port warden, walk the wharf of Vân Đồn, buy goods from kilns and workshops, sell them to merchant ships from Song China, Srivijaya, Java and Siam, and set the port tax. Experimental version.">
 <meta name="theme-color" content="#241708">
 <link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" href="../icons/icon-192.png">
@@ -31,6 +31,9 @@
   .chip.goal.ok{border-color:var(--celadon);color:var(--celadon)}
   .kind{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;border:1px solid currentColor}
   .kind.su{color:var(--celadon)} .kind.hc{color:var(--dong)}
+  .envoy{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+  .envoy img{flex:0 0 auto;width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid var(--dong);background:#e9dcc4}
+  .envoy > div > p:first-child{margin-top:0}
   #sun{position:absolute;left:8px;right:8px;top:100%;height:5px;border-radius:3px;
     background:#0006;overflow:hidden}
   #sunBar{height:100%;width:100%;background:linear-gradient(90deg,var(--son),var(--dong))}
@@ -92,7 +95,7 @@
   .card details{text-align:left;font-size:14px;margin:10px 0}
   .song{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0 0}
   .songName{font-size:13px;color:var(--celadon);flex-basis:100%}
-  .song a.btn{text-decoration:none;display:inline-flex;align-items:center}
+  .song a.btn,a.btn.lnk{text-decoration:none;display:inline-flex;align-items:center}
   .lyrics{max-height:40vh;overflow:auto;padding-right:6px}
   .lyrics p{margin:0 0 10px;line-height:1.55}
   .lyrics .tag{margin:12px 0 4px;color:var(--celadon);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
@@ -103,29 +106,33 @@
   .card ul{text-align:left;font-size:14px;line-height:1.55;margin:8px 0 8px 20px}
   .card .note{font-size:12px;color:#f2e8d5aa}
   .big{font-size:34px;color:var(--dong);font-weight:700;margin:6px 0}
+/* Khả năng tiếp cận: viền khi dùng bàn phím, giảm chuyển động khi máy yêu cầu */
+:focus-visible{outline:3px solid #f2d48a;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important;transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}}
+  .ov p.crNote,.overlay p.crNote{font-size:11px;opacity:.7;text-align:center;margin:10px 0 0}
 </style>
 </head>
 <body>
-<canvas id="game" aria-label="Bến Vân Đồn nhìn từ trên cao, có nhân vật quan trấn thủ đi lại"></canvas>
+<canvas id="game" role="img" aria-label="Bến Vân Đồn nhìn từ trên cao, có nhân vật quan trấn thủ đi lại" data-en-aria-label="The port of Vân Đồn from above, with the governor walking around"></canvas>
 
 <div id="hud" style="display:none">
-  <span class="chip">📜 Chương <b id="hRound">1</b>/6</span>
-  <span class="chip">🪙 <b id="hMoney">0</b> quan</span>
+  <span class="chip">📜 <span data-en="Chapter">Chương</span> <b id="hRound">1</b>/6</span>
+  <span class="chip">🪙 <b id="hMoney">0</b> <span data-en="cash">quan</span></span>
   <span class="chip">⭐ <b id="hRep">0</b></span>
   <span class="chip">🧺 <b id="hCarry">0</b>/<span id="hCap">10</span></span>
-  <span class="chip">⚖️ Thuế <b id="hTax">15</b>%</span>
+  <span class="chip">⚖️ <span data-en="Tax">Thuế</span> <b id="hTax">15</b>%</span>
   <span class="chip" id="hNear">📍 <b id="hNearName">—</b></span>
   <span class="chip goal" id="hGoalChip">🎯 <span id="hGoal">—</span></span>
   <span class="chip">⛵ <span id="hShips">—</span></span>
   <button id="btnSound" type="button" aria-label="Tắt âm thanh" aria-pressed="true">🔊</button>
-  <a id="btnHome" href="../index.html" aria-label="Về cổng trò chơi">🏠</a>
+  <a id="btnHome" href="../index.html" aria-label="Về cổng trò chơi" data-en-aria-label="Back to all games">🏠</a>
   <div id="sun"><div id="sunBar"></div></div>
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>
-<div id="hint">Phím W A S D hoặc mũi tên để đi · E để nói chuyện</div>
+<div id="hint" data-en="W A S D or arrow keys to walk · E to talk">Phím W A S D hoặc mũi tên để đi · E để nói chuyện</div>
 <div id="stick" aria-hidden="true"><div id="knob"></div></div>
-<button id="act" type="button">Nói chuyện</button>
+<button id="act" type="button" data-en="Talk">Nói chuyện</button>
 
 <div id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
   <img id="dlgPic" alt="" hidden width="84" height="112">
@@ -138,99 +145,102 @@
 
 <div class="ov pick" id="ovStart">
   <div class="card">
-    <h1 class="serif">Vân Đồn 3D<small>DẠO BẾN THƯƠNG CẢNG · 1149</small></h1>
+    <h1 class="serif">Vân Đồn 3D<small data-en="WALKING THE TRADING PORT · 1149">DẠO BẾN THƯƠNG CẢNG · 1149</small></h1>
     <img class="banner" src="assets/ben-cang-van-don.jpg" width="1100" height="511"
-      alt="Mô hình đất nặn bến Vân Đồn: cầu tàu gỗ, nhà mái tranh, thuyền buồm giữa các đảo đá vôi">
-    <p>Chọn nhân vật rồi <b>tự đi lại trên bến</b> qua sáu chương, từ năm 1149 lập trang đến năm 1348.
+      alt="Mô hình đất nặn bến Vân Đồn: cầu tàu gỗ, nhà mái tranh, thuyền buồm giữa các đảo đá vôi" data-en-alt="Clay model of the port of Vân Đồn: wooden piers, thatched houses and sailing ships among limestone islands">
+    <p data-en="Choose a character, then &lt;b&gt;walk around the port yourself&lt;/b&gt; through six chapters, from the founding of the post in 1149 to 1348. Merchant ships dock, place orders and wait only a short while: run to buy the goods, carry them to the pier in time, put up buildings and carry out the tasks the court gives you.">Chọn nhân vật rồi <b>tự đi lại trên bến</b> qua sáu chương, từ năm 1149 lập trang đến năm 1348.
     Thuyền buôn vào bến đặt hàng và chỉ đợi một lúc: chạy đi mua, mang ra cầu tàu giao cho kịp,
     dựng công trình và làm tròn việc triều đình giao.</p>
-    <div class="btns" style="justify-content:center" role="group" aria-label="Chọn nhân vật">
-      <button class="btn char" type="button" data-char="quan" aria-pressed="false"><img src="assets/quan-tran-thu.jpg" alt="" width="40" height="56">Quan trấn thủ</button>
-      <button class="btn char" type="button" data-char="nu" aria-pressed="false"><img src="assets/nu-thuong-chu.jpg" alt="" width="40" height="56">Nữ thương chủ</button>
+    <div class="btns" style="justify-content:center" role="group" aria-label="Chọn nhân vật" data-en-aria-label="Choose a character">
+      <button class="btn char" type="button" data-char="quan" aria-pressed="false"><img src="assets/quan-tran-thu-v2.jpg" alt="" width="40" height="56"><span data-en="Governor">Quan trấn thủ</span></button>
+      <button class="btn char" type="button" data-char="nu" aria-pressed="false"><img src="assets/nu-thuong-chu-v2.jpg" alt="" width="40" height="56"><span data-en="Merchant lady">Nữ thương chủ</span></button>
     </div>
     <details>
-      <summary>Cách chơi</summary>
+      <summary data-en="How to play">Cách chơi</summary>
       <ul>
-        <li>Đi lại: phím W A S D hoặc mũi tên; trên điện thoại kéo vòng tròn góc trái. Đến gần người nào thì bấm nút đỏ (hoặc phím E) để gặp.</li>
-        <li>Mỗi thuyền vào bến <b>đặt một đơn hàng</b> và chỉ đợi một lúc (xem chip ⛵). Giao trọn đơn được thưởng; để thuyền bỏ đi thì mất danh vọng.</li>
-        <li>Giá mua và giá bán <b>lên xuống theo chương</b> (▲ đắt, ▼ rẻ). Gánh ban đầu chỉ mang được <b>10 kiện</b>.</li>
-        <li>Ở <b>Nhà thuế quan</b>: chọn thuế cảng, dâng cống phẩm, và <b>dựng công trình</b> (xe kéo, xe trâu, mở rộng lò xưởng, vọng lâu thủy binh, đền thần biển).</li>
-        <li>Mỗi chương có <b>một việc triều đình giao</b> (chip 🎯). Danh vọng xuống dưới 0 là <b>bị bãi chức</b>.</li>
+        <li data-en="Walk with W A S D or the arrow keys; on a phone, drag the circle at the bottom left. Walk up to someone and press the red button (or E) to talk.">Đi lại: phím W A S D hoặc mũi tên; trên điện thoại kéo vòng tròn góc trái. Đến gần người nào thì bấm nút đỏ (hoặc phím E) để gặp.</li>
+        <li data-en="Each ship that docks &lt;b&gt;places an order&lt;/b&gt; and waits only a short while (see the ⛵ chip). Fill the whole order for a bonus; let a ship leave and you lose prestige.">Mỗi thuyền vào bến <b>đặt một đơn hàng</b> và chỉ đợi một lúc (xem chip ⛵). Giao trọn đơn được thưởng; để thuyền bỏ đi thì mất danh vọng.</li>
+        <li data-en="Buying and selling prices &lt;b&gt;change from chapter to chapter&lt;/b&gt; (▲ dear, ▼ cheap). At first your carrying pole holds only &lt;b&gt;10 bundles&lt;/b&gt;.">Giá mua và giá bán <b>lên xuống theo chương</b> (▲ đắt, ▼ rẻ). Gánh ban đầu chỉ mang được <b>10 kiện</b>.</li>
+        <li data-en="At the &lt;b&gt;Customs house&lt;/b&gt;: set the port tax, send tribute and &lt;b&gt;put up buildings&lt;/b&gt; (handcart, buffalo cart, bigger workshops, naval watchtower, sea-god temple).">Ở <b>Nhà thuế quan</b>: chọn thuế cảng, dâng cống phẩm, và <b>dựng công trình</b> (xe kéo, xe trâu, mở rộng lò xưởng, vọng lâu thủy binh, đền thần biển).</li>
+        <li data-en="Each chapter has &lt;b&gt;one task from the court&lt;/b&gt; (the 🎯 chip). If prestige falls below 0 you are &lt;b&gt;dismissed&lt;/b&gt;.">Mỗi chương có <b>một việc triều đình giao</b> (chip 🎯). Danh vọng xuống dưới 0 là <b>bị bãi chức</b>.</li>
       </ul>
     </details>
     <div class="song">
-      <span class="songName">«Vân Đồn – Tiếng vọng non sông»</span>
-      <button class="btn btnSong" type="button" data-bai="game" aria-pressed="false">🎵 Nghe bài hát</button>
-      <a class="btn" href="https://youtu.be/RaACW3fvrQM" target="_blank" rel="noopener">📺 Xem lyric video ↗</a>
+      <span class="songName" data-en="«Vân Đồn – Tiếng vọng non sông» (Echoes of the homeland)">«Vân Đồn – Tiếng vọng non sông»</span>
+      <button class="btn btnSong" type="button" data-bai="game" aria-pressed="false" data-en="🎵 Play the song">🎵 Nghe bài hát</button>
+      <a class="btn" href="https://youtu.be/RaACW3fvrQM" target="_blank" rel="noopener"><span data-en="📺 Watch the lyric video ↗">📺 Xem lyric video ↗</span></a>
     </div>
     <details>
-      <summary>Lời bài hát «Vân Đồn – Tiếng vọng non sông»</summary>
-      <div class="lyrics">
-        <p class="tag">Khổ 1</p>
+      <summary data-en="Lyrics (Vietnamese): «Vân Đồn – Tiếng vọng non sông»">Lời bài hát «Vân Đồn – Tiếng vọng non sông»</summary>
+      <div class="lyrics" lang="vi">
+        <p class="tag" data-en="Verse 1">Khổ 1</p>
         <p>Bình minh lên trên muôn trùng sóng<br>Cánh buồm căng giữa nước trời xa<br>Có người đi từ miền làng nhỏ<br>Mang trong tim hình bóng quê nhà</p>
         <p>Một bờ tre, một lời ru mẹ<br>Một dòng sông thương nhớ khôn nguôi<br>Nghe non nước gọi, người đứng dậy<br>Gác tình riêng, đi giữ quê hương</p>
-        <p class="tag">Tiền điệp khúc</p>
+        <p class="tag" data-en="Pre-chorus">Tiền điệp khúc</p>
         <p>Nghe tiếng trống vang qua cửa biển<br>Nghe lời thề hòa giữa trùng khơi<br>Dẫu năm tháng phủ mờ dấu cũ<br>Chí khí cha ông sáng muôn đời</p>
-        <p class="tag">Điệp khúc</p>
+        <p class="tag" data-en="Chorus">Điệp khúc</p>
         <p>Vân Đồn ơi, vang lời sông núi<br>Lớp lớp người gìn giữ biển trời<br>Bao người đã qua thời lửa khói<br>Cho quê hương rạng ánh ban mai</p>
         <p>Xin khắc ghi công người đi trước<br>Giữ trong tim từng tấc đất này<br>Từ trang sử, ta nghe lời nhắc<br>Giữ non sông bằng cả đôi tay</p>
-        <p class="tag">Khổ 2</p>
+        <p class="tag" data-en="Verse 2">Khổ 2</p>
         <p>Có tên người lưu trong trang sách<br>Có bao người chẳng rõ tuổi tên<br>Gửi thanh xuân vào lòng biển biếc<br>Cho quê nhà yên giấc đêm đêm</p>
         <p>Nay ta bước qua miền dấu tích<br>Nghe chuyện xưa gần lại bên mình<br>Lật trang sử, càng thêm thấu hiểu<br>Bao hy sinh mới có thanh bình</p>
-        <p class="tag">Tiền điệp khúc (nhắc lại)</p>
-        <p class="tag">Điệp khúc (nhắc lại)</p>
-        <p class="tag">Đoạn chuyển</p>
+        <p class="tag" data-en="Pre-chorus (repeat)">Tiền điệp khúc (nhắc lại)</p>
+        <p class="tag" data-en="Chorus (repeat)">Điệp khúc (nhắc lại)</p>
+        <p class="tag" data-en="Bridge">Đoạn chuyển</p>
         <p>Xin tri ân người nơi chiến trận<br>Cả những người ở lại quê nhà<br>Càng hiểu những hy sinh thầm lặng<br>Càng nâng niu cuộc sống quanh ta</p>
         <p>Từng con sóng mang lời nhắn gửi<br>Người hôm nay tiếp bước người xưa</p>
-        <p class="tag">Điệp khúc (lần cuối)</p>
-        <p class="tag">Kết</p>
+        <p class="tag" data-en="Chorus (last time)">Điệp khúc (lần cuối)</p>
+        <p class="tag" data-en="Outro">Kết</p>
         <p>Vân Đồn ơi, ngàn năm sóng hát<br>Chuyện cha ông truyền tới hôm nay<br>Ta tiếp bước bằng lòng son sắt<br>Giữ quê hương, dựng xây từng ngày</p>
         <p>Vân Đồn ơi…<br>Vọng tiếng non sông…</p>
       </div>
     </details>
     <div class="song">
-      <span class="songName">«Người trao ta chân trời» · bài chung của hai game</span>
-      <button class="btn btnSong" type="button" data-bai="chung" aria-pressed="false">🎵 Nghe bài hát</button>
+      <span class="songName" data-en="«Người trao ta chân trời» (You gave us the horizon) · shared song of both games">«Người trao ta chân trời» · bài chung của hai game</span>
+      <button class="btn btnSong" type="button" data-bai="chung" aria-pressed="false" data-en="🎵 Play the song">🎵 Nghe bài hát</button>
     </div>
     <details>
-      <summary>Lời bài hát «Người trao ta chân trời»</summary>
-      <div class="lyrics">
-        <p class="tag">Khổ 1</p>
+      <summary data-en="Lyrics (Vietnamese): «Người trao ta chân trời»">Lời bài hát «Người trao ta chân trời»</summary>
+      <div class="lyrics" lang="vi">
+        <p class="tag" data-en="Verse 1">Khổ 1</p>
         <p>Gió mở lối, cánh buồm lên<br>Bờ xa lùi sau màn sương sớm<br>Một bàn tay ghì tay lái<br>Một bàn tay níu lấy bàn tay</p>
         <p>Chưa biết hết đường phía trước<br>Chỉ biết không để bạn một mình<br>Qua một đêm trời nổi sóng<br>Càng thương hơn hai tiếng yên bình</p>
-        <p class="tag">Tiền điệp khúc</p>
+        <p class="tag" data-en="Pre-chorus">Tiền điệp khúc</p>
         <p>Có những người ta chưa từng gặp<br>Mà công lao ở khắp quanh mình<br>Trong bến nước, trong từng mái ngói<br>Trong ngày mai ta sống thanh bình</p>
-        <p class="tag">Điệp khúc</p>
+        <p class="tag" data-en="Chorus">Điệp khúc</p>
         <p>Người trao ta một chân trời<br>Đã đi qua bao mùa giông bão<br>Để hôm nay ta đứng nơi này<br>Nghe sóng vỗ mà lòng không sợ hãi</p>
         <p>Người trao ta một quê nhà<br>Bằng tuổi xanh, bằng đời ở lại<br>Ta mang ơn không chỉ bằng lời<br>Cùng giữ lấy chân trời cho ngày mai</p>
-        <p class="tag">Khổ 2</p>
+        <p class="tag" data-en="Verse 2">Khổ 2</p>
         <p>Ta đọc chậm từng dòng chữ<br>Tên người xưa, năm tháng xa rồi<br>Bỗng nghe tiếng buồm trong gió<br>Như người còn đứng giữa trùng khơi</p>
         <p>Không phải ai về tới bến<br>Không phải tên nào cũng được ghi<br>Nhưng biển vẫn còn kể mãi<br>Chuyện bao người đã sống, đã đi</p>
-        <p class="tag">Tiền điệp khúc 2</p>
+        <p class="tag" data-en="Pre-chorus 2">Tiền điệp khúc 2</p>
         <p>Vân Đồn còn vang tiếng sóng<br>Bắc Hải Đảo gọi buồm ra khơi<br>Hai câu chuyện cùng nhắc nhớ<br>Một quê hương, bao thế hệ người</p>
-        <p class="tag">Điệp khúc 2</p>
+        <p class="tag" data-en="Chorus 2">Điệp khúc 2</p>
         <p>Người trao ta một chân trời<br>Đã đi qua bao mùa giông bão<br>Để hôm nay ta đứng nơi này<br>Nghe sóng vỗ mà lòng không sợ hãi</p>
         <p>Người trao ta một quê nhà<br>Bằng tuổi xanh, bằng đời ở lại<br>Ta mang ơn không chỉ bằng lời<br>Cùng giữ lấy chân trời cho ngày mai</p>
-        <p class="tag">Cầu nối</p>
+        <p class="tag" data-en="Bridge">Cầu nối</p>
         <p>Có một thời ta chưa từng sống<br>Có những người ta chẳng biết tên<br>Mà mỗi sáng nhìn ra phía biển<br>Lại thấy mình mang một niềm ơn</p>
-        <p class="tag">Dồn lên</p>
+        <p class="tag" data-en="Build-up">Dồn lên</p>
         <p>Không để chuyện xưa thành quên lãng<br>Không để tình người hóa xa xôi<br>Từ nơi bàn tay người buông xuống<br>Bàn tay ta tiếp lấy cuộc đời</p>
-        <p class="tag">Điệp khúc cuối</p>
+        <p class="tag" data-en="Final chorus">Điệp khúc cuối</p>
         <p>Người trao ta một chân trời<br>Đã đi qua bao mùa giông bão<br>Để hôm nay ta đứng nơi này<br>Nghe sóng vỗ mà lòng không sợ hãi</p>
         <p>Người trao ta một quê nhà<br>Bằng tuổi xanh, bằng đời ở lại<br>Ta mang ơn không chỉ bằng lời<br>Cùng giữ lấy chân trời cho ngày mai</p>
-        <p class="tag">Kết</p>
+        <p class="tag" data-en="Outro">Kết</p>
         <p>Mai có người nhìn ra biển rộng<br>Thấy cánh buồm đi giữa trời xanh<br>Xin còn nhớ người trao chân trời ấy<br>Để hôm nay ta được lớn lên</p>
-        <p class="tag">Câu cuối</p>
+        <p class="tag" data-en="Last line">Câu cuối</p>
         <p>Người trao ta một chân trời…<br>Ta giữ cho người đến sau…</p>
       </div>
     </details>
     <div class="btns" style="justify-content:center">
-      <button class="btn pri" id="btnStart" type="button">⚓ Ra bến</button>
-      <a class="btn" href="../van-don/index.html" style="text-decoration:none;display:inline-flex;align-items:center">Bản 2D dựng bến</a>
+      <button class="btn pri" id="btnStart" type="button" data-en="⚓ To the port">⚓ Ra bến</button>
+      <button class="btn" type="button" data-gfx-toggle aria-pressed="false">🎛️ Đồ hoạ</button>
+      <a class="btn" href="../van-don/index.html" style="text-decoration:none;display:inline-flex;align-items:center"><span data-en="2D building edition">Bản 2D dựng bến</span></a>
+      <button class="btn" id="btnLang" type="button" lang="en">English</button>
     </div>
-    <p class="note">Ba chương 1149, 1184, 1348 theo <i>Đại Việt sử ký toàn thư</i>; ba chương còn lại, mức thuế, giá cả, đơn hàng,
+    <p class="note" data-en="The chapters 1149, 1184 and 1348 follow the &lt;i&gt;Complete Annals of Đại Việt&lt;/i&gt;; the other three chapters, tax rates, prices, orders, buildings, the title «governor» and the «merchant lady» character are the game&#39;s fiction. Not intended for children (players aged 16 and over).">Ba chương 1149, 1184, 1348 theo <i>Đại Việt sử ký toàn thư</i>; ba chương còn lại, mức thuế, giá cả, đơn hàng,
     công trình, chức «quan trấn thủ» và nhân vật «Nữ thương chủ» là hư cấu của trò chơi. Trò chơi không dành cho trẻ em (người chơi từ 16 tuổi).</p>
     <p class="note" id="bestLine" style="text-align:center"></p>
+    <p class="crNote" data-en="Images, characters and music © 2026 Đỗ Thùy Hương · ThuyHuong Digital. All rights reserved; do not copy or reuse without permission.">Hình ảnh, nhân vật và âm nhạc © 2026 Đỗ Thùy Hương · ThuyHuong Digital. Bảo lưu mọi quyền; không sao chép, sử dụng lại khi chưa được phép.</p>
   </div>
 </div>
 
@@ -240,7 +250,7 @@
     <img class="banner" id="rdPic" src="assets/ben-dem.jpg" width="1100" height="613" alt="">
     <div id="rdBody"></div>
     <div class="btns" style="justify-content:center">
-      <button class="btn pri" id="btnNext" type="button">Sang phiên kế</button>
+      <button class="btn pri" id="btnNext" type="button" data-en="Next session">Sang phiên kế</button>
     </div>
   </div>
 </div>
@@ -249,22 +259,52 @@
   <div class="card">
     <h1 class="serif" id="endTitle"></h1>
     <img class="banner" src="assets/ben-hoang-hon.jpg" width="1100" height="528" loading="lazy"
-      alt="Mô hình đất nặn bến Vân Đồn lúc hoàng hôn: cầu tàu chất hàng, thuyền buồm, làng chài giữa các đảo đá vôi">
+      alt="Mô hình đất nặn bến Vân Đồn lúc hoàng hôn: cầu tàu chất hàng, thuyền buồm, làng chài giữa các đảo đá vôi" data-en-alt="Clay model of Vân Đồn at sunset: laden piers, sailing ships and a fishing village among limestone islands">
     <div class="big" id="endScore"></div>
     <div id="endBody"></div>
     <div class="btns" style="justify-content:center">
-      <button class="btn pri" id="btnAgain" type="button">Chơi lại</button>
-      <button class="btn btnSong" type="button" data-bai="game" aria-pressed="false">🎵 Nghe bài hát</button>
-      <button class="btn btnSong" type="button" data-bai="chung" aria-pressed="false">🎵 Nghe bài hát</button>
-      <a class="btn" href="../index.html" style="text-decoration:none;display:inline-flex;align-items:center">Về cổng trò chơi</a>
+      <button class="btn pri" id="btnAgain" type="button" data-en="Play again">Chơi lại</button>
+      <button class="btn btnSong" type="button" data-bai="game" aria-pressed="false" data-en="🎵 Play the song">🎵 Nghe bài hát</button>
+      <button class="btn btnSong" type="button" data-bai="chung" aria-pressed="false" data-en="🎵 Play the song">🎵 Nghe bài hát</button>
+      <a class="btn lnk" href="../phan-tu.html?game=van-don" data-en="📝 Reflect after playing">📝 Phản tư sau khi chơi</a>
+      <a class="btn" href="../index.html" style="text-decoration:none;display:inline-flex;align-items:center" data-en="Back to all games">Về cổng trò chơi</a>
     </div>
   </div>
 </div>
 
+<script src="../assets/portal/gfx.js"></script>
 <script src="../lib/three.min.js"></script>
 <script>
 'use strict';
 const $ = id => document.getElementById(id);
+// Ngôn ngữ: theo lựa chọn ở cổng (thd-lang) hoặc ?lang=en
+const EN = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'vi') return q === 'en';
+  // Mặc định tiếng Anh (từ 25/11/2026): chỉ hiện tiếng Việt khi người chơi đã chọn «Tiếng Việt»
+  try { return localStorage.getItem('thd-lang') !== 'vi'; } catch (e) { return true; }
+})();
+const T = (vi, en) => (EN ? en : vi);
+(function applyLang(){
+  const d = document;
+  d.documentElement.lang = EN ? 'en' : 'vi';
+  const nut = $('btnLang');
+  nut.textContent = EN ? 'Tiếng Việt' : 'English';
+  nut.setAttribute('lang', EN ? 'vi' : 'en');
+  nut.addEventListener('click', () => {
+    try { localStorage.setItem('thd-lang', EN ? 'vi' : 'en'); } catch (e) {}
+    const u = new URL(location.href); u.searchParams.delete('lang'); location.href = u.href;
+  });
+  // Đầu trang viết sẵn tiếng Anh (ngôn ngữ mặc định); chọn tiếng Việt thì đổi tiêu đề thẻ
+  if (!EN) { d.title = 'Vân Đồn 3D — Dạo Bến Thương Cảng (1149)'; return; }
+  for (const el of d.querySelectorAll('[data-en]')) {
+    el.innerHTML = el.dataset.en;
+    // Nhãn tiếng Anh nằm trong khối lời tiếng Việt (lang="vi") thì tự khai lang="en" cho trình đọc màn hình
+    if (el.parentElement && el.parentElement.closest('[lang="vi"]')) el.lang = 'en';
+  }
+  for (const el of d.querySelectorAll('[data-en-alt]')) el.alt = el.dataset.enAlt;
+  for (const el of d.querySelectorAll('[data-en-aria-label]')) el.setAttribute('aria-label', el.dataset.enAriaLabel);
+})();
 const rand = (a,b) => a + Math.random()*(b-a);
 const pick = a => a[Math.floor(Math.random()*a.length)];
 const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
@@ -273,20 +313,20 @@ const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
 //  DỮ LIỆU — cùng mặt hàng và thương thuyền với bản 2D
 // =====================================================================
 const GOODS = [
-  { id:'gom',  ic:'🏺', name:'Gốm Đại Việt', price:26 },
-  { id:'lua',  ic:'🧵', name:'Lụa tơ tằm',   price:48 },
-  { id:'ngoc', ic:'🦪', name:'Ngọc trai',    price:95 },
-  { id:'tram', ic:'🌿', name:'Trầm hương',   price:150 },
+  { id:'gom',  ic:'🏺', name:T('Gốm Đại Việt','Đại Việt ceramics'), price:26 },
+  { id:'lua',  ic:'🧵', name:T('Lụa tơ tằm','silk'),   price:48 },
+  { id:'ngoc', ic:'🦪', name:T('Ngọc trai','pearls'),    price:95 },
+  { id:'tram', ic:'🌿', name:T('Trầm hương','agarwood'),   price:150 },
 ];
 const NATIONS = [
-  { id:'tong', name:'Tống',     who:'Thương nhân nước Tống',  flag:0xc94b3c, sail:0xe8d9b0, prefs:['gom','lua'],  mult:1.0,
-    tuong:'thuong-nhan-tong' },
-  { id:'nhat', name:'Tam Phật Tề', who:'Thương nhân Tam Phật Tề', flag:0x7a2a22, sail:0xc7772e, prefs:['gom','tram'], mult:1.15,
-    tuong:'thuong-nhan-tam-phat-te' },
-  { id:'trao', name:'Trảo Oa',  who:'Thương nhân Trảo Oa',    flag:0x3f7a4f, sail:0xd9a441, prefs:['lua','ngoc'], mult:1.1,
-    tuong:'thuong-nhan-trao-oa' },
-  { id:'xiem', name:'Xiêm La',  who:'Thương nhân Xiêm La',    flag:0xd9a441, sail:0x9ec5ab, prefs:['gom','ngoc'], mult:1.05,
-    tuong:'thuong-nhan-xiem-la' },
+  { id:'tong', name:T('Tống','Song'),     who:T('Thương nhân nước Tống','Song merchant'),  flag:0xc94b3c, sail:0xe8d9b0, prefs:['gom','lua'],  mult:1.0,
+    tuong:'thuong-nhan-tong-v2' },
+  { id:'nhat', name:T('Tam Phật Tề','Srivijaya'), who:T('Thương nhân Tam Phật Tề','Srivijaya merchant'), flag:0x7a2a22, sail:0xc7772e, prefs:['gom','tram'], mult:1.15,
+    tuong:'thuong-nhan-tam-phat-te-v2' },
+  { id:'trao', name:T('Trảo Oa','Java'),  who:T('Thương nhân Trảo Oa','Javanese merchant'),    flag:0x3f7a4f, sail:0xd9a441, prefs:['lua','ngoc'], mult:1.1,
+    tuong:'thuong-nhan-trao-oa-v2' },
+  { id:'xiem', name:T('Xiêm La','Siam'),  who:T('Thương nhân Xiêm La','Siamese merchant'),    flag:0xd9a441, sail:0x9ec5ab, prefs:['gom','ngoc'], mult:1.05,
+    tuong:'thuong-nhan-xiem-la-v2' },
 ];
 const G = id => GOODS.find(g => g.id===id);
 const NAT = id => NATIONS.find(n => n.id===id);
@@ -296,45 +336,45 @@ const TAX = { 5:{demand:1.2, rep:2}, 15:{demand:1.0, rep:0}, 30:{demand:0.8, rep
 // Sáu chương, mỗi phiên chợ một mốc. «su:true» là mốc có chép trong sử; còn lại là cách dựng của trò chơi.
 // thuyen: [nước, giây thứ mấy của phiên thì vào bến]; kien: số giây thuyền chịu đợi.
 const CHUONG = [
-  { nam:'1149', ten:'Lập trang', su:true, nguon:'Đại Việt sử ký toàn thư',
-    ke:'Mùa xuân năm Kỷ Tỵ (1149), đời vua Lý Anh Tông, thuyền buôn Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán. Triều đình cho lập trang ở hải đảo, gọi là Vân Đồn.',
+  { nam:'1149', ten:T('Lập trang','The founding'), su:true, nguon:T('Đại Việt sử ký toàn thư','Complete Annals of Đại Việt'),
+    ke:T('Mùa xuân năm Kỷ Tỵ (1149), đời vua Lý Anh Tông, thuyền buôn Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán. Triều đình cho lập trang ở hải đảo, gọi là Vân Đồn.','In the spring of 1149, under King Lý Anh Tông, merchant ships from Java, Lộ Lạc and Siam came to Hải Đông asking to settle and trade. The court set up a trading post on the islands, called Vân Đồn.'),
     thuyen:[['trao',0],['xiem',14],['trao',60],['xiem',66]], kien:60,
-    muc:{ loai:'don', n:2, txt:'Giao trọn 2 đơn hàng' } },
-  { nam:'Những năm sau', ten:'Khách buôn phương Bắc', su:false,
-    ke:'Trang mới lập, khách buôn nước Tống cũng tìm đến. Thuyền nào cũng chỉ đợi một lúc rồi nhổ neo, nên phải tính đường đi cho khéo.',
+    muc:{ loai:'don', n:2, txt:T('Giao trọn 2 đơn hàng','Fill 2 complete orders') } },
+  { nam:T('Những năm sau','The following years'), ten:T('Khách buôn phương Bắc','Northern merchants'), su:false,
+    ke:T('Trang mới lập, khách buôn nước Tống cũng tìm đến. Thuyền nào cũng chỉ đợi một lúc rồi nhổ neo, nên phải tính đường đi cho khéo.','The new post draws Song merchants too. Every ship waits only a short while before weighing anchor, so plan your route carefully.'),
     thuyen:[['tong',0],['trao',8],['xiem',30],['tong',55],['trao',62]], kien:50,
-    muc:{ loai:'tien', n:800, txt:'Bán được 800 quan tiền hàng' } },
-  { nam:'1184', ten:'Tam Phật Tề đến', su:true, nguon:'Đại Việt sử ký toàn thư',
-    ke:'Năm Giáp Thìn (1184), người buôn các nước Xiêm La và Tam Phật Tề vào Vân Đồn xin buôn bán.',
+    muc:{ loai:'tien', n:800, txt:T('Bán được 800 quan tiền hàng','Sell 800 cash worth of goods') } },
+  { nam:'1184', ten:T('Tam Phật Tề đến','Srivijaya arrives'), su:true, nguon:T('Đại Việt sử ký toàn thư','Complete Annals of Đại Việt'),
+    ke:T('Năm Giáp Thìn (1184), người buôn các nước Xiêm La và Tam Phật Tề vào Vân Đồn xin buôn bán.','In 1184, merchants from Siam and Srivijaya (Tam Phật Tề) came to Vân Đồn asking to trade.'),
     thuyen:[['nhat',0],['xiem',6],['tong',24],['trao',40],['nhat',58]], kien:45,
-    muc:{ loai:'donNuoc', nat:'nhat', txt:'Giao trọn đơn của thuyền Tam Phật Tề' } },
-  { nam:'Mùa gió bấc', ten:'Giặc biển', su:false, giac:45,
-    ke:'Bến giàu lên thì giặc biển nhòm ngó. Có tin thuyền giặc sẽ áp sát cầu tàu giữa phiên chợ. Không có vọng lâu thủy binh thì giặc cướp tiền và thuyền buôn bỏ chạy.',
+    muc:{ loai:'donNuoc', nat:'nhat', txt:T('Giao trọn đơn của thuyền Tam Phật Tề','Fill a whole order for a Srivijaya ship') } },
+  { nam:T('Mùa gió bấc','Northeast monsoon'), ten:T('Giặc biển','Pirates'), su:false, giac:45,
+    ke:T('Bến giàu lên thì giặc biển nhòm ngó. Có tin thuyền giặc sẽ áp sát cầu tàu giữa phiên chợ. Không có vọng lâu thủy binh thì giặc cướp tiền và thuyền buôn bỏ chạy.','As the port grows rich, pirates take notice. Word is that pirate boats will close in on the piers mid-session. Without a naval watchtower they will rob you and the merchant ships will flee.'),
     thuyen:[['tong',0],['nhat',5],['xiem',20],['trao',35],['tong',60]], kien:42,
-    muc:{ loai:'giac', txt:'Đẩy lui giặc biển (cần Vọng lâu thủy binh)' } },
-  { nam:'Năm được mùa', ten:'Chiếu đòi cống', su:false, cong:{ ngoc:3, lua:4 },
-    nguon:'Toàn thư chép trang Vân Đồn lập ra «để mua bán hàng hóa quý, dâng tiến sản vật địa phương»',
-    ke:'Sứ thần mang chiếu đến: trong phiên này phải dâng đủ cống phẩm tại Nhà thuế quan. Hàng dâng cống thì không bán được nữa.',
+    muc:{ loai:'giac', txt:T('Đẩy lui giặc biển (cần Vọng lâu thủy binh)','Drive off the pirates (needs a Naval watchtower)') } },
+  { nam:T('Năm được mùa','A good harvest year'), ten:T('Chiếu đòi cống','Tribute edict'), su:false, cong:{ ngoc:3, lua:4 },
+    nguon:T('Toàn thư chép trang Vân Đồn lập ra «để mua bán hàng hóa quý, dâng tiến sản vật địa phương»','The Annals say Vân Đồn was founded «to buy and sell precious goods and present local products as tribute»'),
+    ke:T('Sứ thần mang chiếu đến: trong phiên này phải dâng đủ cống phẩm tại Nhà thuế quan. Hàng dâng cống thì không bán được nữa.','An envoy brings an edict: during this session you must deliver the full tribute at the Customs house. Goods given as tribute can no longer be sold.'),
     thuyen:[['xiem',0],['tong',10],['nhat',25],['trao',40],['xiem',62]], kien:40,
-    muc:{ loai:'cong', txt:'Dâng 3 ngọc trai và 4 lụa' } },
-  { nam:'1348', ten:'Thuyền Đồ Bồ', su:true, nguon:'Đại Việt sử ký toàn thư', doBo:true,
-    ke:'Năm Mậu Tý (1348), thuyền nước Đồ Bồ đến Vân Đồn, ngầm mua ngọc trai. Trong phiên này, người lạ sẽ tìm đến bến mò ngọc trai, trả giá rất cao.',
+    muc:{ loai:'cong', txt:T('Dâng 3 ngọc trai và 4 lụa','Send 3 pearls and 4 silk') } },
+  { nam:'1348', ten:T('Thuyền Đồ Bồ','The Đồ Bồ ship'), su:true, nguon:T('Đại Việt sử ký toàn thư','Complete Annals of Đại Việt'), doBo:true,
+    ke:T('Năm Mậu Tý (1348), thuyền nước Đồ Bồ đến Vân Đồn, ngầm mua ngọc trai. Trong phiên này, người lạ sẽ tìm đến bến mò ngọc trai, trả giá rất cao.','In 1348, a ship from Đồ Bồ (Java) came to Vân Đồn and secretly bought pearls. This session, strangers will come to the pearl-diving landing offering a very high price.'),
     thuyen:[['tong',0],['trao',5],['nhat',18],['xiem',32],['tong',55],['nhat',64]], kien:38,
-    muc:{ loai:'liem', txt:'Không bán lén ngọc trai cho người Đồ Bồ' } },
+    muc:{ loai:'liem', txt:T('Không bán lén ngọc trai cho người Đồ Bồ','Do not sell pearls secretly to the Đồ Bồ men') } },
 ];
 // Công trình dựng ở Nhà thuế quan; dùng cho cả ván
 const CONG_TRINH = [
-  { id:'xe',    ic:'🛒', ten:'Xe kéo hàng',        gia:350, mo:'Mang được 16 kiện thay vì 10.' },
-  { id:'xe2',   ic:'🐃', ten:'Xe trâu',            gia:800, can:'xe', mo:'Mang được 24 kiện.' },
-  { id:'lo',    ic:'🔥', ten:'Mở rộng lò xưởng',   gia:600, mo:'Giá mua mọi mặt hàng giảm 15%.' },
-  { id:'volau', ic:'🗼', ten:'Vọng lâu thủy binh', gia:650, mo:'Đẩy lui giặc biển.' },
-  { id:'den',   ic:'🕯️', ten:'Đền thần biển',      gia:550, mo:'Đầu mỗi phiên +3 danh vọng; thuyền đợi thêm 8 giây.' },
+  { id:'xe',    ic:'🛒', ten:T('Xe kéo hàng','Handcart'),        gia:350, mo:T('Mang được 16 kiện thay vì 10.','Carry 16 bundles instead of 10.') },
+  { id:'xe2',   ic:'🐃', ten:T('Xe trâu','Buffalo cart'),            gia:800, can:'xe', mo:T('Mang được 24 kiện.','Carry 24 bundles.') },
+  { id:'lo',    ic:'🔥', ten:T('Mở rộng lò xưởng','Bigger workshops'),   gia:600, mo:T('Giá mua mọi mặt hàng giảm 15%.','All buying prices 15% lower.') },
+  { id:'volau', ic:'🗼', ten:T('Vọng lâu thủy binh','Naval watchtower'), gia:650, mo:T('Đẩy lui giặc biển.','Drives off pirates.') },
+  { id:'den',   ic:'🕯️', ten:T('Đền thần biển','Sea-god temple'),      gia:550, mo:T('Đầu mỗi phiên +3 danh vọng; thuyền đợi thêm 8 giây.','+3 prestige at the start of each session; ships wait 8 seconds longer.') },
 ];
 const TITLES = [
-  { min:0, name:'Trang nhỏ ven vịnh',      text:'Bến còn thưa thuyền. Triều đình ghi nhận công khai phá, mong khanh gắng hơn.' },
-  { min:2, name:'Trang Vân Đồn',           text:'Thuyền buôn các nước đã quen đường vào vịnh. Trang Vân Đồn đứng vững.' },
-  { min:4, name:'Thương cảng phồn thịnh',  text:'Tiền thuế đều đặn về kinh, giặc biển không dám bén mảng. Danh tiếng bến vang xa.' },
-  { min:6, name:'Đệ nhất thương cảng',     text:'Khanh hoàn thành mọi việc triều đình giao qua sáu chương. Tên khanh được ghi vào sổ công.' },
+  { min:0, name:T('Trang nhỏ ven vịnh','A small post on the bay'),      text:T('Bến còn thưa thuyền. Triều đình ghi nhận công khai phá, mong khanh gắng hơn.','Few ships call yet. The court notes your pioneering work and hopes you will try harder.') },
+  { min:2, name:T('Trang Vân Đồn','The Vân Đồn trading post'),           text:T('Thuyền buôn các nước đã quen đường vào vịnh. Trang Vân Đồn đứng vững.','Ships from many lands now know the way into the bay. The Vân Đồn post stands firm.') },
+  { min:4, name:T('Thương cảng phồn thịnh','A thriving port'),  text:T('Tiền thuế đều đặn về kinh, giặc biển không dám bén mảng. Danh tiếng bến vang xa.','Taxes flow steadily to the capital and pirates dare not come near. The port&#39;s fame spreads far.') },
+  { min:6, name:T('Đệ nhất thương cảng','The First Trading Port'),     text:T('Khanh hoàn thành mọi việc triều đình giao qua sáu chương. Tên khanh được ghi vào sổ công.','You completed every task the court set over six chapters. Your name is entered in the register of merit.') },
 ];
 const BEST_KEY = 'van-don-3d-best';
 
@@ -373,8 +413,9 @@ function newRound(){
 //  CẢNH 3D
 // =====================================================================
 const cv = $('game');
-const renderer = new THREE.WebGLRenderer({ canvas:cv, antialias:true });
-renderer.setPixelRatio(Math.min(devicePixelRatio||1, 2));
+const GFX = window.THD_GFX || { aa:true, ratio:Math.min(devicePixelRatio||1, 2) };   // assets/portal/gfx.js
+const renderer = new THREE.WebGLRenderer({ canvas:cv, antialias:GFX.aa });
+renderer.setPixelRatio(GFX.ratio);
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xbcd9d2);
 scene.fog = new THREE.Fog(0xbcd9d2, 90, 230);
@@ -474,11 +515,11 @@ const BUILD_MESH = {};
   box(4.6,0.5,4.6,0x7a5a36,0,8,0,g); box(4.6,1.2,0.3,0x7a5a36,0,8.8,2.2,g);
   const r = new THREE.Mesh(new THREE.ConeGeometry(3.8,2.6,4), M(0xa5402e)); r.rotation.y = Math.PI/4; r.position.y = 11.6; g.add(r);
   box(0.12,2.4,0.12,0x3a2412,1.4,13.6,1.4,g); box(1.6,1,0.1,0xa5402e,2.2,14.3,1.4,g);
-  label('Vọng lâu', 16.5, g, 0.55); BUILD_MESH.volau = g; g.visible = false;
+  label(T('Vọng lâu','Watchtower'), 16.5, g, 0.55); BUILD_MESH.volau = g; g.visible = false;
 }
 { // Đền thần biển
   const g = house(34, -16, 7, 6, 4, 0xe9d7b0, 0x8a2424); g.visible = false;
-  box(1.2,1,1.2,0x8f8f86,0,0.5,4.2,g); label('Đền thần biển', 8.5, g, 0.55); BUILD_MESH.den = g;
+  box(1.2,1,1.2,0x8f8f86,0,0.5,4.2,g); label(T('Đền thần biển','Sea-god temple'), 8.5, g, 0.55); BUILD_MESH.den = g;
 }
 { // Lò xưởng mở rộng: thêm một lò nhỏ cạnh lò gốm
   const g = new THREE.Group(); g.position.set(-50, 0, -24); scene.add(g);
@@ -506,7 +547,7 @@ NATIONS.forEach((n,i) => {
   sail.position.set(0,8,0.2); sail.rotation.y = Math.PI/2; g.add(sail);
   for(let k=0;k<4;k++) box(0.12,0.12,7,0x3a2412,0,5+k*2,0.2,g);
   box(0.1,1.2,2,n.flag,0,14.2,1,g);
-  label('Thuyền '+n.name, 17, g, 0.6);
+  label(T('Thuyền ','')+n.name+T('',' ship'), 17, g, 0.6);
   ships[n.id] = g; g.userData.hull = hull;
 });
 
@@ -521,15 +562,15 @@ function mesh(g, c, x, y, z, parent, sx, sy, sz){
 }
 // Tượng đất nặn (ảnh đã tách nền) dựng đứng như tấm bìa, luôn quay mặt về máy quay
 const TUONG = {   // tên tệp: tỉ lệ rộng/cao
-  'quan-tran-thu':0.432, 'nu-thuong-chu':0.398, 'tho-ca-lo-gom':0.449, 'ba-chu-xuong-lua':0.564,
-  'chu-tram-huong':0.408, 'tho-lan-ngoc-trai':0.398, 'thu-lai-thue-quan':0.611,
-  'thuong-nhan-tong':0.463, 'thuong-nhan-xiem-la':0.525, 'thuong-nhan-trao-oa':0.455, 'thuong-nhan-tam-phat-te':0.441,
+  'quan-tran-thu-v2':0.436, 'nu-thuong-chu-v2':0.381, 'tho-ca-lo-gom':0.449, 'ba-chu-xuong-lua-v2':0.377,
+  'chu-tram-huong-v2':0.383, 'tho-lan-ngoc-trai-v2':0.51, 'thu-lai-thue-quan-v2':0.393,
+  'thuong-nhan-tong-v2':0.432, 'thuong-nhan-xiem-la-v2':0.514, 'thuong-nhan-trao-oa-v2':0.484, 'thuong-nhan-tam-phat-te-v2':0.445, 'su-than':0.414,
 };
-// Tượng người chơi tách làm thân và hai bàn chân (đã bỏ đế) để bước đi được.
+// Tượng người chơi tách làm thân và hai bàn chân (đã bỏ đế; bộ ảnh -v2 ngày 15/11/2026) để bước đi được.
 // Toạ độ theo điểm ảnh của tượng cao 512: [x trái, y trên, rộng, cao]
 const TUONG_DI = {
-  'quan-tran-thu': { W:244.3, than:[2.2,0,232,462], chanT:[53.9,460.3,57,52], chanP:[137.1,460.3,50,52] },
-  'nu-thuong-chu': { W:222.5, than:[0,0,216,474],   chanT:[52,461,55,52],     chanP:[134.4,466.3,54,46] },
+  'quan-tran-thu-v2': { W:223, than:[0, 0, 223, 451], chanT:[41, 449, 77, 63], chanP:[125, 449, 48, 60] },
+  'nu-thuong-chu-v2': { W:195, than:[0, 0, 195, 466], chanT:[52, 464, 38, 48], chanP:[108, 464, 57, 47] },
 };
 const TUONG_H = 5.8, _tuongTex = {};
 const texOf = f => _tuongTex[f] || (_tuongTex[f] = new THREE.TextureLoader().load('assets/tuong/'+f+'.webp'));
@@ -596,8 +637,8 @@ function animate(p, moving, dt){
 
 // Người chơi: khung chứa cố định, đổi tạo hình bên trong
 const AVATARS = {
-  quan: { name:'Quan trấn thủ', tuong:'quan-tran-thu' },
-  nu:   { name:'Nữ thương chủ', tuong:'nu-thuong-chu' },
+  quan: { name:T('Quan trấn thủ','Governor'), tuong:'quan-tran-thu-v2' },
+  nu:   { name:T('Nữ thương chủ','Merchant lady'), tuong:'nu-thuong-chu-v2' },
 };
 const CHAR_KEY = 'van-don-3d-char';
 const player = new THREE.Group(); scene.add(player);
@@ -615,28 +656,34 @@ player.position.set(-26,0,3);      // chỗ trống trên bãi cát cho màn ch�
 
 /* Ảnh minh hoạ trong bảng hội thoại (mô hình đất nặn, đã rà theo niên đại 1149; xem README) */
 const PICS = {
-  'lo-gom':    { src:'assets/tho-ca-lo-gom.jpg', alt:'Tượng đất nặn thợ cả lò gốm búi tóc, tay bưng bát' },
-  'xuong-lua': { src:'assets/ba-chu-xuong-lua.jpg', alt:'Tượng đất nặn bà chủ xưởng dệt cầm con tơ và thoi dệt, bên khung cửi' },
-  'tram':      { src:'assets/chu-tram-huong.jpg', alt:'Tượng đất nặn chủ trạm trầm hương bưng khay trầm, đeo cân đồng' },
-  'be-ngoc':   { src:'assets/tho-lan-ngoc-trai.jpg', alt:'Tượng đất nặn thợ lặn đóng khố, xăm mình, ôm giỏ trai ngọc' },
-  'thue-quan': { src:'assets/thu-lai-thue-quan.jpg', alt:'Tượng đất nặn thư lại cầm bút lông và thẻ gỗ, bên cân đồng' },
-  'tn-tong':   { src:'assets/thuong-nhan-tong.jpg', alt:'Tượng đất nặn thương nhân Tống áo cổ tròn, cầm bát men xanh và cuộn lụa' },
-  'tn-xiem':   { src:'assets/thuong-nhan-xiem-la.jpg', alt:'Tượng đất nặn thương nhân Xiêm La đeo hoa tai, quấn sampot, cầm sừng tê' },
-  'tn-trao':   { src:'assets/thuong-nhan-trao-oa.jpg', alt:'Tượng đất nặn thương nhân Trảo Oa búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương' },
-  'tn-nhat':   { src:'assets/thuong-nhan-tam-phat-te.jpg', alt:'Tượng đất nặn thương nhân Tam Phật Tề tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi' },
+  'lo-gom':    { src:'assets/tho-ca-lo-gom.jpg', alt:T('Tượng đất nặn thợ cả lò gốm búi tóc, tay bưng bát','Clay figure of the master potter, hair in a bun, holding a bowl') },
+  'xuong-lua': { src:'assets/ba-chu-xuong-lua-v2.jpg', alt:T('Tượng đất nặn bà chủ xưởng dệt cầm con tơ và thoi dệt','Clay figure of the silk workshop mistress holding a skein and a shuttle') },
+  'tram':      { src:'assets/chu-tram-huong-v2.jpg', alt:T('Tượng đất nặn chủ trạm trầm hương bưng khay trầm, đeo cân đồng','Clay figure of the agarwood trader with a tray of agarwood and brass scales') },
+  'be-ngoc':   { src:'assets/tho-lan-ngoc-trai-v2.jpg', alt:T('Tượng đất nặn thợ lặn đóng khố, xăm mình, ôm giỏ trai ngọc','Clay figure of a tattooed pearl diver in a loincloth holding a basket of oysters') },
+  'thue-quan': { src:'assets/thu-lai-thue-quan-v2.jpg', alt:T('Tượng đất nặn thư lại cầm bút lông và thẻ gỗ','Clay figure of a clerk holding a brush and a wooden tally') },
+  'tn-tong':   { src:'assets/thuong-nhan-tong-v2.jpg', alt:T('Tượng đất nặn thương nhân Tống áo cổ tròn, cầm bát men xanh và cuộn lụa','Clay figure of a Song merchant in a round-collared robe with a celadon bowl and a roll of silk') },
+  'tn-xiem':   { src:'assets/thuong-nhan-xiem-la-v2.jpg', alt:T('Tượng đất nặn thương nhân Xiêm La đeo hoa tai, quấn sampot, cầm sừng tê','Clay figure of a Siamese merchant with earrings and a sampot, holding a rhinoceros horn') },
+  'tn-trao':   { src:'assets/thuong-nhan-trao-oa-v2.jpg', alt:T('Tượng đất nặn thương nhân Trảo Oa búi tóc quấn dải chàm, quấn vải chàm, xách giỏ đinh hương, ôm khúc đàn hương','Clay figure of a Javanese merchant in indigo cloth with a basket of cloves and a log of sandalwood') },
+  'su-than-mat': { src:'assets/su-than-mat.jpg', alt:T('Chân dung sứ thần triều Lý đội mũ phốc đầu','Portrait of a Lý court envoy in a winged hat') },
+  'su-than':   { src:'assets/su-than.jpg', alt:T('Tượng đất nặn sứ thần triều Lý đội mũ phốc đầu, mặc áo giao lĩnh màu tía, hai tay nâng cuộn chiếu bọc lụa vàng','Clay figure of a Lý court envoy in a purple robe and winged hat, holding an edict wrapped in yellow silk') },
+  'tn-nhat':   { src:'assets/thuong-nhan-tam-phat-te-v2.jpg', alt:T('Tượng đất nặn thương nhân Tam Phật Tề tóc ngang vai, quấn vải đỏ, cầm ngà voi và ống tre đựng long não, đeo tấm đồi mồi','Clay figure of a Srivijaya merchant in red cloth with ivory, a bamboo tube of camphor and a tortoiseshell plate') },
 };
 function addPlace(def){
   const npc = def.tuong ? tuong(def.tuong) : null;
   if(npc){ scene.add(npc); npc.position.set(def.x, def.z > SHORE_Z ? 0.4 : 0, def.z); npc.rotation.y = def.face||0; npc.userData.tag = label(def.tag, 7.3, npc, 0.6); }
   places.push(Object.assign({}, def, { npc })); if(npc) solids.push({ x:def.x, z:def.z, r:1.3 });
 }
-addPlace({ id:'lo-gom',   kind:'shop', good:'gom',  x:-40, z:-21.5, tag:'Lò gốm',        who:'Thợ cả lò gốm',      tuong:'tho-ca-lo-gom' });
-addPlace({ id:'xuong-lua',kind:'shop', good:'lua',  x:-14, z:-25,   tag:'Xưởng dệt lụa', who:'Bà chủ xưởng dệt',   tuong:'ba-chu-xuong-lua' });
-addPlace({ id:'tram',     kind:'shop', good:'tram', x:14,  z:-25,   tag:'Trạm trầm hương',who:'Chủ trạm trầm hương', tuong:'chu-tram-huong' });
-addPlace({ id:'be-ngoc',  kind:'shop', good:'ngoc', x:58,  z:1,     tag:'Bến mò ngọc trai', who:'Thợ lặn mò ngọc trai',  tuong:'tho-lan-ngoc-trai' });
-addPlace({ id:'thue-quan',kind:'customs', x:5, z:-3.5, tag:'Nhà thuế quan', who:'Thư lại thuế quan', tuong:'thu-lai-thue-quan' });
-addPlace({ id:'bia-su',   kind:'stele', x:-58, z:-0.5, tag:'Bia sử', who:'Bia đá' });
-label('Bia sử', 9, (()=>{ const g=new THREE.Group(); g.position.set(-58,0,-4); scene.add(g); return g; })(), 0.8);
+addPlace({ id:'lo-gom',   kind:'shop', good:'gom',  x:-40, z:-21.5, tag:T('Lò gốm','Kiln'),        who:T('Thợ cả lò gốm','Master potter'),      tuong:'tho-ca-lo-gom' });
+addPlace({ id:'xuong-lua',kind:'shop', good:'lua',  x:-14, z:-25,   tag:T('Xưởng dệt lụa','Silk workshop'), who:T('Bà chủ xưởng dệt','Workshop mistress'),   tuong:'ba-chu-xuong-lua-v2' });
+addPlace({ id:'tram',     kind:'shop', good:'tram', x:14,  z:-25,   tag:T('Trạm trầm hương','Agarwood station'),who:T('Chủ trạm trầm hương','Agarwood trader'), tuong:'chu-tram-huong-v2' });
+addPlace({ id:'be-ngoc',  kind:'shop', good:'ngoc', x:58,  z:1,     tag:T('Bến mò ngọc trai','Pearl landing'), who:T('Thợ lặn mò ngọc trai','Pearl diver'),  tuong:'tho-lan-ngoc-trai-v2' });
+addPlace({ id:'thue-quan',kind:'customs', x:5, z:-3.5, tag:T('Nhà thuế quan','Customs house'), who:T('Thư lại thuế quan','Customs clerk'), tuong:'thu-lai-thue-quan-v2' });
+addPlace({ id:'bia-su',   kind:'stele', x:-58, z:-0.5, tag:T('Bia sử','History stele'), who:T('Bia đá','Stone stele') });
+// Sứ thần mang chiếu: đứng cạnh Nhà thuế quan trong chương «Chiếu đòi cống», dâng đủ cống thì về kinh
+{ const npc = tuong('su-than'); scene.add(npc); npc.position.set(10.5, 0, -3); npc.visible = false;
+  npc.userData.tag = label(T('Sứ thần','Envoy'), 7.3, npc, 0.6);
+  places.push({ id:'su-than', kind:'envoy', off:true, x:10.5, z:-3, npc }); }
+label(T('Bia sử','History stele'), 9, (()=>{ const g=new THREE.Group(); g.position.set(-58,0,-4); scene.add(g); return g; })(), 0.8);
 NATIONS.forEach((n,i) => addPlace({ id:'tn-'+n.id, kind:'merchant', nat:n, x:piers[i].x, z:SHORE_Z+PIER_LEN-5,
   tag:n.name, who:n.who, face:Math.PI, tuong:n.tuong }));
 
@@ -650,6 +697,7 @@ function syncWorld(){
     p.npc.visible = docked; p.off = !docked; ships[n.id].visible = sh.st !== 'away';
   }
   for(const id in BUILD_MESH) BUILD_MESH[id].visible = !!S.built[id];
+  places.find(p => p.id==='su-than').npc.visible = !!(S.running && S.tribute && !S.tribute.done);
 }
 function arrive(id){
   const n = NAT(id), sh = S.ships[id], f = TAX[S.tax].demand, early = S.round <= 2;
@@ -661,7 +709,7 @@ function arrive(id){
   sh.full = Object.assign({}, sh.order); sh.st = 'in'; sh.z = SHIP_AWAY_Z;
   sh.t = sh.max = chuong().kien + (S.built.den ? 8 : 0);
   sfx('tuva');
-  toast(`⛵ Thuyền <b>${n.name}</b> vào bến, đặt mua <b>${orderTxt(sh.order)}</b>. Đợi ${Math.round(sh.t)} giây.`, 3400);
+  toast(T(`⛵ Thuyền <b>${n.name}</b> vào bến, đặt mua <b>${orderTxt(sh.order)}</b>. Đợi ${Math.round(sh.t)} giây.`,`⛵ A <b>${n.name}</b> ship docks and orders <b>${orderTxt(sh.order)}</b>. It will wait ${Math.round(sh.t)} seconds.`), 3400);
   syncWorld();
 }
 function depart(id, ok){
@@ -671,7 +719,7 @@ function depart(id, ok){
   if(!ok){
     const left = sumO(sh.order);
     if(left > 0){ S.rep -= 2; S.stat.missed++; sfx('bad');
-      toast(`Thuyền <b>${n.name}</b> nhổ neo khi đơn còn thiếu ${left} kiện: danh vọng −2.`, 3000); }
+      toast(T(`Thuyền <b>${n.name}</b> nhổ neo khi đơn còn thiếu ${left} kiện: danh vọng −2.`,`The <b>${n.name}</b> ship sails with ${left} bundles still missing: prestige −2.`), 3000); }
   }
   if(dlgPlace && dlgPlace.nat === n) closeDlg();
   syncWorld();
@@ -687,7 +735,7 @@ function updateShips(dt){                  // chỉ chạy khi không mở hội
   if(S.giac && !S.giac.done && S.el >= S.giac.at) giacDen();
   if(S.doBo && S.doBo.state==='cho' && !S.doBo.bao && S.el >= S.doBo.at){
     S.doBo.bao = true; sfx('mo');
-    toast('Có người lạ từ thuyền <b>Đồ Bồ</b> lảng vảng ở <b>bến mò ngọc trai</b>, hỏi mua ngọc trai.', 3800);
+    toast(T('Có người lạ từ thuyền <b>Đồ Bồ</b> lảng vảng ở <b>bến mò ngọc trai</b>, hỏi mua ngọc trai.','Strangers from the <b>Đồ Bồ</b> ship are hanging around the <b>pearl landing</b>, asking to buy pearls.'), 3800);
   }
 }
 function moveShips(dt){                    // chạy mọi khung hình
@@ -702,12 +750,12 @@ function giacDen(){
   S.giac.done = true;
   if(S.built.volau){
     S.giac.ok = true; S.rep += 6; sfx('trong');
-    toast('🗼 Giặc biển áp sát cầu tàu. Thủy binh trên vọng lâu bắn tên đẩy lui: danh vọng +6.', 4200);
+    toast(T('🗼 Giặc biển áp sát cầu tàu. Thủy binh trên vọng lâu bắn tên đẩy lui: danh vọng +6.','🗼 Pirates close in on the piers. Archers on the watchtower drive them off: prestige +6.'), 4200);
   } else {
     const mat = Math.min(S.money, Math.max(60, Math.round(S.money*0.35)));
     S.money -= mat; S.rep -= 4; sfx('bad'); setTimeout(() => sfx('bao'), 300);
     for(const n of NATIONS) if(S.ships[n.id].st === 'docked' || S.ships[n.id].st === 'in'){ S.ships[n.id].order = {}; depart(n.id, true); }
-    toast(`🏴 Giặc biển cướp bến: mất <b>${mat}</b> quan, thuyền buôn bỏ chạy, danh vọng −4. Cần dựng Vọng lâu thủy binh.`, 5200);
+    toast(T(`🏴 Giặc biển cướp bến: mất <b>${mat}</b> quan, thuyền buôn bỏ chạy, danh vọng −4. Cần dựng Vọng lâu thủy binh.`,`🏴 Pirates raid the port: you lose <b>${mat}</b> cash, the merchant ships flee, prestige −4. Build a Naval watchtower.`), 5200);
   }
 }
 
@@ -775,7 +823,7 @@ function updatePlayer(dt){
   { let nb = null, nd = 1e9; for(const p of places){ if(p.off) continue; const d = Math.hypot(player.position.x-p.x, player.position.z-p.z); if(d < nd){ nd = d; nb = p; } }
     $('hNearName').textContent = nb ? `${nb.tag} · ${Math.round(nd)} m` : '—'; }
   const a = $('act');
-  if(nearest && !dlgOpen){ a.style.display = 'block'; a.textContent = (nearest.kind==='stele' ? 'Đọc ' : 'Gặp ') + nearest.tag; }
+  if(nearest && !dlgOpen){ a.style.display = 'block'; a.textContent = (nearest.kind==='stele' ? T('Đọc ','Read: ') : T('Gặp ','Talk: ')) + nearest.tag; }
   else a.style.display = 'none';
 }
 $('act').addEventListener('click', () => interact());
@@ -789,64 +837,72 @@ function closeDlg(){ dlgOpen = false; dlgPlace = null; $('dlg').style.display = 
 function interact(){ if(nearest && !dlgOpen) openDlg(nearest); }
 function rowHTML(lbl, small, btns){ return `<div class="row"><div class="lbl">${lbl}<small>${small}</small></div>${btns}</div>`; }
 
-function trend(g){ const m = S.market[g.id]||1; return m >= 1.12 ? ' <span style="color:#e58a6a">▲ đắt</span>' : m <= 0.9 ? ' <span style="color:#9ec5ab">▼ rẻ</span>' : ''; }
+function trend(g){ const m = S.market[g.id]||1; return m >= 1.12 ? ' <span style="color:#e58a6a">▲ '+T('đắt','dear')+'</span>' : m <= 0.9 ? ' <span style="color:#9ec5ab">▼ '+T('rẻ','cheap')+'</span>' : ''; }
 function renderDlg(){
   const p = dlgPlace; if(!p) return;
   const pic = PICS[p.id], im = $('dlgPic');
   if(pic){ if(im.getAttribute('src') !== pic.src) im.src = pic.src; im.alt = pic.alt; im.style.objectPosition = pic.pos || 'top'; im.hidden = false; }
   else im.hidden = true;
   $('dlgWho').textContent = p.who; let rows = '', body = '', title = p.tag;
-  let btns = '<button class="btn" type="button" data-a="close">Đi tiếp</button>';
+  let btns = '<button class="btn" type="button" data-a="close">'+T('Đi tiếp','Move on')+'</button>';
   if(p.kind==='shop'){
     const g = G(p.good), c = costOf(g), room = capOf() - carryN(), max = Math.min(room, Math.floor(S.money/c));
-    body = `Hàng tại xưởng: <b>${g.ic} ${g.name}</b>, giá phiên này <b>${c} quan</b> một kiện${trend(g)}. Khanh còn chỗ cho <b>${room}</b> kiện.`;
+    body = T(`Hàng tại xưởng: <b>${g.ic} ${g.name}</b>, giá phiên này <b>${c} quan</b> một kiện${trend(g)}. Khanh còn chỗ cho <b>${room}</b> kiện.`,`Goods here: <b>${g.ic} ${g.name}</b>, <b>${c} cash</b> a bundle this session${trend(g)}. You have room for <b>${room}</b> more.`);
     const want = NATIONS.filter(n => ['in','docked'].includes(S.ships[n.id].st) && (S.ships[n.id].order[g.id]||0) > 0)
-      .map(n => `${n.name} cần ${S.ships[n.id].order[g.id]}`);
+      .map(n => `${n.name} ${T('cần','needs')} ${S.ships[n.id].order[g.id]}`);
     const fans = NATIONS.filter(n => n.prefs.includes(g.id)).map(n => n.name).join(', ');
-    rows = rowHTML(`${g.ic} ${g.name}`, want.length ? `Đang đặt: ${want.join(' · ')}` : `Thuyền hay mua: ${fans}`,
-      `<button class="btn" type="button" data-a="buy" data-n="1" ${max<1?'disabled':''}>Mua 1</button>
-       <button class="btn pri" type="button" data-a="buy" data-n="${max}" ${max<1?'disabled':''}>Mua ${Math.max(max,0)}</button>`);
-    if(max<1) body += room<1 ? ' <b>Gánh đã đầy.</b>' : ' <b>Không đủ quan tiền.</b>';
+    rows = rowHTML(`${g.ic} ${g.name}`, want.length ? `${T('Đang đặt','Ordered')}: ${want.join(' · ')}` : `${T('Thuyền hay mua','Usual buyers')}: ${fans}`,
+      `<button class="btn" type="button" data-a="buy" data-n="1" ${max<1?'disabled':''}>${T('Mua','Buy')} 1</button>
+       <button class="btn pri" type="button" data-a="buy" data-n="${max}" ${max<1?'disabled':''}>${T('Mua','Buy')} ${Math.max(max,0)}</button>`);
+    if(max<1) body += room<1 ? T(' <b>Gánh đã đầy.</b>',' <b>Your load is full.</b>') : T(' <b>Không đủ quan tiền.</b>',' <b>Not enough cash.</b>');
     if(p.good==='ngoc' && S.doBo && S.doBo.state==='cho' && S.doBo.bao){
       const k = S.carry.ngoc, gia = sellPrice(NAT('trao'), g) * 3;
-      rows += rowHTML('🕶️ Người lạ thuyền Đồ Bồ', `Hỏi mua lén ngọc trai, trả ${gia} quan một kiện (gấp ba). Bán thì mất danh vọng nặng và hỏng việc triều đình giao.`,
-        `<button class="btn" type="button" data-a="doboBan" ${k<1?'disabled':''}>Bán lén ${k}</button>
-         <button class="btn pri" type="button" data-a="doboTu">Từ chối, báo quan</button>`);
+      rows += rowHTML(T('🕶️ Người lạ thuyền Đồ Bồ','🕶️ Stranger from the Đồ Bồ ship'), T(`Hỏi mua lén ngọc trai, trả ${gia} quan một kiện (gấp ba). Bán thì mất danh vọng nặng và hỏng việc triều đình giao.`,`Wants to buy pearls secretly at ${gia} cash a bundle (three times the price). Selling costs a lot of prestige and fails the court&#39;s task.`),
+        `<button class="btn" type="button" data-a="doboBan" ${k<1?'disabled':''}>${T('Bán lén','Sell secretly')} ${k}</button>
+         <button class="btn pri" type="button" data-a="doboTu">${T('Từ chối, báo quan','Refuse and report')}</button>`);
     }
   } else if(p.kind==='merchant'){
     const n = p.nat, sh = S.ships[n.id];
-    body = `Thuyền <b>${n.name}</b> còn đợi <b>${Math.max(0, Math.ceil(sh.t))} giây</b>. Giao trọn đơn được thưởng thêm 15% và +3 danh vọng. Thuế cảng phiên này: <b>${S.tax}%</b>.`;
+    body = T(`Thuyền <b>${n.name}</b> còn đợi <b>${Math.max(0, Math.ceil(sh.t))} giây</b>. Giao trọn đơn được thưởng thêm 15% và +3 danh vọng. Thuế cảng phiên này: <b>${S.tax}%</b>.`,`The <b>${n.name}</b> ship will wait <b>${Math.max(0, Math.ceil(sh.t))} more seconds</b>. A complete order earns a 15% bonus and +3 prestige. Port tax this session: <b>${S.tax}%</b>.`);
     for(const [gid, q] of Object.entries(sh.order)){
       const g = G(gid), have = S.carry[gid], k = Math.min(have, q);
-      rows += rowHTML(`${g.ic} ${g.name}`, `Trả ${sellPrice(n,g)} quan/kiện${trend(g)} · còn cần ${q} · khanh có ${have}`,
-        `<button class="btn ${k>0?'pri':''}" type="button" data-a="sell" data-g="${gid}" ${k<1?'disabled':''}>Giao ${k}</button>`);
+      rows += rowHTML(`${g.ic} ${g.name}`, T(`Trả ${sellPrice(n,g)} quan/kiện${trend(g)} · còn cần ${q} · khanh có ${have}`,`Pays ${sellPrice(n,g)} cash/bundle${trend(g)} · still needs ${q} · you have ${have}`),
+        `<button class="btn ${k>0?'pri':''}" type="button" data-a="sell" data-g="${gid}" ${k<1?'disabled':''}>${T('Giao','Deliver')} ${k}</button>`);
     }
   } else if(p.kind==='customs'){
-    body = `Thuế cảng đang áp dụng: <b>${S.tax}%</b>. Mức chọn dưới đây có hiệu lực <b>từ chương sau</b>.`;
-    rows = rowHTML('⚖️ Thuế chương sau', 'Thấp: thuyền đặt nhiều, +danh vọng. Cao: thu nhiều, thuyền đặt ít, −danh vọng.',
+    body = T(`Thuế cảng đang áp dụng: <b>${S.tax}%</b>. Mức chọn dưới đây có hiệu lực <b>từ chương sau</b>.`,`Current port tax: <b>${S.tax}%</b>. The rate you pick below applies <b>from the next chapter</b>.`);
+    rows = rowHTML(T('⚖️ Thuế chương sau','⚖️ Tax next chapter'), T('Thấp: thuyền đặt nhiều, +danh vọng. Cao: thu nhiều, thuyền đặt ít, −danh vọng.','Low: ships order more, +prestige. High: more revenue, smaller orders, −prestige.'),
       [5,15,30].map(t => `<button class="btn ${S.nextTax===t?'on':''}" type="button" data-a="tax" data-t="${t}" aria-pressed="${S.nextTax===t}">${t}%</button>`).join(''));
     if(S.tribute && !S.tribute.done){
       const need = S.tribute.need, ok = Object.entries(need).every(([id,q]) => S.carry[id] >= q);
-      rows += rowHTML(`📜 Chiếu đòi cống: ${orderTxt(need)}`, `Dâng trong phiên này. Khanh đang có ${Object.keys(need).map(id => `${S.carry[id]} ${G(id).name}`).join(', ')}.`,
-        `<button class="btn pri" type="button" data-a="tribute" ${ok?'':'disabled'}>Dâng</button>`);
+      rows += rowHTML(`📜 ${T('Chiếu đòi cống','Tribute edict')}: ${orderTxt(need)}`, `${T('Dâng trong phiên này. Khanh đang có','Deliver this session. You have')} ${Object.keys(need).map(id => `${S.carry[id]} ${G(id).name}`).join(', ')}.`,
+        `<button class="btn pri" type="button" data-a="tribute" ${ok?'':'disabled'}>${T('Dâng','Deliver')}</button>`);
     }
     for(const c of CONG_TRINH){
-      if(S.built[c.id]) { rows += rowHTML(`${c.ic} ${c.ten}`, `Đã dựng. ${c.mo}`, ''); continue; }
+      if(S.built[c.id]) { rows += rowHTML(`${c.ic} ${c.ten}`, `${T('Đã dựng.','Built.')} ${c.mo}`, ''); continue; }
       const thieu = c.can && !S.built[c.can];
-      rows += rowHTML(`${c.ic} ${c.ten}`, thieu ? `Cần dựng ${CONG_TRINH.find(x => x.id===c.can).ten} trước. ${c.mo}` : c.mo,
-        `<button class="btn" type="button" data-a="build" data-b="${c.id}" ${(thieu || S.money < c.gia)?'disabled':''}>${c.gia} quan</button>`);
+      rows += rowHTML(`${c.ic} ${c.ten}`, thieu ? T(`Cần dựng ${CONG_TRINH.find(x => x.id===c.can).ten} trước. ${c.mo}`,`Build the ${CONG_TRINH.find(x => x.id===c.can).ten} first. ${c.mo}`) : c.mo,
+        `<button class="btn" type="button" data-a="build" data-b="${c.id}" ${(thieu || S.money < c.gia)?'disabled':''}>${c.gia} ${T('quan','cash')}</button>`);
     }
-    btns = `<button class="btn pri" type="button" data-a="end">🥁 Đánh trống kết phiên</button>` + btns;
+    btns = `<button class="btn pri" type="button" data-a="end">${T('🥁 Đánh trống kết phiên','🥁 Beat the drum to end the session')}</button>` + btns;
   } else {
-    title = 'Bia sử Vân Đồn';
-    body = `Năm Kỷ Tỵ (<b>1149</b>), đời vua <b>Lý Anh Tông</b>, mùa xuân, tháng 2, thuyền buôn ba nước Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán.
+    title = T('Bia sử Vân Đồn','The Vân Đồn history stele');
+    body = T(`Năm Kỷ Tỵ (<b>1149</b>), đời vua <b>Lý Anh Tông</b>, mùa xuân, tháng 2, thuyền buôn ba nước Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông xin cư trú buôn bán.
       Triều đình bèn cho lập trang ở nơi hải đảo, gọi là <b>Vân Đồn</b>, để mua bán hàng hóa quý, dâng tiến sản vật địa phương (theo <i>Đại Việt sử ký toàn thư</i>).<br><br>
       Năm 1184, người buôn Xiêm La và <b>Tam Phật Tề</b> vào Vân Đồn xin buôn bán. Năm 1348, thuyền Đồ Bồ đến đây ngầm mua ngọc trai.
       Đầu năm <b>1288</b>, Trần Khánh Dư đánh tan đoàn thuyền lương của Trương Văn Hổ ở vùng biển này. Năm <b>1349</b>, nhà Trần đặt quan trấn, quan lộ, sát hải sứ và quân Bình Hải ở trấn Vân Đồn.<br><br>
       <b>Chỗ trò chơi giản lược:</b> sáu chương gói hai trăm năm vào một ván. Chương 1149, 1184 và 1348 theo sử; các chương «Khách buôn phương Bắc», «Giặc biển», «Chiếu đòi cống» là cách dựng của trò chơi.
       Năm 1149 Vân Đồn mới là trang, nên «quan trấn thủ», Nhà thuế quan, thư lại, vọng lâu và đền thần biển là hư cấu; mức thuế, giá hàng, đơn hàng và thời gian đợi là số liệu của trò chơi.
       Trang phục nhân vật được cách điệu, không phục dựng theo hiện vật. Tên Xiêm La chép theo <i>Toàn thư</i>, dù vương quốc của người Thái đến thế kỷ 13 mới lập.
-      Trầm hương là hàng trung chuyển, không phải sản vật của đảo; ngọc trai là ngọc mò ngoài biển. Gốm trong game gọi chung là «gốm Đại Việt».`;
+      Trầm hương là hàng trung chuyển, không phải sản vật của đảo; ngọc trai là ngọc mò ngoài biển. Gốm trong game gọi chung là «gốm Đại Việt».`,
+      `In <b>1149</b>, under King <b>Lý Anh Tông</b>, in the second month of spring, merchant ships from Java, Lộ Lạc and Siam came to Hải Đông asking to settle and trade.
+      The court then set up a trading post on the islands, called <b>Vân Đồn</b>, to buy and sell precious goods and present local products as tribute (according to the <i>Complete Annals of Đại Việt</i>).<br><br>
+      In 1184 merchants from Siam and <b>Srivijaya</b> came to Vân Đồn asking to trade. In 1348 a ship from Đồ Bồ came here to buy pearls in secret.
+      Early in <b>1288</b>, Trần Khánh Dư destroyed Zhang Wenhu&#39;s grain fleet in these waters. In <b>1349</b> the Trần court appointed a garrison commander, road officials, a coastal inspector and Bình Hải troops to the garrison of Vân Đồn.<br><br>
+      <b>Where the game simplifies:</b> six chapters fold two hundred years into one game. The 1149, 1184 and 1348 chapters follow the chronicles; «Northern merchants», «Pirates» and «Tribute edict» are the game&#39;s inventions.
+      In 1149 Vân Đồn was only a trading post, so the «governor», the Customs house, the clerk, the watchtower and the sea-god temple are fiction; tax rates, prices, orders and waiting times are game numbers.
+      Costumes are stylised, not reconstructed from artefacts. The name Siam follows the <i>Annals</i>, although the Thai kingdom was only founded in the 13th century.
+      Agarwood was a transit good, not a product of the islands; pearls were gathered by divers at sea. Ceramics in the game are simply called «Đại Việt ceramics».`);
   }
   $('dlgTitle').textContent = title; $('dlgBody').innerHTML = body; $('dlgRows').innerHTML = rows; $('dlgBtns').innerHTML = btns;
 }
@@ -856,7 +912,7 @@ $('dlg').addEventListener('click', e => {
   if(a==='close') return closeDlg();
   if(a==='buy'){ if(buy(p.good, +b.dataset.n)) sfx('coin'); }
   if(a==='sell'){ const k = sell(p.nat, b.dataset.g); if(k) sfx('sell'); if(!dlgOpen){ renderHUD(); return; } }
-  if(a==='tax'){ sfx('mo'); S.nextTax = +b.dataset.t; toast(`Từ chương sau, thuế cảng là <b>${S.nextTax}%</b>.`); }
+  if(a==='tax'){ sfx('mo'); S.nextTax = +b.dataset.t; toast(T(`Từ chương sau, thuế cảng là <b>${S.nextTax}%</b>.`,`From the next chapter the port tax is <b>${S.nextTax}%</b>.`)); }
   if(a==='tribute'){ if(giveTribute()) sfx('gong'); }
   if(a==='build'){ if(build(b.dataset.b)) sfx('gong'); }
   if(a==='doboBan' || a==='doboTu'){ doBo(a==='doboBan'); }
@@ -878,24 +934,24 @@ function sell(nat, goodId){
   if(sumO(sh.order) <= 0){
     const bonus = Math.round(Object.entries(sh.full).reduce((a,[id,q]) => a + q*sellPrice(nat, G(id)), 0) * 0.15);
     S.money += bonus; S.rep += 3; S.stat.done++; S.stat.doneNat[nat.id] = true;
-    toast(`✅ Giao trọn đơn cho thuyền <b>${nat.name}</b>: thưởng <b>+${bonus}</b> quan, danh vọng +3.`, 3200);
+    toast(T(`✅ Giao trọn đơn cho thuyền <b>${nat.name}</b>: thưởng <b>+${bonus}</b> quan, danh vọng +3.`,`✅ Order complete for the <b>${nat.name}</b> ship: bonus <b>+${bonus}</b> cash, prestige +3.`), 3200);
     setTimeout(() => sfx('gong'), 250);
     depart(nat.id, true);
-  } else toast(`Giao <b>${k} ${g.name}</b> cho thuyền ${nat.name}: <b>+${pr*k}</b> quan, thuế cảng <b>+${tax}</b>.`);
+  } else toast(T(`Giao <b>${k} ${g.name}</b> cho thuyền ${nat.name}: <b>+${pr*k}</b> quan, thuế cảng <b>+${tax}</b>.`,`Delivered <b>${k} ${g.name}</b> to the ${nat.name} ship: <b>+${pr*k}</b> cash, port tax <b>+${tax}</b>.`));
   return k;
 }
 function giveTribute(){
   const t = S.tribute; if(!t || t.done) return false;
   if(!Object.entries(t.need).every(([id,q]) => S.carry[id] >= q)) return false;
   for(const [id,q] of Object.entries(t.need)) S.carry[id] -= q;
-  t.done = true; S.rep += 5;
-  toast('Sứ thần nhận cống phẩm: <b>+5 danh vọng</b>.'); return true;
+  t.done = true; S.rep += 5; syncWorld();
+  toast(T('Sứ thần nhận cống phẩm rồi lên thuyền về kinh: <b>+5 danh vọng</b>.','The envoy accepts the tribute and sails back to the capital: <b>+5 prestige</b>.')); return true;
 }
 const BUILD_SOLID = { volau:{x:-63,z:5,r:3}, den:{x:34,z:-16,r:5}, lo:{x:-50,z:-24,r:3.5} };
 function build(id){
   const c = CONG_TRINH.find(x => x.id===id); if(!c || S.built[id] || S.money < c.gia || (c.can && !S.built[c.can])) return false;
   S.money -= c.gia; S.built[id] = true; if(BUILD_SOLID[id]) solids.push(BUILD_SOLID[id]);
-  syncWorld(); toast(`${c.ic} Đã dựng <b>${c.ten}</b>. ${c.mo}`, 3200); return true;
+  syncWorld(); toast(`${c.ic} ${T('Đã dựng','Built:')} <b>${c.ten}</b>. ${c.mo}`, 3200); return true;
 }
 function doBo(ban){
   const d = S.doBo; if(!d || d.state!=='cho') return;
@@ -903,8 +959,8 @@ function doBo(ban){
     const k = S.carry.ngoc; if(k<1) return;
     const gia = sellPrice(NAT('trao'), G('ngoc')) * 3;
     S.carry.ngoc = 0; S.money += gia*k; S.rep -= 15; d.state = 'ban'; sfx('bad');
-    toast(`Khanh bán lén ${k} ngọc trai: <b>+${gia*k}</b> quan, nhưng danh vọng −15. Tin đồn đã đến tai triều đình.`, 4200);
-  } else { d.state = 'tuchoi'; S.rep += 6; sfx('trong'); toast('Khanh từ chối và báo quan: người Đồ Bồ bị đuổi khỏi bến. Danh vọng +6.', 3800); }
+    toast(T(`Khanh bán lén ${k} ngọc trai: <b>+${gia*k}</b> quan, nhưng danh vọng −15. Tin đồn đã đến tai triều đình.`,`You secretly sell ${k} pearls: <b>+${gia*k}</b> cash, but prestige −15. Rumours have reached the court.`), 4200);
+  } else { d.state = 'tuchoi'; S.rep += 6; sfx('trong'); toast(T('Khanh từ chối và báo quan: người Đồ Bồ bị đuổi khỏi bến. Danh vọng +6.','You refuse and report them: the Đồ Bồ men are driven from the port. Prestige +6.'), 3800); }
 }
 
 // =====================================================================
@@ -937,12 +993,12 @@ function sndInit(){
   }catch(e){}
 }
 function sndUI(){ const b = $('btnSound'); b.textContent = snd.on ? '🔊' : '🔇';
-  b.setAttribute('aria-pressed', snd.on); b.setAttribute('aria-label', snd.on ? 'Tắt âm thanh' : 'Bật âm thanh'); }
+  b.setAttribute('aria-pressed', snd.on); b.setAttribute('aria-label', snd.on ? T('Tắt âm thanh','Sound off') : T('Bật âm thanh','Sound on')); }
 $('btnSound').addEventListener('click', () => {
   snd.on = !snd.on; try{ localStorage.setItem(SND_KEY, snd.on ? 'on' : 'off'); }catch(e){}
   if(snd.on) sndInit(); else songStop();
   if(snd.ac) snd.master.gain.setTargetAtTime(snd.on ? 0.8 : 0, snd.ac.currentTime, 0.05);
-  sndUI(); toast(snd.on ? '🔊 Âm thanh: bật' : '🔇 Âm thanh: tắt', 1400);
+  sndUI(); toast(snd.on ? T('🔊 Âm thanh: bật','🔊 Sound: on') : T('🔇 Âm thanh: tắt','🔇 Sound: off'), 1400);
 });
 sndUI();
 document.addEventListener('visibilitychange', () => {
@@ -966,7 +1022,7 @@ song.el.volume = 0.85;
 function songUI(msg){
   document.querySelectorAll('.btnSong').forEach(b => {
     const k = b.dataset.bai || 'game', dang = (song.key === k && !song.el.paused);
-    b.textContent = (song.key === k && msg) ? msg : (dang ? '⏸ Dừng bài hát' : '🎵 Nghe bài hát');
+    b.textContent = (song.key === k && msg) ? msg : (dang ? T('⏸ Dừng bài hát','⏸ Stop the song') : T('🎵 Nghe bài hát','🎵 Play the song'));
     b.setAttribute('aria-pressed', dang);
   });
 }
@@ -981,9 +1037,9 @@ function songPlay(k){
   k = k || 'game';
   if(!snd.on) return;
   song.key = k;
-  songUI('⏳ Đang tải bài hát…');
+  songUI(T('⏳ Đang tải bài hát…','⏳ Loading the song…'));
   songLoad(k).then(() => { if(!snd.on) return; song.el.src = song.src[k]; song.el.currentTime = 0; duck(true); return song.el.play(); })
-    .then(() => songUI()).catch(() => { duck(false); songUI('Chưa tải được bài hát'); });
+    .then(() => songUI()).catch(() => { duck(false); songUI(T('Chưa tải được bài hát','Could not load the song')); });
 }
 function songStop(){ if(!song.el.paused) song.el.pause(); duck(false); songUI(); }
 song.el.addEventListener('ended', () => { duck(false); songUI(); });
@@ -1054,12 +1110,12 @@ function musicTick(){
 function goalState(){
   const m = chuong().muc, st = S.stat;
   switch(m.loai){
-    case 'don':     return { ok: st.done >= m.n, p: `${Math.min(st.done, m.n)}/${m.n} đơn` };
-    case 'tien':    return { ok: st.income >= m.n, p: `${Math.min(st.income, m.n)}/${m.n} quan` };
-    case 'donNuoc': return { ok: !!st.doneNat[m.nat], p: st.doneNat[m.nat] ? 'xong' : 'chưa' };
-    case 'giac':    return { ok: !!(S.giac && S.giac.ok), p: S.giac && S.giac.done ? (S.giac.ok ? 'đã đẩy lui' : 'thất thủ') : (S.built.volau ? 'đã có vọng lâu' : 'chưa có vọng lâu') };
-    case 'cong':    return { ok: !!(S.tribute && S.tribute.done), p: S.tribute && S.tribute.done ? 'đã dâng' : 'chưa dâng' };
-    case 'liem':    return { ok: !(S.doBo && S.doBo.state==='ban'), p: S.doBo && S.doBo.state==='tuchoi' ? 'đã báo quan' : S.doBo && S.doBo.state==='ban' ? 'đã bán lén' : 'giữ mình' };
+    case 'don':     return { ok: st.done >= m.n, p: `${Math.min(st.done, m.n)}/${m.n} ${T('đơn','orders')}` };
+    case 'tien':    return { ok: st.income >= m.n, p: `${Math.min(st.income, m.n)}/${m.n} ${T('quan','cash')}` };
+    case 'donNuoc': return { ok: !!st.doneNat[m.nat], p: st.doneNat[m.nat] ? T('xong','done') : T('chưa','not yet') };
+    case 'giac':    return { ok: !!(S.giac && S.giac.ok), p: S.giac && S.giac.done ? (S.giac.ok ? T('đã đẩy lui','repelled') : T('thất thủ','raided')) : (S.built.volau ? T('đã có vọng lâu','watchtower built') : T('chưa có vọng lâu','no watchtower yet')) };
+    case 'cong':    return { ok: !!(S.tribute && S.tribute.done), p: S.tribute && S.tribute.done ? T('đã dâng','delivered') : T('chưa dâng','not delivered') };
+    case 'liem':    return { ok: !(S.doBo && S.doBo.state==='ban'), p: S.doBo && S.doBo.state==='tuchoi' ? T('đã báo quan','reported') : S.doBo && S.doBo.state==='ban' ? T('đã bán lén','sold secretly') : T('giữ mình','holding firm') };
   }
   return { ok:false, p:'' };
 }
@@ -1069,29 +1125,29 @@ function renderHUD(){
   if(S.running){ const gs = goalState(); $('hGoal').textContent = `${chuong().muc.txt} · ${gs.p}`; $('hGoalChip').classList.toggle('ok', gs.ok); }
   const w = NATIONS.filter(n => S.ships[n.id] && S.ships[n.id].st==='docked')
     .map(n => `${n.name} ${Math.max(0, Math.ceil(S.ships[n.id].t))}s`);
-  $('hShips').textContent = w.length ? w.join(' · ') : (S.ships.tong ? 'chưa có thuyền đợi' : '—');
+  $('hShips').textContent = w.length ? w.join(' · ') : (S.ships.tong ? T('chưa có thuyền đợi','no ship waiting') : '—');
 }
 let toastT = 0;
 function toast(html, ms){ const t = $('toast'); t.innerHTML = html; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms||2600); }
 const score = () => S.money + S.rep*10;
 
 const RD_PICS = [
-  { src:'assets/ben-dem.jpg', alt:'Mô hình đất nặn bến Vân Đồn về đêm: thuyền buồm thắp đèn, lều chợ trên cầu tàu' },
-  { src:'assets/cho-dem.jpg', alt:'Mô hình đất nặn chợ đêm trên cầu tàu: hàng ăn, cân hàng, đèn nến, thuyền buồm ngoài vịnh' },
+  { src:'assets/ben-dem.jpg', alt:T('Mô hình đất nặn bến Vân Đồn về đêm: thuyền buồm thắp đèn, lều chợ trên cầu tàu','Clay model of Vân Đồn at night: lit sailing ships and market stalls on the pier') },
+  { src:'assets/cho-dem.jpg', alt:T('Mô hình đất nặn chợ đêm trên cầu tàu: hàng ăn, cân hàng, đèn nến, thuyền buồm ngoài vịnh','Clay model of the night market on the pier: food stalls, scales, candles and ships in the bay') },
 ];
 function chuongHTML(i){
   const c = CHUONG[i];
-  let h = `<p><span class="kind ${c.su?'su':'hc'}">${c.su ? '📜 Theo sử' : '🎭 Trò chơi dựng'}</span> <b>${c.nam}</b></p><p>${c.ke}</p>`;
-  if(c.nguon) h += `<p class="note">Nguồn: <i>${c.nguon}</i>.</p>`;
-  h += `<p>🎯 <b>Việc triều đình giao:</b> ${c.muc.txt}. Làm được: +10 danh vọng và 120 quan thưởng; không làm được: −6 danh vọng.</p>`;
-  if(c.giac && !S.built.volau) h += `<p>⚠️ Chưa có <b>Vọng lâu thủy binh</b>. Dựng ở Nhà thuế quan (${CONG_TRINH.find(x => x.id==='volau').gia} quan) trước giây thứ ${c.giac} của phiên.</p>`;
+  let h = `<p><span class="kind ${c.su?'su':'hc'}">${c.su ? T('📜 Theo sử','📜 From the chronicles') : T('🎭 Trò chơi dựng','🎭 Game invention')}</span> <b>${c.nam}</b></p><p>${c.ke}</p>`;
+  if(c.nguon) h += `<p class="note">${T('Nguồn','Source')}: <i>${c.nguon}</i>.</p>`;
+  h += `<div class="envoy"><img src="${PICS['su-than-mat'].src}" width="72" height="72" alt="${PICS['su-than-mat'].alt}"><div><p>${T(`📜 <b>Sứ thần truyền chiếu.</b> 🎯 <b>Việc triều đình giao:</b> ${c.muc.txt}. Làm được: +10 danh vọng và 120 quan thưởng; không làm được: −6 danh vọng.`,`📜 <b>The envoy proclaims the edict.</b> 🎯 <b>The court&#39;s task:</b> ${c.muc.txt}. Success: +10 prestige and a 120 cash reward; failure: −6 prestige.`)}</p></div></div>`;
+  if(c.giac && !S.built.volau) h += T(`<p>⚠️ Chưa có <b>Vọng lâu thủy binh</b>. Dựng ở Nhà thuế quan (${CONG_TRINH.find(x => x.id==='volau').gia} quan) trước giây thứ ${c.giac} của phiên.</p>`,`<p>⚠️ No <b>Naval watchtower</b> yet. Build one at the Customs house (${CONG_TRINH.find(x => x.id==='volau').gia} cash) before second ${c.giac} of the session.</p>`);
   return h;
 }
 function showChuong(i, lead){
   const rp = RD_PICS[i % RD_PICS.length], ri = $('rdPic'); ri.src = rp.src; ri.alt = rp.alt;
-  $('rdTitle').textContent = `Chương ${i+1} · ${CHUONG[i].ten}`;
+  $('rdTitle').textContent = `${T('Chương','Chapter')} ${i+1} · ${CHUONG[i].ten}`;
   $('rdBody').innerHTML = (lead || '') + chuongHTML(i);
-  $('btnNext').textContent = '⚓ Vào phiên';
+  $('btnNext').textContent = T('⚓ Vào phiên','⚓ Start the session');
   $('ovRound').style.display = 'flex';
 }
 function endRound(){
@@ -1101,17 +1157,17 @@ function endRound(){
   S.rep += tx.rep;
   if(gs.ok){ S.rep += 10; S.money += 120; S.goals++; } else S.rep -= 6;
   if(S.tribute && !S.tribute.done) S.rep -= 4;
-  let lines = `<h3 class="serif" style="color:var(--dong);margin:4px 0">Hết chương ${S.round} · ${c.ten}</h3>`;
-  lines += `<p>${gs.ok ? '✅' : '❌'} <b>${c.muc.txt}</b>: ${gs.ok ? 'làm được, +10 danh vọng và 120 quan thưởng.' : 'chưa làm được, −6 danh vọng.'}</p>`;
-  lines += `<p>Giao trọn <b>${st.done}</b> đơn, để lỡ <b>${st.missed}</b> thuyền. Bán ${st.sold} kiện được <b>${st.income}</b> quan, thuế cảng <b>${st.taxIncome}</b> quan, tiền mua hàng ${st.spent} quan.</p>`;
-  if(tx.rep) lines += `<p>Thuế ${S.tax}%: danh vọng ${tx.rep>0?'+':''}${tx.rep}.</p>`;
-  const left = carryN(); if(left) lines += `<p>Còn <b>${left}</b> kiện trong gánh, mang sang chương sau (giá có thể đã khác).</p>`;
+  let lines = `<h3 class="serif" style="color:var(--dong);margin:4px 0">${T('Hết chương','End of chapter')} ${S.round} · ${c.ten}</h3>`;
+  lines += `<p>${gs.ok ? '✅' : '❌'} <b>${c.muc.txt}</b>: ${gs.ok ? T('làm được, +10 danh vọng và 120 quan thưởng.','done: +10 prestige and a 120 cash reward.') : T('chưa làm được, −6 danh vọng.','not done: −6 prestige.')}</p>`;
+  lines += T(`<p>Giao trọn <b>${st.done}</b> đơn, để lỡ <b>${st.missed}</b> thuyền. Bán ${st.sold} kiện được <b>${st.income}</b> quan, thuế cảng <b>${st.taxIncome}</b> quan, tiền mua hàng ${st.spent} quan.</p>`,`<p>Orders completed: <b>${st.done}</b>; ships missed: <b>${st.missed}</b>. Sold ${st.sold} bundles for <b>${st.income}</b> cash, port tax <b>${st.taxIncome}</b> cash, spent ${st.spent} cash on goods.</p>`);
+  if(tx.rep) lines += `<p>${T('Thuế','Tax')} ${S.tax}%: ${T('danh vọng','prestige')} ${tx.rep>0?'+':''}${tx.rep}.</p>`;
+  const left = carryN(); if(left) lines += T(`<p>Còn <b>${left}</b> kiện trong gánh, mang sang chương sau (giá có thể đã khác).</p>`,`<p><b>${left}</b> bundles left in your load carry over to the next chapter (prices may change).</p>`);
   for(const n of NATIONS) S.ships[n.id].st = 'away';
   syncWorld(); renderHUD();
   if(S.rep < 0){ S.lost = true; return finish(lines); }
   if(S.round >= ROUNDS) return finish(lines);
   S.round++; newRound();
-  if(S.built.den) lines += `<p>🕯️ Đền thần biển: danh vọng +3 đầu chương.</p>`;
+  if(S.built.den) lines += T(`<p>🕯️ Đền thần biển: danh vọng +3 đầu chương.</p>`,`<p>🕯️ Sea-god temple: +3 prestige at the start of the chapter.</p>`);
   showChuong(S.round-1, lines + '<hr style="border:0;border-top:1px solid #5c3d24;margin:10px 0">');
 }
 $('btnNext').addEventListener('click', () => { $('ovRound').style.display = 'none'; sndInit(); S.paused = false; });
@@ -1120,12 +1176,12 @@ function finish(lead){
   S.running = false; const sc = score(); setTimeout(() => sfx(S.lost ? 'bad' : 'gong'), 1300);
   if(!S.lost) setTimeout(() => { if($('ovEnd').style.display === 'flex') songPlay(); }, 3200);
   let title = TITLES[0]; for(const t of TITLES) if(S.goals >= t.min) title = t;
-  if(S.lost) title = { name:'Bị bãi chức', text:'Danh vọng xuống dưới 0: triều đình triệu khanh về kinh. Bến Vân Đồn giao cho người khác coi giữ.' };
+  if(S.lost) title = { name:T('Bị bãi chức','Dismissed'), text:T('Danh vọng xuống dưới 0: triều đình triệu khanh về kinh. Bến Vân Đồn giao cho người khác coi giữ.','Your prestige fell below 0: the court recalls you to the capital and hands Vân Đồn to someone else.') };
   let best = 0; try{ best = +localStorage.getItem(BEST_KEY) || 0; if(!S.lost && sc > best) localStorage.setItem(BEST_KEY, String(sc)); }catch(e){}
-  $('endTitle').textContent = title.name; $('endScore').textContent = S.lost ? `Chương ${S.round}/6` : sc + ' điểm';
-  $('endBody').innerHTML = (lead || '') + `<p>${title.text}</p>
-    <p>Làm được <b>${S.goals}/6</b> việc triều đình giao. ${S.lost ? '' : `Điểm: <b>${S.money}</b> quan tiền + <b>${S.rep}</b> danh vọng × 10.`}${!S.lost && sc>best && best ? ' Kỷ lục mới của khanh.' : (best ? ` Kỷ lục: ${Math.max(best, S.lost?0:sc)} điểm.` : '')}</p>
-    <p><b>Ngẫm lại:</b> thuyền nào đáng chạy trước khi gánh hàng có hạn? Nên tiêu tiền vào công trình sớm hay giữ vốn mua hàng? Thuế cao thu nhiều trên mỗi kiện nhưng thuyền đặt ít đi: đó là đánh đổi mà mọi thương cảng đều phải cân nhắc.</p>`;
+  $('endTitle').textContent = title.name; $('endScore').textContent = S.lost ? `${T('Chương','Chapter')} ${S.round}/6` : sc + T(' điểm',' points');
+  $('endBody').innerHTML = (lead || '') + `<div class="envoy"><img src="${PICS['su-than-mat'].src}" width="72" height="72" alt="${PICS['su-than-mat'].alt}"><div><p>📜 <b>${T('Sứ thần đọc lời xét công:','The envoy reads the verdict:')}</b></p><p>${title.text}</p></div></div>
+    <p>${T('Làm được','Completed')} <b>${S.goals}/6</b> ${T('việc triều đình giao.','court tasks.')} ${S.lost ? '' : T(`Điểm: <b>${S.money}</b> quan tiền + <b>${S.rep}</b> danh vọng × 10.`,`Score: <b>${S.money}</b> cash + <b>${S.rep}</b> prestige × 10.`)}${!S.lost && sc>best && best ? T(' Kỷ lục mới của khanh.',' Your new record.') : (best ? T(` Kỷ lục: ${Math.max(best, S.lost?0:sc)} điểm.`,` Record: ${Math.max(best, S.lost?0:sc)} points.`) : '')}</p>
+    ${T('<p><b>Ngẫm lại:</b> thuyền nào đáng chạy trước khi gánh hàng có hạn? Nên tiêu tiền vào công trình sớm hay giữ vốn mua hàng? Thuế cao thu nhiều trên mỗi kiện nhưng thuyền đặt ít đi: đó là đánh đổi mà mọi thương cảng đều phải cân nhắc.</p>','<p><b>Think back:</b> with a limited load, which ship was worth running to first? Should you spend early on buildings or keep capital to buy goods? A high tax earns more per bundle but ships order less: every trading port has to weigh that trade-off.</p>')}`;
   $('ovEnd').style.display = 'flex';
 }
 function start(){
@@ -1142,7 +1198,7 @@ function start(){
 document.querySelectorAll('[data-char]').forEach(b => b.addEventListener('click', () => setAvatar(b.dataset.char)));
 setAvatar(avatarId);
 $('btnStart').addEventListener('click', start); $('btnAgain').addEventListener('click', start);
-try{ const b = +localStorage.getItem(BEST_KEY); if(b) $('bestLine').textContent = `Kỷ lục của khanh: ${b} điểm`; }catch(e){}
+try{ const b = +localStorage.getItem(BEST_KEY); if(b) $('bestLine').textContent = T(`Kỷ lục của khanh: ${b} điểm`,`Your record: ${b} points`); }catch(e){}
 
 // =====================================================================
 //  VÒNG LẶP
@@ -1158,7 +1214,7 @@ function loop(now){
   const dt = Math.min(0.05, (now-last)/1000); last = now; tt += dt;
   if(S.running && !S.paused){
     updatePlayer(dt);
-    if(!dlgOpen){ S.t -= dt; updateShips(dt); if(S.t <= 0){ toast('Trống thu không: hết giờ phiên chợ.'); endRound(); } }
+    if(!dlgOpen){ S.t -= dt; updateShips(dt); if(S.t <= 0){ toast(T('Trống thu không: hết giờ phiên chợ.','The closing drum sounds: the market session is over.')); endRound(); } }
     $('sunBar').style.width = clamp(S.t/ROUND_SEC*100, 0, 100) + '%';
     renderHUD();
   } else { $('act').style.display = 'none'; animate(player, false, dt); }

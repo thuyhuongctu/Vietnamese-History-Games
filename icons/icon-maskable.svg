@@ -2,7 +2,7 @@
   <!-- Bản maskable: Android cắt tệp này thành đủ thứ hình, chỉ bảo đảm vòng
        tròn bán kính 40% (204,8 đơn vị quanh tâm). Nên trời và biển vẫn tràn
        viền, còn trăng với thuyền thu nhỏ 0,73 lần quanh tâm để nằm gọn
-       trong vùng an toàn. Dựng PNG bằng scripts/dung-bieu-tuong.mjs. -->
+       trong vùng an toàn. Dựng PNG bằng tools/dung-bieu-tuong.mjs. -->
   <defs>
     <linearGradient id="troi" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#31200d"/><stop offset="1" stop-color="#241708"/>

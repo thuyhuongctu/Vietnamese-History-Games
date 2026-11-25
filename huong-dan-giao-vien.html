@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f1509">
+<script>(function(){try{var r=document.documentElement,l=localStorage.getItem('thd-lang'),m=localStorage.getItem('thd-theme');if(l==='vi'||l==='en')r.lang=l;if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){}})();</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title data-vi-text="Hướng dẫn cho thầy cô · Cổng Trò Chơi Sử Việt">Teacher guide · Vietnamese History Games</title>
+<meta name="description" content="Teacher guide for the Vietnamese History Games: learning goals, source comparison with the Đại Việt sử ký toàn thư, reflection questions built on the Big Six, Wineburg's heuristics and van Drie and van Boxtel's historical reasoning framework. Works offline, printable."
+  data-vi-content="Hướng dẫn cho thầy cô: mục tiêu học tập, đối chiếu với Đại Việt sử ký toàn thư, câu hỏi phản tư theo Big Six, ba thói quen đọc nguồn của Wineburg và khung lập luận lịch sử của van Drie và van Boxtel. Dùng được khi mất mạng, in được.">
+<link rel="stylesheet" href="assets/portal/site.css">
+<link rel="stylesheet" href="assets/portal/gioi-thieu.css">
+<style>
+  .lead{font-size:18px;line-height:1.6;color:var(--soft);max-width:46rem}
+  .plan{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px}
+  .plan li{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--panel)}
+  .plan b{display:block;font-size:28px;color:var(--dong)}
+  .qs{display:flex;flex-direction:column;gap:10px;padding-left:22px}
+  .qs li{line-height:1.6}
+  .qs b{color:var(--nga)}
+  .src{border-left:4px solid var(--dong);padding:12px 16px;background:var(--panel-hi);border-radius:0 12px 12px 0;line-height:1.65}
+  .src small{display:block;margin-top:6px;color:var(--muted)}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel);display:flex;flex-direction:column;gap:8px}
+  .card h3{font-size:18px}
+  .card ul{padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.55}
+  .tagSu{color:var(--celadon);font-weight:700}
+  .tagHc{color:var(--dong-link);font-weight:700}
+  .sheet td{height:64px;vertical-align:top}
+  .toc{columns:2 220px;padding-left:20px;line-height:1.9}
+  .btnPrint{align-self:flex-start}
+  .refs{padding-left:22px;line-height:1.65;display:flex;flex-direction:column;gap:8px}
+  .refs li{padding-left:6px}
+  @media print{
+    header.top,footer,.skip,.btnPrint,.noPrint{display:none !important}
+    body::before{display:none !important}
+    body{background:#fff;color:#000}
+    section.blk{padding-top:24px;break-inside:avoid-page}
+    a{color:#000}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#noi-dung"><span lang="en">Skip to content</span><span lang="vi">Bỏ qua, đến nội dung</span></a>
+
+<header class="top">
+  <div class="wrap topIn">
+    <nav aria-label="Breadcrumb" data-vi-aria-label="Đường dẫn">
+      <ol class="crumbs">
+        <li><a href="index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span lang="en">All games</span><span lang="vi">Cổng trò chơi</span></a></li>
+        <li><span aria-current="page"><span lang="en">Teacher guide</span><span lang="vi">Hướng dẫn cho thầy cô</span></span></li>
+      </ol>
+    </nav>
+    <div class="prefs">
+      <button id="prefLang" class="pref" type="button" hidden>Tiếng Việt</button>
+      <button id="prefTheme" class="pref" type="button" hidden aria-label="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="noi-dung" class="wrap">
+  <section class="blk" aria-labelledby="h-top">
+    <span class="eyebrow"><span lang="en">For teachers</span><span lang="vi">Cho thầy cô</span></span>
+    <h1 id="h-top"><span lang="en">Teacher guide</span><span lang="vi">Hướng dẫn cho thầy cô</span></h1>
+    <p class="lead" lang="en">This guide is written in Vietnamese for teachers in Vietnam. In short: treat each game as a source to be checked, not as a textbook. Students play, compare what the game shows with the Đại Việt sử ký toàn thư, then argue a position with evidence.</p>
+    <div class="keep" lang="vi">
+      <p class="lead">Mỗi trò chơi ở đây nên được dùng như <b>một nguồn cần đối chiếu</b>, không phải sách giáo khoa. Học sinh chơi, so điều trò chơi thể hiện với sử liệu, rồi bảo vệ một nhận định bằng bằng chứng. Trang này gợi ý mục tiêu học tập, câu hỏi phản tư và hoạt động trên lớp cho từng trò chơi, dựa trên ba khung tư duy lịch sử được dùng rộng rãi.</p>
+      <ul class="toc">
+        <li><a href="#tiet-hoc">Một tiết học mẫu (45 phút)</a></li>
+        <li><a href="#khung">Ba khung tư duy lịch sử</a></li>
+        <li><a href="#van-don">Vân Đồn (bản 2D và 3D)</a></li>
+        <li><a href="#bac-hai-dao">Bắc Hải Đảo (bản 2D và 3D)</a></li>
+        <li><a href="#cho-noi">Chợ Nổi</a></li>
+        <li><a href="#hoat-dong">Hoạt động trên lớp</a></li>
+        <li><a href="#phieu">Phiếu phản tư in được</a></li>
+        <li><a href="#danh-gia">Thang đánh giá lập luận</a></li>
+        <li><a href="#tham-khao">Tài liệu tham khảo</a></li>
+      </ul>
+      <button class="btn btnLine btnPrint noPrint" type="button" id="btnIn">In trang này</button>
+    </div>
+  </section>
+
+  <div class="keep" lang="vi">
+  <section class="blk" id="tiet-hoc" aria-labelledby="h-tiet">
+    <span class="eyebrow">Gợi ý</span>
+    <h2 id="h-tiet">Một tiết học mẫu (45 phút)</h2>
+    <ol class="plan">
+      <li><b>5′</b>Khởi động: nêu một câu hỏi lịch sử để cả lớp giữ trong đầu khi chơi (xem câu hỏi của từng trò chơi bên dưới).</li>
+      <li><b>15′</b>Chơi theo cặp: một bạn chơi, một bạn ghi lại các quyết định và điều thấy được trong trò chơi.</li>
+      <li><b>10′</b>Đối chiếu nguồn: đọc đoạn tóm lược sử liệu, đánh dấu chỗ trò chơi theo sử, chỗ trò chơi dựng thêm.</li>
+      <li><b>15′</b>Thảo luận có thầy cô dẫn dắt: mỗi cặp nêu một nhận định và một bằng chứng, cả lớp phản biện.</li>
+    </ol>
+    <p>Mọi trò chơi chạy trên trình duyệt điện thoại hoặc máy tính, không cần tài khoản, chơi được khi mất mạng sau lần mở đầu. Trò chơi không thu thập dữ liệu nào của học sinh (<a href="privacy.html">chính sách quyền riêng tư</a>).</p>
+  </section>
+
+  <section class="blk" id="khung" aria-labelledby="h-khung">
+    <span class="eyebrow">Cơ sở</span>
+    <h2 id="h-khung">Ba khung tư duy lịch sử</h2>
+    <h3>1. Sáu khái niệm tư duy lịch sử (Big Six, Seixas &amp; Morton, 2013)</h3>
+    <div class="tblBox"><table>
+      <thead><tr><th scope="col">Khái niệm</th><th scope="col">Câu hỏi trung tâm</th><th scope="col">Trong các trò chơi</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Ý nghĩa lịch sử</th><td>Vì sao điều này quan trọng? Ai cho là quan trọng?</td><td>Vì sao Vân Đồn thường được coi là thương cảng quốc tế đầu tiên của Đại Việt?</td></tr>
+        <tr><th scope="row">Bằng chứng</th><td>Ta biết điều này từ nguồn nào? Nguồn đáng tin đến đâu?</td><td>Nhãn «Theo sử» và «Trò chơi dựng» trong Vân Đồn 3D; Sổ sử ký trong Vân Đồn 2D.</td></tr>
+        <tr><th scope="row">Liên tục và thay đổi</th><td>Điều gì đổi, điều gì giữ nguyên?</td><td>Sáu chương Vân Đồn từ 1149 đến 1348; chợ nổi thế kỷ 19 và chợ nổi hôm nay.</td></tr>
+        <tr><th scope="row">Nguyên nhân và hệ quả</th><td>Vì sao điều này xảy ra? Kéo theo điều gì?</td><td>Thuế cảng cao thì thuyền đặt ít đi; chưa có vọng lâu thì giặc biển cướp bến; căng buồm trong bão thì vỡ thuyền.</td></tr>
+        <tr><th scope="row">Góc nhìn lịch sử</th><td>Người thời ấy nghĩ và cảm thấy thế nào, khác ta ra sao?</td><td>Đứng ở vị trí quan trấn thủ hay nữ thương chủ; người buôn Trảo Oa, Xiêm La xin ở lại buôn bán.</td></tr>
+        <tr><th scope="row">Chiều cạnh đạo đức</th><td>Ta đánh giá hành động trong quá khứ thế nào? Bài học cho hôm nay?</td><td>Có nên bán lén ngọc trai cho người Đồ Bồ? Thuế cao để làm giàu cho triều đình hay thuế thấp để giữ chân thương nhân?</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>2. Ba thói quen đọc nguồn (Wineburg, 1991)</h3>
+    <div class="two">
+      <div class="card"><h3>Xét nguồn</h3><p>Trước khi đọc nội dung, hỏi: ai viết, khi nào, để làm gì? Với trò chơi: ai làm trò chơi này, dựa vào đâu, chỗ nào được ghi là dựng thêm?</p></div>
+      <div class="card"><h3>Đặt vào bối cảnh</h3><p>Đặt sự việc vào thời gian, không gian, xã hội lúc ấy. Năm 1149 Đại Việt dưới triều Lý; vịnh Hải Đông là vùng biển đảo phía đông bắc.</p></div>
+      <div class="card"><h3>Đối chiếu</h3><p>So nhiều nguồn: trò chơi, đoạn sử liệu, sách giáo khoa, bản đồ. Chỗ nào khớp, chỗ nào vênh, chỗ nào trống?</p></div>
+    </div>
+
+    <h3>3. Khung lập luận lịch sử (van Drie &amp; van Boxtel, 2008)</h3>
+    <p>Lập luận lịch sử là hoạt động sắp xếp thông tin về quá khứ để <b>mô tả, so sánh hoặc giải thích</b>. Sáu thành phần đan vào nhau; thầy cô có thể dùng chúng để đọc bài viết hay nghe thảo luận của học sinh:</p>
+    <div class="tblBox"><table>
+      <thead><tr><th scope="col">Thành phần</th><th scope="col">Học sinh làm được khi…</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Đặt câu hỏi lịch sử</th><td>Nêu câu hỏi đánh giá («có đáng không», «tốt hơn hay kém hơn») chứ không chỉ hỏi «là gì».</td></tr>
+        <tr><th scope="row">Dùng nguồn</th><td>Dẫn sử liệu hay chi tiết trong trò chơi làm bằng chứng, và nói rõ nguồn nào.</td></tr>
+        <tr><th scope="row">Đặt vào bối cảnh</th><td>Giải thích quyết định theo điều kiện thời ấy, tránh lấy chuẩn hôm nay áp vào.</td></tr>
+        <tr><th scope="row">Lập luận</th><td>Nêu nhận định, đưa bằng chứng, xét cả ý kiến ngược lại.</td></tr>
+        <tr><th scope="row">Dùng khái niệm nội dung</th><td>Dùng đúng: thương cảng, trang, cống phẩm, thuế cảng, chợ nổi, khẩn hoang…</td></tr>
+        <tr><th scope="row">Dùng khái niệm phương pháp</th><td>Dùng: nguyên nhân và hệ quả, liên tục và thay đổi, ý nghĩa lịch sử, bằng chứng.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Nghiên cứu của hai tác giả cho thấy câu hỏi đánh giá gợi lập luận mạnh hơn câu hỏi giải thích, và thảo luận có thầy cô dẫn dắt giúp học sinh đặt vào bối cảnh tốt hơn so với chỉ thảo luận nhóm nhỏ. Vì vậy mỗi trò chơi bên dưới có một <b>câu hỏi đánh giá</b> để kết thúc tiết học.</p>
+  </section>
+
+  <section class="blk" id="van-don" aria-labelledby="h-vd">
+    <span class="eyebrow"><span class="tagSu">Theo sử liệu</span> · 1149, triều Lý</span>
+    <h2 id="h-vd">Vân Đồn: thương cảng ngoại thương đầu tiên của Đại Việt</h2>
+    <p><a href="van-don/index.html">Bản 2D: Dựng bến</a> (mọi lứa tuổi) · <a href="van-don-3d/index.html">Bản 3D: Dạo bến</a> (từ 16 tuổi) · <a href="van-don/gioi-thieu.html">Trang giới thiệu</a></p>
+    <div class="two">
+      <div class="card"><h3>Mục tiêu học tập</h3><ul>
+        <li>Kể được hoàn cảnh ra đời của trang Vân Đồn năm 1149 theo <i>Đại Việt sử ký toàn thư</i>.</li>
+        <li>Giải thích được vì sao Vân Đồn thường được coi là thương cảng quốc tế đầu tiên của Đại Việt.</li>
+        <li>Phân tích được một đánh đổi trong quản lý thương cảng (thuế cảng và lượng hàng thuyền buôn đặt).</li>
+        <li>Phân biệt được chi tiết theo sử và chi tiết trò chơi dựng thêm.</li>
+      </ul></div>
+      <div class="card"><h3>Theo sử và trò chơi dựng</h3><ul>
+        <li><span class="tagSu">Theo sử:</span> năm 1149 thuyền Trảo Oa, Lộ Lạc, Xiêm La đến; năm 1184 người buôn Xiêm La, Tam Phật Tề đến; năm 1288 trận Vân Đồn; năm 1348 thuyền Đồ Bồ ngầm mua ngọc trai; năm 1349 nhà Trần đặt quan trấn.</li>
+        <li><span class="tagHc">Trò chơi dựng:</span> mức thuế, giá cả, đơn hàng, công trình; chức «quan trấn thủ» ở năm 1149; nhân vật nữ thương chủ; chương giặc biển và chiếu đòi cống.</li>
+      </ul></div>
+    </div>
+    <h3>Đối chiếu nguồn</h3>
+    <p class="src">Năm Kỷ Tỵ (1149), đời Lý Anh Tông, mùa xuân, thuyền buôn ba nước Trảo Oa, Lộ Lạc, Xiêm La vào Hải Đông, xin cư trú buôn bán. Triều đình cho lập trang ở hải đảo, gọi là Vân Đồn, để mua bán hàng hóa quý, dâng tiến sản vật địa phương.
+      <small>Tóm lược theo <i>Đại Việt sử ký toàn thư</i>, Bản kỷ, quyển 4, kỷ nhà Lý. Thầy cô nên cho học sinh đọc nguyên văn bản dịch trong sách in.</small></p>
+    <ol class="qs">
+      <li><b>Xét nguồn:</b> <i>Toàn thư</i> do ai soạn, vào thế kỷ nào? Người chép sử cách năm 1149 bao xa? Điều đó ảnh hưởng gì đến độ tin cậy?</li>
+      <li><b>Bối cảnh:</b> Vì sao triều Lý cho người nước ngoài buôn bán ở một hải đảo xa kinh thành, chứ không cho vào sâu trong đất liền?</li>
+      <li><b>Đối chiếu:</b> Trò chơi có những thuyền nào cập bến năm 1149? Có khớp với sử không? Thuyền Tống trong trò chơi xuất hiện ở chương nào, được ghi là «Theo sử» hay «Trò chơi dựng»?</li>
+    </ol>
+    <h3>Câu hỏi phản tư theo Big Six</h3>
+    <ol class="qs">
+      <li><b>Ý nghĩa:</b> Nếu phải chọn một lý do để gọi Vân Đồn là «đầu tiên», em chọn lý do nào? Ai đã đặt ra cách gọi ấy?</li>
+      <li><b>Bằng chứng:</b> Tìm hai chi tiết trong trò chơi có nhãn «Theo sử» và một chi tiết có nhãn «Trò chơi dựng». Vì sao người làm trò chơi phải dựng thêm?</li>
+      <li><b>Liên tục và thay đổi:</b> Từ chương 1 (1149) đến chương 6 (1348), những gì ở bến Vân Đồn thay đổi, những gì vẫn giữ nguyên?</li>
+      <li><b>Nguyên nhân và hệ quả:</b> Khi em nâng thuế cảng, điều gì xảy ra với số hàng thuyền buôn đặt và danh vọng? Vì sao?</li>
+      <li><b>Góc nhìn:</b> Một thương nhân Trảo Oa năm 1149 sẽ cân nhắc gì trước khi chọn buôn ở Vân Đồn?</li>
+      <li><b>Đạo đức:</b> Ở chương 6, người Đồ Bồ trả giá gấp ba để mua lén ngọc trai. Vì sao triều đình cấm? Hôm nay có tình huống nào tương tự?</li>
+    </ol>
+    <h3>Câu hỏi đánh giá để kết thúc tiết</h3>
+    <p class="src">«Với vai quan trấn thủ, chọn thuế cảng 25% có phải là quyết định tốt cho Vân Đồn không, xét cả ngắn hạn và dài hạn?» Học sinh nêu nhận định, đưa ít nhất hai bằng chứng (một từ trò chơi, một từ sử liệu hoặc bài học), và trả lời một ý kiến ngược lại.</p>
+    <h3>Góc kinh doanh quốc tế (cho lớp Kinh tế, Kinh doanh)</h3>
+    <ul class="qs">
+      <li><b>Thể chế:</b> Triều đình quyết định ai được buôn, ở đâu, nộp gì. Thể chế ấy giúp hay cản thương mại?</li>
+      <li><b>Chọn thị trường:</b> Mỗi nước chuộng mặt hàng khác nhau (gốm, lụa, ngọc trai, trầm hương). Nên phục vụ thuyền nào trước khi gánh hàng có hạn?</li>
+      <li><b>Thuế và cầu:</b> Thuế cao thu nhiều trên mỗi kiện nhưng thuyền đặt ít đi: đây là dạng đánh đổi mà mọi thương cảng, mọi quốc gia đều gặp.</li>
+      <li><b>Rủi ro:</b> Bão, giặc biển, buôn lậu. Đầu tư vọng lâu, đền thần biển sớm hay giữ vốn mua hàng?</li>
+    </ul>
+    <p>Muốn học sinh thử những quyết định này trong bối cảnh ngày nay, thầy cô có thể nối tiếp bằng <a href="https://bizonland.com/" target="_blank" rel="noopener">BizOn (bizonland.com) ↗</a>, trò chơi mô phỏng kinh doanh quốc tế cùng tác giả.</p>
+  </section>
+
+  <section class="blk" id="bac-hai-dao" aria-labelledby="h-bhd">
+    <span class="eyebrow"><span class="tagHc">Truyện hư cấu</span> · bối cảnh vịnh Bắc Bộ năm 1780</span>
+    <h2 id="h-bhd">Bắc Hải Đảo: tách hư cấu khỏi sự thật</h2>
+    <p><a href="bac-hai-dao/index.html">Bản 2D</a> · <a href="bac-hai-dao-3d/index.html">Bản 3D</a> · <a href="bac-hai-dao/gioi-thieu.html">Trang giới thiệu</a></p>
+    <p>Cốt truyện, nhân vật và trùm Hắc Giao là hư cấu; cảnh vật, thuyền buồm cánh dơi, thương cảng và hàng hóa lấy từ vùng biển Đông Bắc. Đây là trò chơi hợp để luyện <b>đối chiếu</b>: học sinh phải tự tìm chỗ nào có căn cứ, chỗ nào không.</p>
+    <div class="two">
+      <div class="card"><h3>Mục tiêu học tập</h3><ul>
+        <li>Phân biệt được yếu tố hư cấu và yếu tố có căn cứ trong một tác phẩm lấy bối cảnh lịch sử.</li>
+        <li>Kể được một số sản vật vùng biển Đông Bắc và vì sao chúng được buôn bán.</li>
+        <li>Biết kiểm tra niên đại của một chi tiết bằng nguồn khác.</li>
+      </ul></div>
+      <div class="card"><h3>Câu hỏi phản tư</h3><ul>
+        <li><b>Bằng chứng:</b> Liệt kê ba chi tiết em nghĩ là có thật và ba chi tiết hư cấu. Em dựa vào đâu?</li>
+        <li><b>Đối chiếu niên đại:</b> Trò chơi có gốm Chu Đậu ở năm 1780. Hãy tra xem lò Chu Đậu thịnh nhất vào thời nào, và năm 1780 có còn hợp lý không.</li>
+        <li><b>Nguyên nhân và hệ quả:</b> Vì sao căng buồm to trong bão lại vỡ thuyền? Người đi biển xưa học điều đó bằng cách nào?</li>
+        <li><b>Góc nhìn:</b> Thể loại «hải tặc» quen thuộc từ phim phương Tây. Trò chơi thay galleon, rượu rum bằng ghe mành, nước mắm. Điều đó thay đổi cách em nhìn vùng biển này thế nào?</li>
+      </ul></div>
+    </div>
+    <h3>Câu hỏi đánh giá</h3>
+    <p class="src">«Một trò chơi hư cấu có thể giúp học lịch sử tốt hơn hay dễ gây hiểu sai hơn?» Học sinh dùng ví dụ cụ thể trong Bắc Hải Đảo để bảo vệ ý kiến.</p>
+  </section>
+
+  <section class="blk" id="cho-noi" aria-labelledby="h-cn">
+    <span class="eyebrow">Trò chơi nhanh tay · thế kỷ 19, Đất Phương Nam</span>
+    <h2 id="h-cn">Chợ Nổi: liên tục và thay đổi</h2>
+    <p><a href="cho-noi/index.html">Chơi ngay</a> · <a href="cho-noi/gioi-thieu.html">Trang giới thiệu</a></p>
+    <p>Một ván 90 giây, hợp làm hoạt động khởi động trước bài về khẩn hoang Nam Bộ hay văn hóa sông nước.</p>
+    <div class="two">
+      <div class="card"><h3>Mục tiêu học tập</h3><ul>
+        <li>Giải thích được vì sao chợ nổi ra đời ở đồng bằng sông Cửu Long thời khẩn hoang.</li>
+        <li>Dùng đúng các khái niệm: khẩn hoang, ghe bầu, xuồng ba lá, cây bẹo.</li>
+        <li>So sánh chợ nổi xưa và nay.</li>
+      </ul></div>
+      <div class="card"><h3>Câu hỏi phản tư</h3><ul>
+        <li><b>Bối cảnh:</b> Khi đường bộ chưa mở, kênh rạch đóng vai trò gì trong đời sống và buôn bán?</li>
+        <li><b>Liên tục và thay đổi:</b> Cây bẹo «treo hàng gì, bán hàng nấy» còn thấy ở chợ nổi hôm nay không? Điều gì đã đổi khác?</li>
+        <li><b>Ý nghĩa:</b> Chợ nổi nên được giữ như một di sản sống hay để tự thay đổi theo thời? Vì sao?</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="blk" id="hoat-dong" aria-labelledby="h-hd">
+    <span class="eyebrow">Trên lớp</span>
+    <h2 id="h-hd">Hoạt động trên lớp</h2>
+    <div class="two">
+      <div class="card"><h3>Trò chơi nói gì, sử nói gì</h3><p>Mỗi nhóm kẻ bảng hai cột. Cột trái: điều trò chơi thể hiện. Cột phải: điều sử liệu hay sách giáo khoa nói. Tô màu chỗ khớp, chỗ vênh, chỗ trống.</p></div>
+      <div class="card"><h3>Tranh luận có bằng chứng</h3><p>Chia lớp hai phía cho câu hỏi đánh giá của trò chơi. Mỗi lượt nói theo mẫu: nhận định, bằng chứng, lý giải. Thầy cô ghi lên bảng các bằng chứng hay nhất.</p></div>
+      <div class="card"><h3>Sơ đồ nguyên nhân và hệ quả</h3><p>Sau khi chơi Vân Đồn 3D, nhóm vẽ sơ đồ: thuế cảng, lượng hàng đặt, tiền thuế, danh vọng, công trình. Mũi tên nào mạnh nhất? Có vòng lặp nào không?</p></div>
+      <div class="card"><h3>Triển lãm vòng quanh lớp</h3><p>Mỗi nhóm dán một tấm ảnh chụp màn hình trò chơi kèm một đoạn sử liệu. Các nhóm đi vòng quanh, dán ghi chú: «khớp», «vênh», «cần tra thêm».</p></div>
+    </div>
+  </section>
+
+  <section class="blk" id="phieu" aria-labelledby="h-phieu">
+    <span class="eyebrow">In cho học sinh</span>
+    <h2 id="h-phieu">Phiếu phản tư</h2>
+    <p>Học sinh có thể làm <b>phiếu điện tử</b> ngay sau khi chơi: <a href="phan-tu.html?game=van-don">Vân Đồn</a> · <a href="phan-tu.html?game=bac-hai-dao">Bắc Hải Đảo</a> · <a href="phan-tu.html?game=cho-noi">Chợ Nổi</a>. Bài làm lưu trên máy học sinh, tải về tệp .txt hoặc in để nộp; không gửi đi đâu. Bản giấy bên dưới dùng khi lớp không có máy.</p>
+    <p>Họ tên: ……………………………… Lớp: ………… Trò chơi đã chơi: ……………………………</p>
+    <div class="tblBox"><table class="sheet">
+      <thead><tr><th scope="col">Câu hỏi</th><th scope="col">Trả lời</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Câu hỏi lịch sử em giữ trong đầu khi chơi</th><td></td></tr>
+        <tr><th scope="row">Hai chi tiết theo sử (ghi nguồn)</th><td></td></tr>
+        <tr><th scope="row">Một chi tiết trò chơi dựng thêm, vì sao phải dựng</th><td></td></tr>
+        <tr><th scope="row">Một quyết định em đã chọn và hệ quả của nó</th><td></td></tr>
+        <tr><th scope="row">Nhận định của em cho câu hỏi đánh giá</th><td></td></tr>
+        <tr><th scope="row">Bằng chứng 1 (từ trò chơi)</th><td></td></tr>
+        <tr><th scope="row">Bằng chứng 2 (từ sử liệu hoặc bài học)</th><td></td></tr>
+        <tr><th scope="row">Một ý kiến ngược lại và em trả lời thế nào</th><td></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="blk" id="danh-gia" aria-labelledby="h-dg">
+    <span class="eyebrow">Đánh giá</span>
+    <h2 id="h-dg">Thang đánh giá lập luận</h2>
+    <p>Dựa trên khung của van Drie và van Boxtel. Dùng để đọc phiếu phản tư hoặc nghe phần tranh luận, không cần chấm điểm số.</p>
+    <div class="tblBox"><table>
+      <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Mới bắt đầu</th><th scope="col">Đang tiến bộ</th><th scope="col">Vững</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Câu hỏi</th><td>Chỉ hỏi «là gì»</td><td>Hỏi «vì sao»</td><td>Hỏi «có đáng không, tốt hơn hay kém hơn»</td></tr>
+        <tr><th scope="row">Dùng nguồn</th><td>Không dẫn nguồn</td><td>Dẫn trò chơi hoặc sử liệu</td><td>Dẫn cả hai, nói rõ chỗ khớp và chỗ vênh</td></tr>
+        <tr><th scope="row">Bối cảnh</th><td>Lấy chuẩn hôm nay để phán xét</td><td>Nhắc tới thời đại</td><td>Giải thích quyết định theo điều kiện thời ấy</td></tr>
+        <tr><th scope="row">Lập luận</th><td>Nêu ý kiến, không bằng chứng</td><td>Có nhận định và bằng chứng</td><td>Có nhận định, bằng chứng và trả lời ý kiến ngược lại</td></tr>
+        <tr><th scope="row">Khái niệm</th><td>Dùng từ chung chung</td><td>Dùng đúng khái niệm nội dung</td><td>Dùng thêm khái niệm phương pháp (nguyên nhân, thay đổi, ý nghĩa)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="blk" id="tham-khao" aria-labelledby="h-tk">
+    <span class="eyebrow">Nguồn</span>
+    <h2 id="h-tk">Tài liệu tham khảo</h2>
+    <ol class="refs">
+      <li><i>Đại Việt sử ký toàn thư</i>. Bản dịch tiếng Việt (nhiều nhà xuất bản). Các mốc 1149, 1184, 1288, 1348, 1349 về Vân Đồn.</li>
+      <li>Seixas, P., &amp; Morton, T. (2013). <i>The big six: Historical thinking concepts</i>. Nelson Education.</li>
+      <li>Seixas, P. (2017). A model of historical thinking. <i>Educational Philosophy and Theory, 49</i>(6), 593–605. <a href="https://doi.org/10.1080/00131857.2015.1101363">doi.org/10.1080/00131857.2015.1101363</a></li>
+      <li>Wineburg, S. (1991). Historical problem solving: A study of the cognitive processes used in the evaluation of documentary and pictorial evidence. <i>Journal of Educational Psychology, 83</i>(1), 73–87. <a href="https://doi.org/10.1037/0022-0663.83.1.73">doi.org/10.1037/0022-0663.83.1.73</a></li>
+      <li>van Drie, J., &amp; van Boxtel, C. (2008). Historical reasoning: Towards a framework for analyzing students’ reasoning about the past. <i>Educational Psychology Review, 20</i>(2), 87–110. <a href="https://doi.org/10.1007/s10648-007-9056-1">doi.org/10.1007/s10648-007-9056-1</a></li>
+      <li>van Boxtel, C., &amp; van Drie, J. (2018). Historical reasoning: Conceptualizations and educational applications. In S. A. Metzger &amp; L. McArthur Harris (Eds.), <i>The Wiley international handbook of history teaching and learning</i> (pp. 149–176). Wiley-Blackwell.</li>
+    </ol>
+    <p>Trích dẫn bộ trò chơi: Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.21850564">10.5281/zenodo.21850564</a>.</p>
+  </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footIn">
+    <span>© 2026 ThuyHuong Digital · <span lang="en">Pure HTML5 games</span><span lang="vi">Trò chơi HTML5 thuần</span></span>
+    <span><a href="index.html"><span lang="en">All games</span><span lang="vi">Về cổng trò chơi</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="vi">Quyền riêng tư</span></a></span>
+  </div>
+</footer>
+
+<script src="assets/portal/site.js"></script>
+<script>
+'use strict';
+document.getElementById('btnIn').addEventListener('click', () => print());
+if('serviceWorker' in navigator){
+  addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>

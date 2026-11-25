@@ -1,5 +1,5 @@
 /* Dựng ba tệp PNG trong icons/ từ hai tệp SVG gốc cạnh chúng.
-   Chạy:  node scripts/dung-bieu-tuong.mjs
+   Chạy:  node tools/dung-bieu-tuong.mjs
    Playwright ở Node, không ở Python; xem CLAUDE.md của kho trang cá nhân. */
 import pw from '/opt/node-tools/node_modules/playwright/index.js';
 import fs from 'fs';

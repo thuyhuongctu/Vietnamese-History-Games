@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Bieu tuong Su Viet: thuyen buom canh doi duoi trang">
   <!-- Nguồn gốc của ba tệp PNG trong thư mục này. Đừng sửa tay tệp PNG:
-       dựng lại bằng scripts/dung-bieu-tuong.mjs. Bảng màu men gốm Lý–Trần,
+       dựng lại bằng tools/dung-bieu-tuong.mjs. Bảng màu men gốm Lý–Trần,
        lấy nguyên từ store-assets/feature-graphic.html. -->
   <defs>
     <linearGradient id="troi" x1="0" y1="0" x2="0" y2="1">

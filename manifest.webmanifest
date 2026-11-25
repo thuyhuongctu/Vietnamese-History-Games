@@ -22,6 +22,10 @@
     { "name": "Bắc Hải Đảo: Pirates of the Gulf of Tonkin", "url": "./bac-hai-dao/index.html",
       "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "Bắc Hải Đảo 3D", "url": "./bac-hai-dao-3d/index.html",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Vân Đồn 3D: Walking the Trading Port", "short_name": "Vân Đồn 3D", "url": "./van-don-3d/index.html",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Chợ Nổi: Floating Market", "short_name": "Chợ Nổi", "url": "./cho-noi/index.html",
       "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

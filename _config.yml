@@ -1,0 +1,6 @@
+# GitHub Pages dựng kho này bằng Jekyll (phục vụ thẳng từ nhánh main).
+# Jekyll mặc định bỏ qua thư mục bắt đầu bằng dấu chấm; .well-known/assetlinks.json phải
+# được đăng để app Android (TWA) io.github.thuyhuongctu.suvietgames chạy toàn màn hình
+# trên games.jemappellehuong.com. Các thư mục chấm khác (.claude, .github) vẫn không đăng.
+include:
+  - .well-known

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#fbfaf7">
+<meta name="theme-color" content="#f8fafc">
 <script>(function(){try{var r=document.documentElement,l=localStorage.getItem('thd-lang'),m=localStorage.getItem('thd-theme');if(l==='vi'||l==='en')r.lang=l;if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){}})();</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="application-name" content="Vietnamese History Game Portal">
@@ -15,7 +15,13 @@
   data-vi-content="Cổng trò chơi sử Việt của ThuyHuong Digital: dựng thương cảng Vân Đồn thời Lý, làm hải tặc Vịnh Bắc Bộ, chèo xuồng chợ nổi miền Tây. Game HTML5 miễn phí, chơi ngay trên trình duyệt điện thoại và máy tính.">
 <meta property="og:title" content="ThuyHuong Digital: Vietnamese History Games">
 <meta property="og:description" content="Every game is a page of Vietnamese history. Free to play in your browser.">
-<meta property="og:image" content="assets/portal/bac-hai-dao-3d.webp">
+<meta property="og:image" content="https://games.jemappellehuong.com/assets/portal/bac-hai-dao-3d-v2.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://games.jemappellehuong.com/">
+<meta property="og:site_name" content="Vietnamese History Game Portal">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="vi_VN">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/portal/site.css">
 <style>
   .wrap{max-width:1180px;margin:0 auto;padding-left:28px;padding-right:28px}
@@ -92,6 +98,7 @@
   .card h3{font-family:var(--serif);font-size:22px;line-height:1.2;font-weight:700;margin-top:-6px}
   .card h3 span{display:block;font-size:16px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:4px}
   .card p{font-size:15px;line-height:1.6;color:var(--soft)}
+  .card p.rel{position:relative;z-index:1;font-size:14px;color:var(--muted)}
   .cardFoot{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
   .tags{display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--panel-hi);color:var(--nga-2)}
@@ -111,6 +118,15 @@
   .card.soon .thumb svg{width:40px;height:40px;color:var(--muted)}
 
   /* ===== Bài hát ===== */
+  /* Dải ảnh bài hát: một hàng ảnh nhỏ, vuốt ngang trên điện thoại */
+  .moods{display:flex;gap:12px;margin-top:24px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .moods li{flex:1 0 132px;max-width:200px;margin:0;scroll-snap-align:start}
+  .moods a{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--nga-2)}
+  .moods img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;background:var(--img-bg);transition:transform .4s}
+  .moods a:hover img{transform:scale(1.03)}
+  .moods span{font-size:12px;line-height:1.4}
+  .moods b{display:block;color:var(--nga);font-size:12.5px;font-weight:700}
   .songs{list-style:none;margin-top:36px;border-top:1px solid var(--line)}
   .song{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--line)}
   .song img{width:88px;height:88px;object-fit:cover;border-radius:14px;flex:0 0 auto;background:var(--img-bg)}
@@ -122,6 +138,9 @@
   .song.feature h3{font-size:clamp(1.5rem,2.6vw,2rem)}
   .songTxt p{font-size:15px;line-height:1.6;color:var(--soft);max-width:44rem}
   .songTxt audio{width:100%;max-width:460px;height:44px;margin-top:4px}
+  .songVideo{margin:6px 0 2px;max-width:640px}
+  .songVideo video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:#000}
+  .songVideo figcaption{margin-top:6px;font-size:13px;color:var(--muted)}
   .songLink{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;font-weight:500}
   .lyrics summary{cursor:pointer;min-height:44px;display:inline-flex;align-items:center;font-weight:600;color:var(--nga)}
   .lyrics .keep{columns:3 230px;column-gap:36px;padding:8px 0 4px;font-size:15px;line-height:1.7;color:var(--nga-2)}
@@ -209,10 +228,10 @@
       <li><span lang="en">3 periods of history</span><span lang="vi">3 thời kỳ lịch sử</span></li>
       <li><span lang="en">Free, works offline</span><span lang="vi">Miễn phí, chơi được ngoại tuyến</span></li>
     </ul>
-    <p class="langNote" lang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16.5v.01"/></svg>The games themselves are in Vietnamese for now; these pages explain each one in English.</p>
+    <p class="langNote" lang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16.5v.01"/></svg>Every game opens in English; switch to Vietnamese with the button on its start screen.</p>
     <figure class="shot">
-      <a href="bac-hai-dao-3d/index.html" aria-label="Play Bắc Hải Đảo 3D" data-vi-aria-label="Chơi Bắc Hải Đảo 3D">
-        <img src="assets/portal/bac-hai-dao-3d.webp" width="800" height="500"
+      <a class="cr" href="bac-hai-dao-3d/index.html" aria-label="Play Bắc Hải Đảo 3D" data-vi-aria-label="Chơi Bắc Hải Đảo 3D">
+        <img src="assets/portal/bac-hai-dao-3d-v2.webp" width="800" height="500"
           alt="Bắc Hải Đảo 3D: a bat-wing junk sailing among the limestone islands of the Gulf of Tonkin"
           data-vi-alt="Bắc Hải Đảo 3D: thuyền buồm cánh dơi giữa đảo đá vôi vịnh Bắc Bộ">
       </a>
@@ -237,18 +256,19 @@
 
     <div class="grid">
       <article class="card" id="era1149">
-        <div class="thumb"><img src="assets/portal/van-don.webp" width="800" height="500" loading="lazy" alt="Vân Đồn: the port seen from above" data-vi-alt="Màn chơi Vân Đồn: bến cảng nhìn từ trên cao"></div>
+        <div class="thumb cr"><img src="assets/portal/bia-van-don.webp" width="1376" height="768" loading="lazy" alt="Vân Đồn: the trading port with kilns, silk racks and merchant junks among limestone islands" data-vi-alt="Vân Đồn: thương cảng với lò gốm, giàn phơi lụa và thuyền buôn giữa các đảo đá vôi"></div>
         <span class="era"><b>1149</b> · <span lang="en">Lý dynasty</span><span lang="vi">Triều Lý</span></span>
         <h3>Vân Đồn<span lang="en">The First Trading Port</span><span lang="vi">Đệ Nhất Thương Cảng</span></h3>
         <p lang="en">Raise Đại Việt’s first international port from a sandy shore. Welcome ships from Song China, Srivijaya, Java and Siam; open kilns, silk workshops and pearl-diving stations.</p>
         <p lang="vi">Dựng thương cảng quốc tế đầu tiên của Đại Việt từ bãi cát ven vịnh. Đón thuyền Tống, Tam Phật Tề, Trảo Oa, Xiêm La; mở lò gốm, xưởng lụa, bến mò ngọc trai.</p>
+        <p class="rel"><span lang="en">Two sites, one journey: from the port of 1149 to today’s markets on</span><span lang="vi">Hai trang, một hành trình: từ thương cảng 1149 sang thương trường hôm nay cùng</span> <a href="https://bizonland.com/" target="_blank" rel="noopener">BizOn (bizonland.com) ↗</a></p>
         <div class="cardFoot">
           <div class="tags"><span class="tag su"><span lang="en">Historical records</span><span lang="vi">Theo sử liệu</span></span></div>
           <div class="links"><a class="more" href="van-don/gioi-thieu.html"><span lang="en">About</span><span lang="vi">Giới thiệu</span></a><a class="play" href="van-don/index.html"><span lang="en">Play</span><span lang="vi">Chơi</span></a></div>
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/portal/van-don-3d.webp" width="800" height="500" loading="lazy" alt="Vân Đồn 3D: a clay-model quay with merchant junks" data-vi-alt="Vân Đồn 3D: bến cảng với thuyền buôn"></div>
+        <div class="thumb cr"><img src="assets/portal/van-don-3d.webp" width="800" height="500" loading="lazy" alt="Vân Đồn 3D: a clay-model quay with merchant junks" data-vi-alt="Vân Đồn 3D: bến cảng với thuyền buôn"></div>
         <span class="era"><b>1149–1348</b> · <span lang="en">Preview</span><span lang="vi">Bản thử nghiệm</span></span>
         <h3>Vân Đồn 3D<span lang="en">Walking the Quay</span><span lang="vi">Dạo Bến</span></h3>
         <p lang="en">Walk the quay as the port warden: buy goods at the workshops, deliver them to ships at the piers and set the port tax over six market sessions.</p>
@@ -259,7 +279,7 @@
         </div>
       </article>
       <article class="card" id="era1780">
-        <div class="thumb"><img src="assets/portal/bac-hai-dao.webp" width="800" height="500" loading="lazy" alt="Bắc Hải Đảo: a sailing junk on the gulf" data-vi-alt="Bắc Hải Đảo: thuyền buồm giữa vịnh"></div>
+        <div class="thumb cr"><img src="assets/portal/bia-bac-hai-dao.webp" width="1376" height="768" loading="lazy" alt="Bắc Hải Đảo: a red-sailed junk crossing the gulf between limestone islands" data-vi-alt="Bắc Hải Đảo: thuyền buồm nâu đỏ vượt vịnh giữa các đảo đá vôi"></div>
         <span class="era"><b>1780</b> · <span lang="en">Gulf of Tonkin</span><span lang="vi">Vịnh Bắc Bộ</span></span>
         <h3>Bắc Hải Đảo<span lang="en">Pirates of the Gulf of Tonkin</span><span lang="vi">Hải Tặc Vịnh Bắc Bộ</span></h3>
         <p lang="en">Sail a bat-wing junk between six old ports, trade fish sauce, silk and agarwood, sink Tàu Ô raiders and defeat the pirate lord Hắc Giao.</p>
@@ -270,7 +290,7 @@
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/portal/bac-hai-dao-3d.webp" width="800" height="500" loading="lazy" alt="Bắc Hải Đảo 3D: chase camera behind the junk" data-vi-alt="Bắc Hải Đảo 3D: camera đuổi sau thuyền"></div>
+        <div class="thumb cr"><img src="assets/portal/bac-hai-dao-3d-v2.webp" width="800" height="500" loading="lazy" alt="Bắc Hải Đảo 3D: a clay-model junk with red bat-wing sails among limestone islands" data-vi-alt="Bắc Hải Đảo 3D: sa bàn đất sét, thuyền buồm cánh dơi đỏ giữa đảo đá vôi"></div>
         <span class="era"><b>1780</b> · <span lang="en">3D edition</span><span lang="vi">Bản 3D</span></span>
         <h3>Bắc Hải Đảo 3D<span lang="en">The same world, in 3D</span><span lang="vi">Cùng thế giới, góc nhìn 3D</span></h3>
         <p lang="en">The whole gulf rebuilt in 3D: rolling waves and towering limestone islands, with every captain, trade route, sea battle and storm of the original.</p>
@@ -281,7 +301,7 @@
         </div>
       </article>
       <article class="card" id="eraTK19">
-        <div class="thumb"><img src="assets/portal/cho-noi.webp" width="800" height="500" loading="lazy" alt="Chợ Nổi: a sampan catching produce on the river" data-vi-alt="Chợ Nổi: xuồng ba lá hứng nông sản trên sông"></div>
+        <div class="thumb cr"><img src="assets/portal/cho-noi-v2.webp" width="800" height="500" loading="lazy" alt="Chợ Nổi: a clay-model floating market, a sampan loaded with fruit beside a cargo boat" data-vi-alt="Chợ Nổi: sa bàn đất sét, xuồng ba lá chở đầy trái cây bên ghe bầu"></div>
         <span class="era"><b lang="en">1800s</b><b lang="vi">Thế kỷ 19</b> · <span lang="en">The southern frontier</span><span lang="vi">Đất Phương Nam</span></span>
         <h3>Chợ Nổi<span lang="en">Floating Market</span><span lang="vi">Phiên Chợ Trên Sông</span></h3>
         <p lang="en">Paddle a sampan to catch coconuts, mangoes, pineapples and rice from a merchant barge, dodge driftwood, and fill your hold in 90 seconds.</p>
@@ -308,8 +328,19 @@
         <h2 id="songTitle"><span lang="en">Four songs, sung in Vietnamese</span><span lang="vi">Bốn bài hát của cổng game</span></h2>
       </div>
     </div>
+    <ul class="moods" tabindex="0">
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-viet-thu-phap.webp" width="448" height="600" loading="lazy" alt="Writing with a brush on a long paper scroll at a low wooden desk" data-vi-alt="Viết bút lông trên cuộn giấy dài bên án thư gỗ"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Writing the words</span><span lang="vi">Người viết lời</span></span></a></li>
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-den-dau-dung-ben.webp" width="448" height="600" loading="lazy" alt="By an oil lamp at night, building a model wharf with a boat and a stilt house" data-vi-alt="Bên ngọn đèn dầu, dựng mô hình bến cũ có thuyền và nhà sàn"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Building the old wharf</span><span lang="vi">Ngồi dựng bến cũ</span></span></a></li>
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-mo-cua-binh-minh.webp" width="448" height="600" loading="lazy" alt="In a dark blue áo dài, opening an old wooden door onto the morning light" data-vi-alt="Áo dài xanh đêm, mở cánh cửa gỗ cũ đón nắng sớm"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Opening the door at dawn</span><span lang="vi">Mở cửa đón bình minh</span></span></a></li>
+      <li class="cr"><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-chuong-ban-do.webp" width="448" height="600" loading="lazy" alt="Beside an old bronze temple bell, reading an old map" data-vi-alt="Bên chuông đồng cổ của chùa, đọc tấm bản đồ xưa"><span><b>«Người trao ta chân trời»</b><span lang="en">An old bell, an old map</span><span lang="vi">Chuông xưa, bản đồ cũ</span></span></a></li>
+      <li class="cr"><a href="#bai-van-don"><img src="assets/nhac/anh-them-rong.webp" width="448" height="600" loading="lazy" alt="Standing by a stone dragon on the steps of an old temple at sunset" data-vi-alt="Đứng bên rồng đá trên thềm điện cổ lúc hoàng hôn"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Echoes from the dragon steps</span><span lang="vi">Tiếng vọng từ thềm rồng</span></span></a></li>
+      <li class="cr"><a href="#bai-van-don"><img src="assets/nhac/anh-bat-sen.webp" width="448" height="600" loading="lazy" alt="Smiling over a lotus-moulded celadon bowl in a wooden study with bamboo scrolls" data-vi-alt="Mỉm cười bên bát men ngọc hoa sen trong phòng đọc có thẻ tre"><span><b>«Vân Đồn – Tiếng vọng non sông»</b><span lang="en">Celadon, the port’s trade ware</span><span lang="vi">Gốm men ngọc, hàng của thương cảng</span></span></a></li>
+      <li class="cr"><a href="#bai-trong-toi"><img src="assets/nhac/anh-khung-cua.webp" width="448" height="600" loading="lazy" alt="Holding a scroll behind a carved wooden window frame" data-vi-alt="Cầm cuộn thư sau khung cửa gỗ chạm hoa văn"><span><b>«Trong tôi có một nước Nam»</b><span lang="en">Behind the carved window</span><span lang="vi">Sau khung cửa hoa văn</span></span></a></li>
+      <li class="cr"><a href="#bai-nguoi-trao"><img src="assets/nhac/anh-hanh-lang.webp" width="448" height="600" loading="lazy" alt="Walking along the wooden gallery of an old temple" data-vi-alt="Đi dọc hành lang gỗ của ngôi chùa cổ"><span><b>«Người trao ta chân trời»</b><span lang="en">Along the old gallery</span><span lang="vi">Dọc hành lang xưa</span></span></a></li>
+      <li class="cr"><a href="#bai-canh-buom"><img src="assets/nhac/anh-san-dinh.webp" width="448" height="600" loading="lazy" alt="Standing in the brick courtyard of an old communal house" data-vi-alt="Đứng giữa sân gạch của ngôi đình cổ"><span><b>«Theo cánh buồm quê hương»</b><span lang="en">The village courtyard</span><span lang="vi">Sân đình quê hương</span></span></a></li>
+    </ul>
     <ul class="songs">
-      <li class="song feature">
+      <li class="song feature" id="bai-trong-toi">
         <img src="assets/nhac/trong-toi-co-mot-nuoc-nam.webp" width="360" height="360" loading="lazy"
           alt="Cover art for the song Trong tôi có một nước Nam: a gold map of Vietnam with the Hoàng Sa and Trường Sa islands" data-vi-alt="Ảnh bìa bài hát Trong tôi có một nước Nam: bản đồ Việt Nam màu vàng đồng, có quần đảo Hoàng Sa và Trường Sa">
         <div class="songTxt">
@@ -319,6 +350,16 @@
             and why she builds these games: <em>«Từng trò chơi, tôi gửi một chút lòng»</em>, into every game, I put a little of my heart.</p>
           <p lang="vi">Sinh ra khi tiếng bom đã lặng, người làm game gửi lời biết ơn những người không trở lại, và lý do của từng trò chơi:
             <em>«Từng trò chơi, tôi gửi một chút lòng.»</em></p>
+          <figure class="songVideo">
+            <video controls playsinline preload="none" width="1280" height="720"
+              poster="assets/nhac/trong-toi-co-mot-nuoc-nam-mv-bia.webp"
+              aria-label="Music video excerpt: A Vietnam Within Me" data-vi-aria-label="Trích đoạn video nhạc: Trong tôi có một nước Nam">
+              <source src="assets/nhac/trong-toi-co-mot-nuoc-nam-mv.mp4" type="video/mp4">
+              <span lang="en">Your browser cannot play this video.</span><span lang="vi">Trình duyệt của bạn chưa phát được video.</span>
+            </video>
+            <figcaption><span lang="en">Music video excerpt · 1:52 · Vietnamese lyrics on screen</span><span lang="vi">Video demo · trích đoạn bài hát · 1:52</span></figcaption>
+          </figure>
+          <a class="songLink" href="https://youtu.be/ozqctDsUfl0" target="_blank" rel="noopener"><span lang="en">Watch on YouTube ↗</span><span lang="vi">Xem trên YouTube ↗</span></a>
           <audio controls preload="none" src="assets/nhac/trong-toi-co-mot-nuoc-nam.mp3">
             <span lang="en">Your browser cannot play this audio.</span><span lang="vi">Trình duyệt của bạn chưa phát được âm thanh.</span>
           </audio>
@@ -349,7 +390,7 @@
           </details>
         </div>
       </li>
-      <li class="song">
+      <li class="song" id="bai-nguoi-trao">
         <img src="assets/nhac/nguoi-trao-ta-chan-troi.webp" width="360" height="360" loading="lazy"
           alt="Cover art for the song Người trao ta chân trời" data-vi-alt="Ảnh bìa bài hát Người trao ta chân trời">
         <div class="songTxt">
@@ -382,7 +423,7 @@
           </details>
         </div>
       </li>
-      <li class="song">
+      <li class="song" id="bai-canh-buom">
         <img src="bac-hai-dao/assets/nhac/bac-hai-dao-bia.jpg" width="260" height="360" loading="lazy"
           alt="Cover art for the song Theo cánh buồm quê hương" data-vi-alt="Ảnh bìa bài hát Theo cánh buồm quê hương">
         <div class="songTxt">
@@ -395,9 +436,9 @@
           </audio>
         </div>
       </li>
-      <li class="song">
-        <img src="van-don-3d/assets/ben-cang-van-don.jpg" width="1100" height="511" loading="lazy"
-          alt="The clay-model port of Vân Đồn" data-vi-alt="Bến cảng Vân Đồn bằng đất nặn">
+      <li class="song" id="bai-van-don">
+        <img src="assets/nhac/anh-bat-sen.webp" width="448" height="600" loading="lazy"
+          alt="A young woman in a cream cross-collar dress holds a lotus-moulded celadon bowl" data-vi-alt="Cô gái áo giao lĩnh màu kem nâng bát men ngọc hoa sen">
         <div class="songTxt">
           <span class="songMeta"><span lang="en">Vân Đồn 3D · 5:17</span><span lang="vi">Vân Đồn 3D · 5:17</span></span>
           <h3>«Vân Đồn – Tiếng vọng non sông»</h3>
@@ -417,7 +458,10 @@
       <div>
         <span class="eyebrow"><span lang="en">For teachers &amp; museums</span><span lang="vi">Cho thầy cô &amp; bảo tàng</span></span>
         <h2 id="teachTitle"><span lang="en">Ready for the classroom</span><span lang="vi">Sẵn sàng cho lớp học</span></h2>
+        <p lang="en">Learning goals, source comparison and reflection questions for every game, built on the Big Six and on Wineburg's and van Drie &amp; van Boxtel's frameworks.</p>
+        <p lang="vi">Mục tiêu học tập, đối chiếu sử liệu và câu hỏi phản tư cho từng trò chơi, theo Big Six và khung của Wineburg, van Drie &amp; van Boxtel.</p>
       </div>
+      <a class="btn btnFill" href="huong-dan-giao-vien.html"><span lang="en">Teacher guide (Vietnamese)</span><span lang="vi">Hướng dẫn cho thầy cô</span></a>
     </div>
     <ul class="feat">
       <li>
@@ -454,11 +498,12 @@
       <span lang="en">Inspired by the chronicles of Đại Việt: the port of Vân Đồn (1149) · the Gulf of Tonkin (1780) · the floating markets of the south (19th century).</span>
       <span lang="vi">Cảm hứng từ chính sử Đại Việt: thương cảng Vân Đồn (1149) · vịnh Bắc Bộ (1780) · chợ nổi Đất Phương Nam (thế kỷ 19).</span>
       <span>© 2026 ThuyHuong Digital · <span lang="en">Pure HTML5 games.</span><span lang="vi">Trò chơi HTML5 thuần.</span></span>
+      <span class="credit"><span lang="en">Images, characters and music © 2026 Đỗ Thùy Hương · ThuyHuong Digital. All rights reserved; do not copy or reuse without permission.</span><span lang="vi">Hình ảnh, nhân vật và âm nhạc © 2026 Đỗ Thùy Hương · ThuyHuong Digital. Bảo lưu mọi quyền; không sao chép, sử dụng lại khi chưa được phép.</span></span>
     </div>
     <ul>
       <li><a href="https://github.com/thuyhuongctu/Vietnamese-History-Games"><span lang="en">Source on GitHub</span><span lang="vi">Mã nguồn trên GitHub</span></a></li>
       <li><a href="privacy.html"><span lang="en">Privacy policy</span><span lang="vi">Chính sách quyền riêng tư</span></a></li>
-      <li><a href="https://bizonland.com/" target="_blank" rel="noopener"><span lang="en">BizOn: learn international business through games ↗</span><span lang="vi">BizOn: học kinh doanh quốc tế qua trò chơi ↗</span></a></li>
+      <li><a href="https://bizonland.com/" target="_blank" rel="noopener"><span lang="en">BizOn: from Vân Đồn 1149 to today’s international business ↗</span><span lang="vi">BizOn: từ Vân Đồn 1149 đến kinh doanh quốc tế hôm nay ↗</span></a></li>
       <li><a href="mailto:thuyhuongctu@gmail.com?subject=Licensing%20%2F%20C%E1%BA%A5p%20ph%C3%A9p"><span lang="en">Licensing for schools, museums &amp; partners</span><span lang="vi">Cấp phép cho trường học, bảo tàng &amp; đối tác</span></a></li>
     </ul>
   </div>
