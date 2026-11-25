@@ -10,21 +10,24 @@ message: >-
 type: software
 title: "ThuyHuong Digital 2026 — Games: Cổng Trò Chơi Sử Việt (Vietnamese History Game Portal)"
 abstract: >-
-  A portal of four installable, offline-capable HTML5 educational games set in
+  A portal of five installable, offline-capable HTML5 educational games set in
   documented periods of Vietnamese history: Vân Đồn (1149, port building and
-  maritime trade), Bắc Hải Đảo (1780, adventure and trade in the Gulf of
-  Tonkin) in both 2D canvas and 3D three.js editions, and Chợ Nổi (nineteenth
-  century, an arcade game set in the floating markets of the Mekong Delta).
+  maritime trade), Vân Đồn 3D (1149–1348, trading on the quay in three
+  dimensions), Bắc Hải Đảo (1780, adventure and trade in the Gulf of Tonkin)
+  in both 2D canvas and 3D three.js editions, and Chợ Nổi (nineteenth century,
+  an arcade game set in the floating markets of the Mekong Delta). The
+  interface is in English and Vietnamese, with four songs sung in Vietnamese.
   The portal is a Progressive Web App: it installs to a device home screen,
   runs full screen, works without a network connection, and collects no
-  personal data. Bộ trò chơi giáo dục lịch sử Việt Nam chạy trên trình duyệt,
-  cài được như ứng dụng, chơi ngoại tuyến.
+  personal data. Bộ năm trò chơi giáo dục lịch sử Việt Nam chạy trên trình
+  duyệt, giao diện tiếng Anh và tiếng Việt, cài được như ứng dụng, chơi ngoại
+  tuyến.
 authors:
   - family-names: "Do"
     given-names: "Thuy Huong"
     email: "thuyhuongctu@gmail.com"
-version: "1.2"
-date-released: 2026-08-12
+version: "1.3"
+date-released: 2026-11-25
 repository-code: "https://github.com/thuyhuongctu/Vietnamese-History-Games"
 url: "https://games.jemappellehuong.com/"
 # Concept DOI — represents every version and always resolves to the latest release.
