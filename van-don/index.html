@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Vân Đồn — Đệ Nhất Thương Cảng</title>
-<meta name="description" content="Game xây dựng thương cảng Vân Đồn thời Lý (1149): dựng cầu tàu đón thuyền Tống, Tam Phật Tề, Trảo Oa, Xiêm La; xây lò gốm, xưởng lụa, bến mò ngọc trai. Chơi miễn phí trên trình duyệt, hỗ trợ điện thoại.">
-<meta property="og:title" content="Vân Đồn — Đệ Nhất Thương Cảng">
-<meta property="og:description" content="Dựng lại thời huy hoàng của trang Vân Đồn, thương cảng triều Lý lập năm 1149. Chơi ngay trên trình duyệt!">
+<title>Vân Đồn: The First Trading Port</title>
+<meta name="description" content="Build the Lý-dynasty trading port of Vân Đồn (1149): raise piers for ships from Song China, Srivijaya, Java and Siam; set up kilns, silk workshops and pearl-diving wharves. Free in your browser, on phone or desktop.">
+<meta property="og:title" content="Vân Đồn: The First Trading Port">
+<meta property="og:description" content="Rebuild the golden age of Vân Đồn, the trading port founded under the Lý dynasty in 1149. Play now in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://games.jemappellehuong.com/assets/portal/bia-van-don.webp">
+<meta property="og:url" content="https://games.jemappellehuong.com/van-don/index.html">
+<meta property="og:site_name" content="Vietnamese History Game Portal">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="vi_VN">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../icons/icon-192.png">
 <style>
   /* ===== Bảng màu gốm Lý–Trần: men ngọc · nâu đất · đỏ son · vàng đồng · trắng ngà ===== */
@@ -108,6 +115,11 @@
     #lvlSeal{font-size:9.5px;padding:2px 5px}
     .lbl{display:none}
   }
+  /* Màn 360 px: hàng trên tràn 12 px ở bản tiếng Việt (25/11/2026), nên thu khoảng cách và giãn chữ */
+  @media (max-width:380px){
+    #res{gap:4px}
+    #title .eyebrow{letter-spacing:1px}
+  }
   .lbl{font-style:normal}
   .suItem{border-left:3px solid var(--dong);padding:2px 0 2px 12px;margin-bottom:12px}
   .lnkPt{color:inherit;font-weight:700}
@@ -126,7 +138,7 @@
 <div id="top">
   <div id="topIn">
     <div id="title">
-      <div class="eyebrow" data-en="ĐẠI VIỆT · THE YEAR 1149">ĐẠI VIỆT · NĂM 1149</div>
+      <div class="eyebrow" data-en="ĐẠI VIỆT · 1149">ĐẠI VIỆT · NĂM 1149</div>
       <h1 class="serif">VÂN ĐỒN</h1>
     </div>
     <div id="res">
@@ -363,8 +375,8 @@ const NUM = n => n.toLocaleString(EN ? 'en-US' : 'vi-VN');
     try { localStorage.setItem('thd-lang', EN ? 'vi' : 'en'); } catch (e) {}
     const u = new URL(location.href); u.searchParams.delete('lang'); location.href = u.href;
   });
-  if (!EN) return;
-  d.title = 'Vân Đồn: the First Trading Port';
+  // Đầu trang viết sẵn tiếng Anh (ngôn ngữ mặc định); chọn tiếng Việt thì đổi tiêu đề thẻ
+  if (!EN) { d.title = 'Vân Đồn — Đệ Nhất Thương Cảng'; return; }
   for (const el of d.querySelectorAll('[data-en]')) el.innerHTML = el.dataset.en;
   for (const el of d.querySelectorAll('[data-en-title]')) el.title = el.dataset.enTitle;
   for (const el of d.querySelectorAll('[data-en-aria-label]')) el.setAttribute('aria-label', el.dataset.enAriaLabel);
