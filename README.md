@@ -208,8 +208,9 @@ invest in buildings, how tax rates affect demand) that can open a class discussi
   phones and tablets
 - **Local progress storage**: saved games and high scores stay in browser storage on
   the device
-- **Bilingual material**: game text in Vietnamese; documentation and store listings
-  in Vietnamese and English
+- **Bilingual interface**: every game and page in English and Vietnamese; the app opens
+  in English, and the choice of language is remembered on the device; documentation and
+  store listings in Vietnamese and English
 
 ## Getting started
 
