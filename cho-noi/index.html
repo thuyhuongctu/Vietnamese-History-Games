@@ -64,7 +64,8 @@ const W = 480, H = 720;
 const EN = (() => {
   const q = new URLSearchParams(location.search).get('lang');
   if (q === 'en' || q === 'vi') return q === 'en';
-  try { return localStorage.getItem('thd-lang') === 'en'; } catch (e) { return false; }
+  // Mặc định tiếng Anh (từ 25/11/2026): chỉ hiện tiếng Việt khi người chơi đã chọn «Tiếng Việt»
+  try { return localStorage.getItem('thd-lang') !== 'vi'; } catch (e) { return true; }
 })();
 const T = (vi, en) => (EN ? en : vi);
 document.documentElement.lang = EN ? 'en' : 'vi';

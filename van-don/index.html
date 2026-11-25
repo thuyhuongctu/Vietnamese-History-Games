@@ -133,7 +133,7 @@
       <button id="btnMusic" title="Nhạc nền" data-en-title="Background music">🔊</button>
       <button id="btnStats" title="Bảng thành tích" data-en-title="Achievements">🏆</button>
       <button id="btnSu" title="Sổ sử ký" data-en-title="History notebook">📖</button>
-      <span id="lvlSeal">Trang nhỏ</span>
+      <span id="lvlSeal" data-en="Small post">Trang nhỏ</span>
       <span>💰 <b id="rGold">0</b><i class="lbl" data-en=" strings of cash"> quan</i></span>
       <span>🏮 <b id="rRep">0</b><i class="lbl" data-en=" prestige"> danh vọng</i></span>
     </div>
@@ -348,7 +348,8 @@ const SAVE_KEY = 'van-don-save-v1';
 const EN = (() => {
   const q = new URLSearchParams(location.search).get('lang');
   if (q === 'en' || q === 'vi') return q === 'en';
-  try { return localStorage.getItem('thd-lang') === 'en'; } catch (e) { return false; }
+  // Mặc định tiếng Anh (từ 25/11/2026): chỉ hiện tiếng Việt khi người chơi đã chọn «Tiếng Việt»
+  try { return localStorage.getItem('thd-lang') !== 'vi'; } catch (e) { return true; }
 })();
 const T = (vi, en) => (EN ? en : vi);
 const NUM = n => n.toLocaleString(EN ? 'en-US' : 'vi-VN');
