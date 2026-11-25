@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#241708">
 <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
-<title>Chợ Nổi — Phiên Chợ Trên Sông · ThuyHuong Digital</title>
-<meta name="description" content="Chèo xuồng ba lá giữa chợ nổi miền Tây thời khẩn hoang: hứng dừa, xoài, khóm từ ghe bầu, né gỗ trôi. Game HTML5 chạy Phaser, chơi miễn phí trên trình duyệt.">
+<title>Chợ Nổi: Floating Market · ThuyHuong Digital</title>
+<meta name="description" content="Paddle a sampan through a Mekong floating market as settlers open the southern frontier: catch coconuts, mangoes and pineapples from the cargo boats and dodge drifting logs. An HTML5 game built with Phaser, free in your browser.">
 <style>
   :root{
     --panel:#241708; --panel2:#31200d; --wood:#5c3d24;
@@ -69,8 +69,9 @@ const EN = (() => {
 })();
 const T = (vi, en) => (EN ? en : vi);
 document.documentElement.lang = EN ? 'en' : 'vi';
+// Đầu trang viết sẵn tiếng Anh (ngôn ngữ mặc định); chọn tiếng Việt thì đổi tiêu đề thẻ
+if (!EN) document.title = 'Chợ Nổi — Phiên Chợ Trên Sông · ThuyHuong Digital';
 if (EN) {
-  document.title = 'Floating Market — A Market Day on the River · ThuyHuong Digital';
   document.getElementById('lnkHome').textContent = '⟵ VIETNAMESE HISTORY GAMES';
   document.getElementById('tieuDe').textContent = 'FLOATING MARKET — A MARKET DAY ON THE RIVER';
   document.getElementById('dungBang').textContent = 'built with Phaser 3 (MIT)';
